@@ -10,7 +10,7 @@ interface ButtonStyleProps {
 }
 
 interface ButtonComponents extends ButtonStyleProps {
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   label: string;
 }
 
