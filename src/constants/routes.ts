@@ -1,6 +1,6 @@
 const routes = {
   // Domain
-  main: '/',
+  main: '/main',
   signup: '/signup',
   login: '/login',
   challenge: '/challenge',
