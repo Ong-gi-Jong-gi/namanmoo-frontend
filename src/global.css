@@ -17,3 +17,8 @@
   font-weight: 400;
   font-style: normal;
 }
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
