@@ -8,6 +8,7 @@ import ChallengeListPage from './pages/ChallengeListPage';
 import ChallengDetailPage from './pages/ChallengDetailPage';
 import MyPage from './pages/MyPage';
 import RecapPage from './pages/RecapPage';
+import PrivateLayout from './components/common/layouts/PrivateLayout';
 
 const privateChildren: RouteObject[] = [
   {
@@ -61,7 +62,7 @@ export const createRoute = () =>
     },
     {
       path: '', // 로그인 시에만 접근 가능한 페이지
-      element: <div>로그인 후 접근 가능한 페이지</div>, // TODO: PrivateLayout 컴포넌트 구현
+      element: <PrivateLayout />,
       children: privateChildren,
     },
   ]);
