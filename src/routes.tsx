@@ -18,7 +18,7 @@ const privateChildren: RouteObject[] = [
   },
   {
     // 가족 생성 페이지
-    path: `${routes.family}/${routes.create}`,
+    path: `${routes.family.create}`,
     element: <FamilyCreatePage />,
   },
   {
@@ -43,26 +43,27 @@ const privateChildren: RouteObject[] = [
   },
 ];
 
-export const createRoute = () =>
-  createBrowserRouter([
-    {
-      path: '', // default route
-      children: [
-        {
-          // 회원가입 페이지
-          path: routes.signup,
-          element: <SignupPage />,
-        },
-        {
-          // 로그인 페이지
-          path: routes.login,
-          element: <LoginPage />,
-        },
-      ],
-    },
-    {
-      path: '', // 로그인 시에만 접근 가능한 페이지
-      element: <PrivateLayout />,
-      children: privateChildren,
-    },
-  ]);
+const router = createBrowserRouter([
+  {
+    path: '', // default route
+    children: [
+      {
+        // 회원가입 페이지
+        path: routes.signup,
+        element: <SignupPage />,
+      },
+      {
+        // 로그인 페이지
+        path: routes.login,
+        element: <LoginPage />,
+      },
+    ],
+  },
+  {
+    path: '', // 로그인 시에만 접근 가능한 페이지
+    element: <PrivateLayout />,
+    children: privateChildren,
+  },
+]);
+
+export default router;
