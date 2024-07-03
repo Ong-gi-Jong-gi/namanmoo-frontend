@@ -3,7 +3,7 @@ interface Field {
   label: string;
   type: 'text' | 'password' | 'email';
   placeholder: string;
-  pattern?: string;
+  pattern?: RegExp;
   errorMsg?: string;
 }
 
@@ -52,7 +52,7 @@ const SIGNUP: SignupFields = {
     label: '아이디',
     type: 'text',
     placeholder: '아이디를 입력해주세요',
-    pattern: '/^(?=.*[a-z])(?=.*d)[A-Za-zd]{6,}$/;', // 6자 이상, 영문, 숫자
+    pattern: /^(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,}$/, // 6자 이상, 영문, 숫자
     errorMsg: '6자 이상, 영문, 숫자를 포함해주세요',
   },
   password: {
@@ -60,7 +60,7 @@ const SIGNUP: SignupFields = {
     label: '비밀번호',
     type: 'password',
     placeholder: '비밀번호를 입력해주세요',
-    pattern: '/^(?=.*[a-z])(?=.*d)[A-Za-zd!@#$%^&*()_+]{8,}$/;', // 8자 이상, 영문, 숫자, 특수문자
+    pattern: /^(?=.*[a-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+]{8,}$/, // 8자 이상, 영문, 숫자, 특수문자
     errorMsg: '8자 이상, 영문, 숫자, 특수문자를 포함해주세요',
   },
   passwordConfirm: {
