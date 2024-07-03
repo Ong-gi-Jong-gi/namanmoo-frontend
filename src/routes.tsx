@@ -1,14 +1,14 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
-import SignupPage from './pages/SignupPage';
-import LoginPage from './pages/LoginPage';
+import PrivateLayout from './components/common/layouts/PrivateLayout';
 import routes from './constants/routes';
-import MainPage from './pages/MainPage';
-import FamilyCreatePage from './pages/FamilyCreatePage';
-import ChallengeListPage from './pages/ChallengeListPage';
 import ChallengDetailPage from './pages/ChallengDetailPage';
+import ChallengeListPage from './pages/ChallengeListPage';
+import FamilyCreatePage from './pages/FamilyCreatePage';
+import LoginPage from './pages/LoginPage';
+import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
 import RecapPage from './pages/RecapPage';
-import PrivateLayout from './components/common/layouts/PrivateLayout';
+import SignupPage from './pages/SignupPage';
 
 const privateChildren: RouteObject[] = [
   {

@@ -1,5 +1,12 @@
+import SignupForm from '../components/signup/SignupForm';
+
 const SignupPage = () => {
-  return <div>회원가입 페이지</div>;
+  // FIXME: width 제거 및 레이아웃 적용
+  return (
+    <div className="w-[288px]">
+      <SignupForm />
+    </div>
+  );
 };
 
 export default SignupPage;
