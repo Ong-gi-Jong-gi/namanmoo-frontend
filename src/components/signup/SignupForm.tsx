@@ -71,7 +71,7 @@ const SignupForm = () => {
         <span className="font-pretendard text-pretendard-base">
           이미 회원이신가요?
           <span
-            onClick={() => navigate(routes.signup)}
+            onClick={() => navigate(routes.login)}
             className="ml-2 cursor-pointer font-pretendard-bold text-primary-30 underline"
           >
             로그인
