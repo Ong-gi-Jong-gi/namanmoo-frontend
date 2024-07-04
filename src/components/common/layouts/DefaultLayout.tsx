@@ -8,7 +8,7 @@ const DefaultLayout = () => {
     'relative m-auto h-full w-full max-w-[450px] overflow-y-scroll bg-background p-12 scrollbar-hide',
     {
       'bg-main bg-cover bg-center': pathname === routes.main,
-      'bg-background ': pathname !== routes.main,
+      'bg-background': pathname !== routes.main,
     },
   );
   return (
