@@ -43,7 +43,10 @@ const Profile = ({
   userRole = '-',
   isText = false,
 }: ProfileComponents) => {
-  const profileImageClass = clsx('rounded-full', profileSize[size]);
+  const profileImageClass = clsx(
+    'rounded-full overflow-hidden',
+    profileSize[size],
+  );
   const profileLayoutClass = clsx(
     'w-fit flex  items-center gap-3',
     layout == 'horizontal' ? 'flex-row' : 'flex-col',
