@@ -8,8 +8,8 @@ interface LuckyProps {
 }
 
 const LuckySize = {
-  1: 'w-40',
-  2: 'w-40',
+  1: 'w-44',
+  2: 'w-44',
   3: 'w-32',
   4: 'w-60',
 };
