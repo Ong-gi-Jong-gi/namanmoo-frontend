@@ -44,7 +44,11 @@ export default {
       'pretendard-normal': 400,
       'pretendard-bold': 700,
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        paper: "url('/src/assets/images/paper.svg')",
+      },
+    },
   },
   plugins: [],
 };
