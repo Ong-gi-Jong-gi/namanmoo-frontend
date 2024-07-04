@@ -1,4 +1,6 @@
 import clsx from 'clsx';
+import DefaultImage from '../../assets/profile/default.svg';
+import DisabledImage from '../../assets/profile/disabled.svg';
 import { UserRole } from '../../types/family';
 
 type ProfileType = 'default' | 'image' | 'disabled';
@@ -26,11 +28,11 @@ const profileSize = {
 const getProfileImageSrc = (type: ProfileType, src: string) => {
   switch (type) {
     case 'default':
-      return '/profile/default.svg';
+      return DefaultImage;
     case 'image':
       return src;
     case 'disabled':
-      return '/profile/disabled.svg';
+      return DisabledImage;
   }
 };
 
