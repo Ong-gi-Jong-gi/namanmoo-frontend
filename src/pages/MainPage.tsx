@@ -7,8 +7,8 @@ const MainPage = () => {
   return (
     <div className="h-full w-full">
       <FamilyList />
-      <div className="grid h-full w-full grid-rows-[1fr_140px] items-end pt-32">
-        <Lucky level={1} />
+      <div className="grid h-full w-full grid-rows-[1fr_40%] items-end pt-32">
+        <Lucky level={4} />
         <ChallengeButton />
       </div>
     </div>
