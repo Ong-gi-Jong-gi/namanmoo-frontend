@@ -2,7 +2,7 @@ import Profile from '../common/Profile';
 
 const FamilyList = () => {
   return (
-    <div className="mt-5 flex h-fit w-full items-center gap-5">
+    <div className="scrollbar-hide absolute left-0 flex h-32 w-full items-center gap-5 overflow-x-scroll px-6">
       {/* My Profile */}
       <Profile
         type="image"
