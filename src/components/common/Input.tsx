@@ -9,6 +9,7 @@ interface InputStyleProps {
 }
 
 interface InputComponentProps extends InputStyleProps {
+  name?: string;
   label?: string;
   description?: string;
   message?: string;
@@ -20,8 +21,7 @@ interface InputComponentProps extends InputStyleProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const INPUT_BASE =
-  'inline-block font-pretendard w-full border-gray-40 flex-1 border-b-[1.5px] px-4 py-3 focus:border-gray-50 focus:text-gray-50';
+const INPUT_BASE = 'font-pretendard w-full border-gray-40 flex-1 border-b-[1.5px] px-4 py-3 focus:border-gray-50 focus:text-gray-50';
 
 const inputTypeTheme = {
   normal: 'text-gray-50',
@@ -37,6 +37,7 @@ const inputClassName = ({ inputCase = 'normal' }: { inputCase: InputCase }) => {
 };
 
 const Input = ({
+  name = '',
   label = '',
   description = '',
   message = '',
@@ -60,6 +61,7 @@ const Input = ({
       <p className="font-ryurue text-ryurue-sm text-gray-40">{description}</p>
       <div className="flex w-full gap-2">
         <input
+          name={name}
           type={type}
           placeholder={placeholder}
           defaultValue={value}
@@ -73,7 +75,7 @@ const Input = ({
         )}
       </div>
       {message && inputCase == 'error' && (
-        <p className="font-pretendard-normal text-red mt-2">{message}</p>
+        <p className="mt-2 font-pretendard-normal text-red">{message}</p>
       )}
     </div>
   );
