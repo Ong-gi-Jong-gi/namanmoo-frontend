@@ -25,13 +25,13 @@ const SignupForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="flex w-full flex-col gap-12">
-      <h2 className="font-ryurue text-ryurue-lg">회원가입</h2>
+      <h2 className="mx-auto font-ryurue text-ryurue-lg">회원가입</h2>
       <Input
         value={values.userId}
         onChange={handleChange}
         inputCase={errors.userId ? 'error' : 'normal'}
         message={errors.userId}
-        isFull="full"
+        isFull
         {...FORM_INFO.SIGNUP.userId}
       />
       <Input
@@ -39,6 +39,7 @@ const SignupForm = () => {
         onChange={handleChange}
         inputCase={errors.password ? 'error' : 'normal'}
         message={errors.password}
+        isFull
         {...FORM_INFO.SIGNUP.password}
       />
       <Input
@@ -46,6 +47,7 @@ const SignupForm = () => {
         onChange={handleChange}
         inputCase={errors.passwordConfirm ? 'error' : 'normal'}
         message={errors.passwordConfirm}
+        isFull
         {...FORM_INFO.SIGNUP.passwordConfirm}
       />
       <Input
@@ -53,6 +55,7 @@ const SignupForm = () => {
         onChange={handleChange}
         inputCase={errors.name ? 'error' : 'normal'}
         message={errors.name}
+        isFull
         {...FORM_INFO.SIGNUP.name}
       />
       <Input
@@ -60,6 +63,7 @@ const SignupForm = () => {
         onChange={handleChange}
         inputCase={errors.nickname ? 'error' : 'normal'}
         message={errors.nickname}
+        isFull
         {...FORM_INFO.SIGNUP.nickname}
       />
       <div className="flex flex-col items-center gap-4">

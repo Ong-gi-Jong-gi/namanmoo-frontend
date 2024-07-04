@@ -21,13 +21,13 @@ const LoginForm = () => {
   });
   return (
     <form onSubmit={handleSubmit} className="flex w-full flex-col gap-12">
-      <h2 className="font-ryurue text-ryurue-lg">로그인</h2>
+      <h2 className="mx-auto font-ryurue text-ryurue-lg">로그인</h2>
       <Input
         value={values.userId}
         onChange={handleChange}
         inputCase={errors.userId ? 'error' : 'normal'}
         message={errors.userId}
-        isFull="full"
+        isFull
         {...FORM_INFO.LOGIN.userId}
       />
       <Input
@@ -35,6 +35,7 @@ const LoginForm = () => {
         onChange={handleChange}
         inputCase={errors.password ? 'error' : 'normal'}
         message={errors.password}
+        isFull
         {...FORM_INFO.LOGIN.password}
       />
       <div className="flex flex-col items-center gap-4">
