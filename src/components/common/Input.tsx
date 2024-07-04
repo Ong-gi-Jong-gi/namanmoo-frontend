@@ -1,11 +1,10 @@
 import Button from './Button';
 
-type InputFull = 'fit' | 'full';
 type InputType = 'text' | 'password' | 'email';
 type InputCase = 'normal' | 'error' | 'disabled';
 
 interface InputStyleProps {
-  isFull?: InputFull;
+  isFull?: boolean;
   inputCase?: InputCase;
 }
 
@@ -13,7 +12,7 @@ interface InputComponentProps extends InputStyleProps {
   label?: string;
   description?: string;
   message?: string;
-  placeholder: string;
+  placeholder?: string;
   value: string;
   type?: InputType;
   hasBtn?: boolean;
@@ -22,25 +21,20 @@ interface InputComponentProps extends InputStyleProps {
 }
 
 const INPUT_BASE =
-  'w-full font-pretendard border-gray-40 text-gray-40 flex-1 px-4 py-3 border-b-[1.5px] focus:border-gray-50 focus:text-gray-50';
+  'inline-block font-pretendard w-full border-gray-40 flex-1 border-b-[1.5px] px-4 py-3 focus:border-gray-50 focus:text-gray-50';
 
-const inputTheme = {
-  normal: '',
-  error: 'border-red',
-  disabled: 'border-gray-20 bg-gray-20',
-};
-
-const inputClassName = ({
-  isFull = 'fit',
-  inputCase = 'normal',
-}: InputStyleProps) => {
-  const widthClassName = isFull == 'fit' ? '' : 'w-full';
-
-  return `${INPUT_BASE} ${widthClassName} ${inputTheme[inputCase]} `;
+const inputTypeTheme = {
+  normal: 'text-gray-50',
+  error: 'border-red text-gray-50',
+  disabled: 'border-gray-20 bg-gray-20 text-gray-40',
 };
 
 const inputFontTheme = (inputCase: string) =>
   `${inputCase == 'disabled' ? 'text-gray-40' : 'text-gray-50'}`;
+
+const inputClassName = ({ inputCase = 'normal' }: { inputCase: InputCase }) => {
+  return `${INPUT_BASE} ${inputTypeTheme[inputCase]} `;
+};
 
 const Input = ({
   label = '',
@@ -52,11 +46,16 @@ const Input = ({
   hasBtn = false,
   btnLabel = 'Button',
   onChange,
-  isFull = 'fit',
+  isFull = false,
   inputCase = 'normal',
 }: InputComponentProps) => {
+  const inputWrapperTheme = (isFull: boolean) =>
+    isFull ? 'w-full' : 'max-w-60';
+
   return (
-    <div className={`max-w-60 ${inputFontTheme(inputCase)}`}>
+    <div
+      className={`${inputWrapperTheme(isFull)} ${inputFontTheme(inputCase)}`}
+    >
       <p className="font-ryurue text-ryurue-base">{label}</p>
       <p className="font-ryurue text-ryurue-sm text-gray-40">{description}</p>
       <div className="flex w-full gap-2">
@@ -65,8 +64,9 @@ const Input = ({
           placeholder={placeholder}
           defaultValue={value}
           onChange={onChange}
-          className={` ${inputClassName({ isFull, inputCase })}`}
+          className={`${inputClassName({ inputCase })}`}
           disabled={inputCase == 'disabled'}
+          size={1}
         />
         {hasBtn && btnLabel && (
           <Button label={btnLabel} disabled={inputCase == 'disabled'} />
