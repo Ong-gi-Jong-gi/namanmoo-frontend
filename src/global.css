@@ -18,7 +18,29 @@
   font-style: normal;
 }
 
+input,
+select {
+  background: transparent;
+}
+
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  @apply bg-white;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }

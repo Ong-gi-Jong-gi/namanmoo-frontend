@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
+import DefaultLayout from './components/common/layouts/DefaultLayout';
 import PrivateLayout from './components/common/layouts/PrivateLayout';
 import routes from './constants/routes';
 import ChallengDetailPage from './pages/ChallengDetailPage';
@@ -46,6 +47,7 @@ const privateChildren: RouteObject[] = [
 const router = createBrowserRouter([
   {
     path: '', // default route
+    element: <DefaultLayout />,
     children: [
       {
         // 회원가입 페이지
@@ -57,12 +59,12 @@ const router = createBrowserRouter([
         path: routes.login,
         element: <LoginPage />,
       },
+      {
+        path: '', // 로그인 시에만 접근 가능한 페이지
+        element: <PrivateLayout />,
+        children: privateChildren,
+      },
     ],
-  },
-  {
-    path: '', // 로그인 시에만 접근 가능한 페이지
-    element: <PrivateLayout />,
-    children: privateChildren,
   },
 ]);
 
