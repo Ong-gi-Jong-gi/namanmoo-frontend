@@ -4,9 +4,10 @@ import PrivateLayout from './components/common/layouts/PrivateLayout';
 import routes from './constants/routes';
 import ChallengDetailPage from './pages/ChallengDetailPage';
 import ChallengeListPage from './pages/ChallengeListPage';
-import FamilyCreatePage from './pages/FamilyCreatePage';
+import FamilyCreatePage from './pages/FamilyCreatePage/FamilyCreatePage';
+import FamilyEntryPage from './pages/FamilyEntryPage';
 import LoginPage from './pages/LoginPage';
-import MainPage from './pages/MainPage';
+import MainPage from './pages/MainPage/MainPage';
 import MyPage from './pages/MyPage';
 import RecapPage from './pages/RecapPage';
 import SignupPage from './pages/SignupPage';
@@ -18,8 +19,13 @@ const privateChildren: RouteObject[] = [
     element: <MainPage />,
   },
   {
+    // 가족 생성/참여 전 페이지
+    path: routes.family.entry,
+    element: <FamilyEntryPage />,
+  },
+  {
     // 가족 생성 페이지
-    path: `${routes.family.create}`,
+    path: routes.family.create,
     element: <FamilyCreatePage />,
   },
   {

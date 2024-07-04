@@ -21,7 +21,8 @@ interface InputComponentProps extends InputStyleProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const INPUT_BASE = 'font-pretendard w-full border-gray-40 flex-1 border-b-[1.5px] px-4 py-3 focus:border-gray-50 focus:text-gray-50';
+const INPUT_BASE =
+  'font-pretendard w-full border-gray-40 flex-1 border-b-[1.5px] px-4 py-3 focus:border-gray-50 focus:text-gray-50';
 
 const inputTypeTheme = {
   normal: 'text-gray-50',
