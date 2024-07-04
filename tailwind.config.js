@@ -47,6 +47,7 @@ export default {
     extend: {
       backgroundImage: {
         paper: "url('/src/assets/images/paper.svg')",
+        main: "url('/src/assets/images/main-background.png')",
       },
     },
   },
