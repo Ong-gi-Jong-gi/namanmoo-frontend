@@ -1,6 +1,6 @@
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FiCopy } from 'react-icons/fi';
-import Button from '../../../components/common/Button';
+import Button from '../common/Button';
 
 const InviteModal = ({ code }: { code: string }) => {
   return (

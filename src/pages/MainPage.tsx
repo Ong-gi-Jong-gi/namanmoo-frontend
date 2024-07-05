@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import ChallengeButton from '../../components/main/ChallengeButton';
-import FamilyList from '../../components/main/FamilyList';
-import Lucky from '../../components/main/Lucky';
-import useModalStore from '../../store/modalStore';
-import InviteModal from './components/InviteModal';
-
+import ChallengeButton from '../components/main/ChallengeButton';
+import FamilyList from '../components/main/FamilyList';
+import InviteModal from '../components/main/InviteModal';
+import Lucky from '../components/main/Lucky';
+import useModalStore from '../store/modalStore';
 
 const MainPage = () => {
-  // TODO: 가족 API 조회 수 사용자 수에 따라 
+  // TODO: 가족 API 조회 수 사용자 수에 따라
   const [familyCount, setFamilyCount] = useState(1);
   const { openModal } = useModalStore();
 
