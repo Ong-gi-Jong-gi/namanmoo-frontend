@@ -16,7 +16,7 @@ export const Normal: Story = {
     placeholder: 'PlaceHolder',
     description: 'description',
     value: 'value',
-    isFull: 'fit',
+    isFull: false,
     onChange: action('changed'),
   },
 };
