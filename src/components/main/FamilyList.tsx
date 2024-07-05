@@ -1,33 +1,46 @@
+import { useGetMyFamilyInfo } from '../../apis/family/getMyFamilyInfo';
+import { separateMyInfo } from '../../utils/separator';
 import Profile from '../common/Profile';
 
+// FIXME: 임시로 MAX_FAMILY_MEMBER를 3으로 설정
+const MAX_FAMILY_MEMBER = 3;
+
 const FamilyList = () => {
+  const { data, isLoading } = useGetMyFamilyInfo();
+  if (isLoading) return <div>Loading...</div>;
+  if (!data) return <div>가족 정보가 없습니다.</div>;
+
+  const { myInfo, members: familyList } = separateMyInfo(data);
+  const disabledCount = Math.max(0, MAX_FAMILY_MEMBER - familyList.length);
+
   return (
-    <div className="scrollbar-hide absolute left-0 flex h-32 w-full items-center gap-5 overflow-x-scroll px-6">
+    <div className="scrollbar-hide absolute left-0 inline-flex h-32 w-full items-center gap-5 overflow-x-scroll px-6">
       {/* My Profile */}
       <Profile
-        type="image"
-        src="https://i.pinimg.com/474x/ea/1b/97/ea1b97933b857a77aab7f5a5e20b4b2e.jpg"
+        type={myInfo?.userImg ? 'image' : 'default'}
+        src={myInfo?.userImg}
         userName="나"
-        userRole="딸"
+        userRole={myInfo?.role}
         isText
       />
       <div className="h-16 border-l-2 border-gray-30" />
       {/* Family Profiles */}
-      <Profile userName="형만쓰" userRole="아빠" isText />
-      <Profile
-        type="image"
-        src="https://i.pinimg.com/474x/9b/13/21/9b1321305fa5e0908f13ffdd46b0e8dc.jpg"
-        userName="개똥맘"
-        userRole="엄마"
-        isText
-      />
-      <Profile
-        type="image"
-        src="https://i.pinimg.com/474x/99/c7/88/99c78895efebd80b3bbb9c1649fdfe4f.jpg"
-        userName="삐삐"
-        userRole="아들"
-        isText
-      />
+      {familyList?.map((member) => (
+        <Profile
+          key={member.userId}
+          type={member.userImg ? 'image' : 'default'}
+          userName={member.nickname}
+          userRole={member.role}
+          src={member.userImg}
+          isText
+        />
+      ))}
+      {/* Disabled Profiles */}
+      {Array(disabledCount)
+        .fill(null)
+        .map((_, idx) => (
+          <Profile key={`disabled-${idx}`} type="disabled" isText />
+        ))}
     </div>
   );
 };
