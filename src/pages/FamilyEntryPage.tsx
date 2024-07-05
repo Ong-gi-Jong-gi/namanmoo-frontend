@@ -16,7 +16,12 @@ const FamilyEntryPage = () => {
     navigate('/family/create');
   };
 
-  const onClickJoinBtn = () => {};
+  const onClickJoinBtn = () => {
+    openModal({
+      content: <FamilyCodeModal code={''} />,
+      showCloseBtn: false,
+    });
+  };
 
   useEffect(() => {
     const code = searchParams.get('code');
