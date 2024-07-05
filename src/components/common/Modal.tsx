@@ -13,9 +13,9 @@ const ModalProvider = () => {
   };
 
   return (
-    <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50 p-8">
+    <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
       <div
-        className={`bg-background relative max-h-full w-4/5 max-w-sm overflow-auto rounded-3xl p-10`}
+        className={`relative max-h-full w-4/5 max-w-sm overflow-auto rounded-3xl bg-background p-10`}
       >
         {content}
         {showCloseBtn && (
