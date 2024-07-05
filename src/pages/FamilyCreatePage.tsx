@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/common/Button';
-import Input from '../../components/common/Input';
-import Select from '../../components/common/Select';
-import { UserRole } from '../../types/family';
-import FamilyRole from './components/FamilyRole';
+import Button from '../components/common/Button';
+import Input from '../components/common/Input';
+import Select from '../components/common/Select';
+import FamilyRole from '../components/familycreate/FamilyRole';
+import { UserRole } from '../types/family';
 
 const FamilyCreatePage = () => {
   const navigate = useNavigate();
@@ -30,6 +30,11 @@ const FamilyCreatePage = () => {
         value={''}
         placeholder="별명"
       />
+
+      <p className={`mb-2 font-ryurue text-ryurue-md`}>가족 역할</p>
+      <p className="mb-3 font-ryurue text-ryurue-base text-gray-40">
+        나는 우리 가족에서 _입니다.
+      </p>
       <FamilyRole myRole={myRole} setMyRole={setMyRole} />
       <Button label="가족 생성하기" onClick={handleCreateBtn} type="full" />
     </div>
