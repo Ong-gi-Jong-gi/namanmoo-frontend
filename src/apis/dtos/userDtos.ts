@@ -2,11 +2,11 @@ import { UserRole } from '../../types/family';
 import { UserInfo } from '../../types/user';
 
 export class UserInfoDto {
-  public userId: number;
-  public name: string;
-  public nickname: string;
-  public role: UserRole;
-  public userImg: string;
+  public readonly userId: string;
+  public readonly name: string;
+  public readonly nickname: string;
+  public readonly role: UserRole;
+  public readonly userImg: string;
 
   constructor(data: UserInfo) {
     this.userId = data.userId;

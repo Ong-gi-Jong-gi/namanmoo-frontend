@@ -1,7 +1,7 @@
 import { UserRole } from './family';
 
 export interface UserInfo {
-  userId: number;
+  userId: string;
   name: string;
   nickname: string;
   role: UserRole;
