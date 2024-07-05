@@ -1,17 +1,32 @@
-import { useNavigate } from 'react-router-dom';
-import lucky1 from '../assets/lucky/level1.svg';
-import Button from '../components/common/Button';
-import { ServiceConstant } from '../constants/service';
+import { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import lucky1 from '../../assets/lucky/level1.svg';
+import Button from '../../components/common/Button';
+import { ServiceConstant } from '../../constants/service';
+import useModalStore from '../../store/modalStore';
+import FamilyCodeModal from './components/FamilyCodeModal';
 
 const FamilyEntryPage = () => {
   const navigate = useNavigate();
   const { SERVICE_NAME, WELCOME_MESSAGE } = ServiceConstant;
+  const [searchParams] = useSearchParams();
+  const { openModal } = useModalStore();
 
   const onClickCreateBtn = () => {
     navigate('/family/create');
   };
 
   const onClickJoinBtn = () => {};
+
+  useEffect(() => {
+    const code = searchParams.get('code');
+    
+    if (code)
+    openModal({
+      content: <FamilyCodeModal code={code}/>,
+      showCloseBtn: false,
+    })
+  }, []);
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-between px-12 py-10 text-center">

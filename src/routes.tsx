@@ -5,6 +5,7 @@ import routes from './constants/routes';
 import ChallengDetailPage from './pages/ChallengDetailPage';
 import ChallengeListPage from './pages/ChallengeListPage';
 import FamilyCreatePage from './pages/FamilyCreatePage';
+import FamilyEntryPage from './pages/FamilyEntryPage/FamilyEntryPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage/MainPage';
 import MyPage from './pages/MyPage';
