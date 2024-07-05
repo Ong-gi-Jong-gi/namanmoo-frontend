@@ -46,11 +46,11 @@ const Profile = ({
   isText = false,
 }: ProfileComponents) => {
   const profileImageClass = clsx(
-    'rounded-full overflow-hidden',
+    'overflow-hidden rounded-full',
     profileSize[size],
   );
   const profileLayoutClass = clsx(
-    'w-fit flex  items-center gap-3',
+    'flex w-fit items-center gap-3',
     layout == 'horizontal' ? 'flex-row' : 'flex-col',
   );
   const profileTextClass = clsx(
