@@ -16,7 +16,7 @@ interface DisabledChallengeButtonProps extends BaseChallengeButtonProps {
 
 interface OngoingChallengeButtonProps extends BaseChallengeButtonProps {
   type: 'ongoing';
-  day: number;
+  day: string;
 }
 
 type ChallengeButtonProps =
