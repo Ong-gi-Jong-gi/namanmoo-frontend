@@ -5,6 +5,7 @@ import routes from './constants/routes';
 import ChallengDetailPage from './pages/ChallengDetailPage';
 import ChallengeListPage from './pages/ChallengeListPage';
 import FamilyCreatePage from './pages/FamilyCreatePage';
+import FamilyEntryPage from './pages/FamilyEntryPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
@@ -18,8 +19,13 @@ const privateChildren: RouteObject[] = [
     element: <MainPage />,
   },
   {
+    // 가족 생성/참여 전 페이지
+    path: routes.family.entry,
+    element: <FamilyEntryPage />,
+  },
+  {
     // 가족 생성 페이지
-    path: `${routes.family.create}`,
+    path: routes.family.create,
     element: <FamilyCreatePage />,
   },
   {
