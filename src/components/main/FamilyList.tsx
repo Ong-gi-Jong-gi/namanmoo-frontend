@@ -1,16 +1,16 @@
-import { useGetMyFamilyInfo } from '../../apis/family/getMyFamilyInfo';
+import { UserInfo } from '../../types/user';
 import { separateMyInfo } from '../../utils/separator';
 import Profile from '../common/Profile';
 
-// FIXME: 임시로 MAX_FAMILY_MEMBER를 3으로 설정
-const MAX_FAMILY_MEMBER = 3;
+// FIXME: 임시로 MAX_FAMILY_MEMBER를 4로 설정
+const MAX_FAMILY_MEMBER = 4;
 
-const FamilyList = () => {
-  const { data, isLoading } = useGetMyFamilyInfo();
-  if (isLoading) return <div>Loading...</div>;
-  if (!data) return <div>가족 정보가 없습니다.</div>;
+interface FamilyListProps {
+  familyList: UserInfo[];
+}
 
-  const { myInfo, members: familyList } = separateMyInfo(data);
+const FamilyList = ({ familyList }: FamilyListProps) => {
+  const { myInfo, members } = separateMyInfo(familyList);
   const disabledCount = Math.max(0, MAX_FAMILY_MEMBER - familyList.length);
 
   return (
@@ -25,7 +25,7 @@ const FamilyList = () => {
       />
       <div className="h-16 border-l-2 border-gray-30" />
       {/* Family Profiles */}
-      {familyList?.map((member) => (
+      {members?.map((member) => (
         <Profile
           key={member.userId}
           type={member.userImg ? 'image' : 'default'}
