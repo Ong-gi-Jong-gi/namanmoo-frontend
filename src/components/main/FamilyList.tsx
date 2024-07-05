@@ -1,9 +1,7 @@
+import { MAX_FAMILY_MEMBER } from '../../constants/family';
 import { UserInfo } from '../../types/user';
 import { separateMyInfo } from '../../utils/separator';
 import Profile from '../common/Profile';
-
-// FIXME: 임시로 MAX_FAMILY_MEMBER를 4로 설정
-const MAX_FAMILY_MEMBER = 4;
 
 interface FamilyListProps {
   familyList: UserInfo[];
