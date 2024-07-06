@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useGetNormalChallenge } from '../../apis/challenge/getNormalChallenge';
+import { formatDate } from '../../utils/formatter';
 import { separateMyAnswer } from '../../utils/separator';
 import AnswerEditor from './AnswerEditor';
 import AnswerField from './AnswerField';
@@ -18,7 +19,7 @@ const NormalChallengeContainer = () => {
     <div className="flex h-full w-full flex-col gap-16">
       <ChallengeHeader
         challengeNumber={data.challengeInfo.challengeNumber}
-        challengeDate={data.challengeInfo.challengeDate}
+        challengeDate={formatDate(data.challengeInfo.challengeDate)}
         challengeTitle={data.challengeInfo.challengeTitle}
       />
       <div className="flex flex-col gap-12">
