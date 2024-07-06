@@ -12,13 +12,13 @@ const NormalChallengeContainer = () => {
   if (isLoading) return <div>Loading...</div>;
   if (!data) return <div>답변 조회 실패</div>;
   const { myAnswer, members: answerList } = separateMyAnswer(data.answerList);
-  if (!myAnswer) return <div>내 답변이 없습니다.</div>;
+  if (!myAnswer?.answer) return <div>내 답변이 없습니다.</div>;
   return (
     <div className="flex h-full w-full flex-col gap-16">
       <ChallengeHeader
-        challengeNumber="1"
-        challengeDate="2021.09.01"
-        challengeTitle="가족에게 미안했지만, 사과하지 못한 순간이 있나요?"
+        challengeNumber={data.challengeInfo.challengeNumber}
+        challengeDate={data.challengeInfo.challengeDate}
+        challengeTitle={data.challengeInfo.challengeTitle}
       />
       <div className="flex flex-col gap-12">
         <AnswerField
@@ -29,7 +29,7 @@ const NormalChallengeContainer = () => {
           answer={myAnswer.answer}
         />
         {answerList.map((answer) => (
-          <AnswerField key={answer.userId} {...answer} />
+          <AnswerField key={answer.userId} canView={false} {...answer} />
         ))}
       </div>
     </div>
