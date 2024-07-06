@@ -33,7 +33,7 @@ const Textarea = ({
       <textarea
         placeholder={placeholder}
         defaultValue={value}
-        className={`font-pretendard-normal text-pretendard-base resize-none ${disabledBackground} border-gray-40 rounded-lg border px-4 py-3`}
+        className={`min-h-28 w-full resize-none text-pretendard-base font-pretendard-normal ${disabledBackground} rounded-lg border border-gray-40 px-4 py-3`}
         disabled={disabled}
         onChange={onChange}
       />

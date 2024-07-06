@@ -5,7 +5,7 @@ import routes from '../../../constants/routes';
 const DefaultLayout = () => {
   const { pathname } = useLocation();
   const layoutClass = clsx(
-    'relative m-auto h-full w-full max-w-[450px] overflow-y-scroll bg-background p-12 scrollbar-hide',
+    'relative m-auto h-full w-full max-w-[450px] bg-background px-12 pb-12 pt-6',
     {
       'bg-main bg-cover bg-center': pathname === routes.main,
       'bg-background': pathname !== routes.main,
@@ -13,7 +13,9 @@ const DefaultLayout = () => {
   );
   return (
     <div className={layoutClass}>
-      <Outlet />
+      <div className="h-full w-full overflow-y-scroll scrollbar-hide">
+        <Outlet />
+      </div>
     </div>
   );
 };
