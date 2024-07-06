@@ -17,7 +17,7 @@ const postSignup = async (
     name,
     nickname,
   });
-  return data.data;
+  return data;
 };
 
 export const usePostSignup = () => {
