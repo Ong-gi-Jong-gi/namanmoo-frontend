@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { usePostLogin } from '../../apis/auth/login';
 import FORM_INFO from '../../constants/FORM_INFO';
 import routes from '../../constants/routes';
 import useForm from '../../hooks/useForm';
@@ -9,13 +10,14 @@ import Input from '../common/Input';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { mutate: loginMutate } = usePostLogin();
   const { values, handleChange, handleSubmit, errors } = useForm<LoginValues>({
     initialValues: {
       userId: '',
       password: '',
     },
     onSubmit: () => {
-      navigate(routes.main);
+      loginMutate(values);
     },
     validate: loginValidate,
   });

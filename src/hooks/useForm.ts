@@ -22,10 +22,11 @@ const useForm = <T>({ initialValues, onSubmit, validate }: UseFormProps<T>) => {
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
-    setErrors(validate(values));
+    const result = validate(values);
+    setErrors(result);
 
     // 유효한 경우에만 submit
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(result).length === 0) {
       onSubmit();
     }
   };

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { usePostSignup } from '../../apis/auth/signup';
 import FORM_INFO from '../../constants/FORM_INFO';
 import routes from '../../constants/routes';
 import useForm from '../../hooks/useForm';
@@ -9,6 +10,7 @@ import Input from '../common/Input';
 
 const SignupForm = () => {
   const navigate = useNavigate();
+  const { mutate: signupMutate } = usePostSignup();
   const { values, handleChange, handleSubmit, errors } = useForm<SignupValues>({
     initialValues: {
       userId: '',
@@ -18,7 +20,7 @@ const SignupForm = () => {
       nickname: '',
     },
     onSubmit: () => {
-      navigate(routes.login);
+      signupMutate(values);
     },
     validate: signupValidate,
   });

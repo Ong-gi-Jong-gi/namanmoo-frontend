@@ -1,3 +1,9 @@
+const AUTH = {
+  SIGNUP: '/signup',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
 const FAMILY = {
   MY: 'family/info',
 };
@@ -8,6 +14,7 @@ const CHALLENGE = {
 };
 
 export default {
+  AUTH,
   FAMILY,
   CHALLENGE,
 };
