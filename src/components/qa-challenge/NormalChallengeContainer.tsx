@@ -1,26 +1,25 @@
 import { useParams } from 'react-router-dom';
 import { useGetNormalChallenge } from '../../apis/challenge/getNormalChallenge';
 import { formatDate } from '../../utils/formatter';
-import { separateMyAnswer } from '../../utils/separator';
 import AnswerEditor from './AnswerEditor';
 import AnswerField from './AnswerField';
 import ChallengeHeader from './ChallengeHeader';
 
 const NormalChallengeContainer = () => {
   const { challengeId } = useParams();
-  const { data, isLoading } = useGetNormalChallenge({
-    challengeId: challengeId || '',
-  });
+  const { myAnswer, answerList, challengeInfo, hasData, isLoading } =
+    useGetNormalChallenge({
+      challengeId: challengeId,
+    });
   if (isLoading) return <div>Loading...</div>;
-  if (!data) return <div>답변 조회 실패</div>;
-  const { myAnswer, members: answerList } = separateMyAnswer(data.answerList);
-  if (!myAnswer) return <div>내 정보가 존재하지 않습니다.</div>;
+  if (!hasData || !myAnswer || !challengeInfo)
+    return <div>데이터가 존재하지 않습니다.</div>;
   return (
     <div className="flex h-full w-full flex-col gap-16">
       <ChallengeHeader
-        challengeNumber={data.challengeInfo.challengeNumber}
-        challengeDate={formatDate(data.challengeInfo.challengeDate)}
-        challengeTitle={data.challengeInfo.challengeTitle}
+        challengeNumber={challengeInfo.challengeNumber}
+        challengeDate={formatDate(challengeInfo.challengeDate)}
+        challengeTitle={challengeInfo.challengeTitle}
       />
       <div className="flex flex-col gap-12">
         <AnswerEditor
@@ -32,7 +31,7 @@ const NormalChallengeContainer = () => {
         {answerList.map((answer) => (
           <AnswerField
             key={answer.userId}
-            canView={myAnswer.answer !== null}
+            canView={challengeInfo.isCompleted}
             {...answer}
           />
         ))}
