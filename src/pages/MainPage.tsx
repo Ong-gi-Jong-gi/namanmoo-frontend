@@ -7,13 +7,11 @@ import useModalStore from '../store/modalStore';
 
 const MainPage = () => {
   // TODO: 가족 API 조회 수 사용자 수에 따라
-  const [familyCount, setFamilyCount] = useState(1);
+  const [familyCount] = useState(1);
   const { openModal } = useModalStore();
 
   useEffect(() => {
-    console.log(1);
     if (familyCount == 1) {
-      console.log(1);
       openModal({
         content: <InviteModal code={'OJ348212'} />,
         showCloseBtn: true,
