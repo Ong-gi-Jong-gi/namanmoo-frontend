@@ -13,11 +13,12 @@ const postLogin = async (loginId: string, password: string) => {
   return data.data;
 };
 
-export const usePostLogin = ({ userId, password }: LoginValues) => {
+export const usePostLogin = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationKey: [API.AUTH.LOGIN],
-    mutationFn: () => postLogin(userId, password),
+    mutationFn: ({ userId, password }: LoginValues) =>
+      postLogin(userId, password),
     onSuccess: () => navigate(routes.main),
   });
 };

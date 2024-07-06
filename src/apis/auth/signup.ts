@@ -20,16 +20,17 @@ const postSignup = async (
   return data.data;
 };
 
-export const usePostSignup = ({
-  userId,
-  password,
-  name,
-  nickname,
-}: Omit<SignupValues, 'passwordConfirm'>) => {
+export const usePostSignup = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationKey: [API.AUTH.SIGNUP],
-    mutationFn: () => postSignup(userId, password, name, nickname),
+    mutationFn: ({
+      userId,
+      password,
+      name,
+      nickname,
+    }: Omit<SignupValues, 'passwordConfirm'>) =>
+      postSignup(userId, password, name, nickname),
     onSuccess: () => navigate(routes.login),
   });
 };
