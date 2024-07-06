@@ -3,7 +3,8 @@ const FAMILY = {
 };
 
 const CHALLENGE = {
-  TODAY: 'challenge/today',
+  TODAY: 'challenges/today',
+  NORMAL: 'challenges/normal',
 };
 
 export default {
