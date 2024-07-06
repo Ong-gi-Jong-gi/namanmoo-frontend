@@ -14,23 +14,17 @@ const LuckySize = {
   4: 'w-72',
 };
 
-const getLuckyImageSrc = (level: 1 | 2 | 3 | 4) => {
-  switch (level) {
-    case 1:
-      return LuckyLevel1;
-    case 2:
-      return LuckyLevel2;
-    case 3:
-      return LuckyLevel3;
-    case 4:
-      return LuckyLevel4;
-  }
+const luckyImageSrc = {
+  1: LuckyLevel1,
+  2: LuckyLevel2,
+  3: LuckyLevel3,
+  4: LuckyLevel4,
 };
 
 const Lucky = ({ level }: LuckyProps) => {
   return (
     <div className="mx-auto h-fit w-fit">
-      <img src={getLuckyImageSrc(level)} className={LuckySize[level]} />
+      <img src={luckyImageSrc[level]} className={LuckySize[level]} />
     </div>
   );
 };

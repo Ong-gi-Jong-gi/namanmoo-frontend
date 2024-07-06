@@ -1,32 +1,31 @@
-import { useEffect, useState } from 'react';
-import ChallengeButton from '../components/main/ChallengeButton';
+import { useEffect } from 'react';
+import { useGetMyFamilyInfo } from '../apis/family/getMyFamilyInfo';
+import ChallengeSection from '../components/main/ChallengeSection';
 import FamilyList from '../components/main/FamilyList';
 import InviteModal from '../components/main/InviteModal';
-import Lucky from '../components/main/Lucky';
+import Navbar from '../components/main/Navbar';
 import useModalStore from '../store/modalStore';
 
 const MainPage = () => {
-  // TODO: 가족 API 조회 수 사용자 수에 따라
-  const [familyCount] = useState(1);
+  const { data: familyList, isLoading } = useGetMyFamilyInfo();
   const { openModal } = useModalStore();
-
   useEffect(() => {
-    if (familyCount == 1) {
+    if (familyList?.length == 1) {
       openModal({
         content: <InviteModal code={'OJ348212'} />,
         showCloseBtn: true,
       });
     }
-  }, [familyCount, openModal]);
+  }, [familyList, openModal]);
 
-  // FIXME: width 값 제거 및 레이아웃 적용
+  if (isLoading) return <div>가족 정보 Loading...</div>;
+  if (!familyList) return <div>가족 정보가 없습니다.</div>;
+
   return (
     <div className="h-full w-full">
-      <FamilyList />
-      <div className="grid h-full w-full grid-rows-[1fr_40%] items-end pt-32">
-        <Lucky level={4} />
-        <ChallengeButton />
-      </div>
+      <FamilyList familyList={familyList} />
+      <Navbar />
+      <ChallengeSection currentFamilySize={familyList.length} />
     </div>
   );
 };

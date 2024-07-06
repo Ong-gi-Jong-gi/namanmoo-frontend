@@ -1,5 +1,8 @@
 import { UserRole } from '../types/family';
 
+// FIXME: 추후에 제거
+export const MAX_FAMILY_MEMBER = 4;
+
 export const FAMILY_SIZE = Object.freeze({
   MIN_FAMILY_SIZE: 3,
   MAX_FMAILY_SIZE: 5,
