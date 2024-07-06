@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { FaCheck, FaXmark } from 'react-icons/fa6';
+import { useParams } from 'react-router-dom';
+import { usePostNormalChallenge } from '../../apis/challenge/postNormalChallenge';
 import { UserRole } from '../../types/family';
 import Profile from '../common/Profile';
 import Textarea from '../common/Textarea';
@@ -12,8 +14,13 @@ interface AnswerEditorProps {
 }
 
 const AnswerEditor = ({ role, answer, userImg }: AnswerEditorProps) => {
+  const { challengeId } = useParams<{ challengeId: string }>();
   const [value, setValue] = useState<string>(answer || '');
   const [status, setStatus] = useState<'view' | 'edit'>('view');
+  const { mutate } = usePostNormalChallenge({
+    challengeId: challengeId || '',
+    answer: value,
+  });
   const answerClass = clsx('font-ryurue text-ryurue-base', {
     'text-gray-40': !answer,
   });
@@ -27,7 +34,7 @@ const AnswerEditor = ({ role, answer, userImg }: AnswerEditorProps) => {
     }
   };
   const handleSave = () => {
-    confirm('저장하시겠습니까?') && console.log('save API 요청');
+    confirm('저장하시겠습니까?') && mutate();
     setStatus('view');
   };
   return (
