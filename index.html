@@ -2,12 +2,76 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- iOS icon images -->
+    <link rel="apple-touch-icon" size="48x48" href="/icons/icon_48x48.png" />
+    <link rel="apple-touch-icon" size="72x72" href="/icons/icon_72x72.png" />
+    <link rel="apple-touch-icon" size="96x96" href="/icons/icon_96x96.png" />
+    <link
+      rel="apple-touch-icon"
+      size="128x128"
+      href="/icons/icon_128x128.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="144x144"
+      href="/icons/icon_144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="152x152"
+      href="/icons/icon_152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="192x192"
+      href="/icons/icon_192x192.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="192x192"
+      href="/icons/icon_384x384.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="512x512"
+      href="/icons/icon_512x512.png"
+    />
+
+    <title>무럭무럭 | 우리 가족이 함께 키우는 추억의 정원</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator && 'PushManager' in window) {
+        navigator.serviceWorker
+          .register('/service_worker.js')
+          .then((registration) => {
+            console.log(
+              'Service Worker registered with scope:',
+              registration.scope,
+            );
+
+            // 알림 권한 요청
+            if ('Notification' in window) {
+              Notification.requestPermission().then((permission) => {
+                if (permission === 'granted') {
+                  console.log('Notification permission granted.');
+                } else {
+                  console.log('Notification permission denied.');
+                }
+              });
+            }
+          })
+          .catch((error) => {
+            console.error('Service Worker registration failed:', error);
+          });
+      }
+    </script>
   </body>
 </html>
