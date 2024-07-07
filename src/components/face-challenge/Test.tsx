@@ -13,12 +13,16 @@ import { Track } from 'livekit-client';
 const serverUrl = 'wss://mooluck-inym7l2g.livekit.cloud';
 
 export default function Test() {
-  const token = useToken('http://localhost:8080/getToken', 'testRoom', {
-    userInfo: {
-      identity: `${localStorage.getItem('lkName')}`,
-      name: `${localStorage.getItem('lkName')}`,
+  const token = useToken(
+    `${import.meta.env.VITE_NODE_API_URL}/getToken`,
+    'testRoom',
+    {
+      userInfo: {
+        identity: `${localStorage.getItem('lkName')}`,
+        name: `${localStorage.getItem('lkName')}`,
+      },
     },
-  });
+  );
   return (
     <LiveKitRoom
       video={true}
