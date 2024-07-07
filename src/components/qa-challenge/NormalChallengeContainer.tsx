@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useGetNormalChallenge } from '../../apis/challenge/getNormalChallenge';
+import { SYS_MESSAGE } from '../../constants/message';
 import { formatDate } from '../../utils/formatter';
 import ChallengeHeader from './ChallengeHeader';
 import TextAnswerEditor from './TextAnswerEditor';
@@ -13,7 +14,7 @@ const NormalChallengeContainer = () => {
     });
   if (isLoading) return <div>Loading...</div>;
   if (!hasData || !myAnswer || !challengeInfo)
-    return <div>데이터가 존재하지 않습니다.</div>;
+    return <div>{SYS_MESSAGE.NO_DATA}</div>;
   return (
     <div className="flex h-full w-full flex-col gap-16">
       <ChallengeHeader

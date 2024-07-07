@@ -4,4 +4,5 @@ export const SYS_MESSAGE = Object.freeze({
   SAVE: '저장하시겠습니까?',
   WRITE: '눌러서 답변을 작성해주세요',
   ANSWER_YET: '아직 답변하지 않았습니다.',
+  NO_DATA: '데이터가 존재하지 않습니다.',
 });
