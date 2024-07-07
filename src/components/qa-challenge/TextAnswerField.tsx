@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { FaLock } from 'react-icons/fa6';
+import { SYS_MESSAGE } from '../../constants/message';
 import { UserRole } from '../../types/family';
 import Profile from '../common/Profile';
 interface AnswerFieldProps {
@@ -32,9 +33,7 @@ const AnswerField = ({
         src={userImg}
       />
       <div className="relative">
-        <span className={answerClass}>
-          {answer || '아직 답변하지 않았습니다.'}
-        </span>
+        <span className={answerClass}>{answer || SYS_MESSAGE.ANSWER_YET}</span>
         {!canView && answer && (
           <FaLock
             size={24}
