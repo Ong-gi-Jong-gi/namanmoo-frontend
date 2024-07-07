@@ -10,8 +10,6 @@ import {
 import '@livekit/components-styles';
 import { Track } from 'livekit-client';
 
-const serverUrl = 'wss://mooluck-inym7l2g.livekit.cloud';
-
 export default function Test() {
   const token = useToken(
     `${import.meta.env.VITE_NODE_API_URL}/getToken`,
@@ -28,7 +26,7 @@ export default function Test() {
       video={true}
       audio={true}
       token={token}
-      serverUrl={serverUrl}
+      serverUrl={import.meta.env.VITE_WEBSOCKET_URL}
       // Use the default LiveKit theme for nice styles.
       data-lk-theme="default"
       style={{ height: '80%', width: '100%' }}
