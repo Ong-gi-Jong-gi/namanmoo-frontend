@@ -7,13 +7,13 @@ import { UserRole } from '../../types/family';
 import Profile from '../common/Profile';
 import Textarea from '../common/Textarea';
 
-interface AnswerEditorProps {
+interface TextAnswerEditorProps {
   role: UserRole;
   answer: string | null;
   userImg?: string;
 }
 
-const AnswerEditor = ({ role, answer, userImg }: AnswerEditorProps) => {
+const TextAnswerEditor = ({ role, answer, userImg }: TextAnswerEditorProps) => {
   const { challengeId } = useParams<{ challengeId: string }>();
   const [value, setValue] = useState<string>(answer || '');
   const [status, setStatus] = useState<'view' | 'edit'>('view');
@@ -73,4 +73,4 @@ const AnswerEditor = ({ role, answer, userImg }: AnswerEditorProps) => {
   );
 };
 
-export default AnswerEditor;
+export default TextAnswerEditor;

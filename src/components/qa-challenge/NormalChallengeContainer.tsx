@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useGetNormalChallenge } from '../../apis/challenge/getNormalChallenge';
 import { formatDate } from '../../utils/formatter';
-import AnswerEditor from './AnswerEditor';
-import AnswerField from './AnswerField';
 import ChallengeHeader from './ChallengeHeader';
+import TextAnswerEditor from './TextAnswerEditor';
+import TextAnswerField from './TextAnswerField';
 
 const NormalChallengeContainer = () => {
   const { challengeId } = useParams();
@@ -22,14 +22,14 @@ const NormalChallengeContainer = () => {
         challengeTitle={challengeInfo.challengeTitle}
       />
       <div className="flex flex-col gap-12">
-        <AnswerEditor
+        <TextAnswerEditor
           role={myAnswer.role}
           key={myAnswer.userId}
           userImg={myAnswer.userImg}
           answer={myAnswer.answer}
         />
         {answerList.map((answer) => (
-          <AnswerField
+          <TextAnswerField
             key={answer.userId}
             canView={challengeInfo.isCompleted}
             {...answer}
