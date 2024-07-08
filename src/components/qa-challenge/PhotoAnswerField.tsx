@@ -1,4 +1,5 @@
 import { FaLock } from 'react-icons/fa';
+import { SYS_MESSAGE } from '../../constants/message';
 import { UserRole } from '../../types/family';
 import Profile from '../common/Profile';
 
@@ -27,12 +28,12 @@ const PhotoAnswerField = ({
         src={userImg}
         isText
       />
-      <div className="relative flex h-full w-full flex-col items-center justify-center gap-3 overflow-hidden rounded-xl bg-paper hover:cursor-pointer">
+      <div className="relative flex h-full w-full flex-col items-center justify-center gap-3 overflow-hidden rounded-xl bg-paper">
         {answer && (
           <div className="relative flex justify-center gap-1">
             <img
               src={answer}
-              className={`flex-1 ${!canView && answer ? 'blur-sm' : ''}`}
+              className={`flex-1 ${!canView && answer ? 'blur-md' : ''}`}
               alt="user-image"
             />
             {!canView && answer && (
@@ -43,7 +44,11 @@ const PhotoAnswerField = ({
             )}
           </div>
         )}
-        {!answer && <div></div>}
+        {!answer && (
+          <div className="font-ryurue text-ryurue-base text-gray-40">
+            {SYS_MESSAGE.ANSWER_YET}
+          </div>
+        )}
       </div>
     </div>
   );

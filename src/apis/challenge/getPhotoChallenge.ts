@@ -11,7 +11,7 @@ const getPhotoChallenge = async (challengeId: string) => {
   );
 
   return {
-    challengeInfo: new ChallengeDetailDto(data),
+    challengeInfo: new ChallengeDetailDto(data?.data),
     answerList: data.data.answerList.map(
       (answer: ChallengeAnswer) => new ChallengeAnswerDto(answer),
     ),

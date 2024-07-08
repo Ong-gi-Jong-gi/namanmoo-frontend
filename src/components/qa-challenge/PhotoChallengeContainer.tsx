@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useGetPhotoChallenge } from '../../apis/challenge/getPhotoChallenge';
 import { SYS_MESSAGE } from '../../constants/message';
+import { formatDate } from '../../utils/formatter';
 import ChallengeHeader from './ChallengeHeader';
 import PhotoAnswerEditor from './PhotoAnswerEditor';
 import PhotoAnswerField from './PhotoAnswerField';
@@ -9,8 +10,6 @@ const PhotoChallengeContainer = () => {
   const { challengeId } = useParams();
   const { isLoading, hasData, myAnswer, answerList, challengeInfo } =
     useGetPhotoChallenge({ challengeId });
-
-  console.log(myAnswer);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -22,7 +21,7 @@ const PhotoChallengeContainer = () => {
       <div>
         <ChallengeHeader
           challengeNumber={challengeInfo.challengeNumber}
-          challengeDate={challengeInfo.challengeDate}
+          challengeDate={formatDate(challengeInfo.challengeDate)}
           challengeTitle={challengeInfo.challengeTitle}
         />
         <p className="text-md text-gray-0 font-ryurue">

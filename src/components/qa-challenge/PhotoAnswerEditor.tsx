@@ -1,10 +1,9 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, MouseEvent, useRef, useState } from 'react';
 import { TbPhoto } from 'react-icons/tb';
 import { useParams } from 'react-router-dom';
 import { usePostPhotoChallenge } from '../../apis/challenge/postPhotoChallenge';
 import { SYS_MESSAGE } from '../../constants/message';
 import { UserRole } from '../../types/family';
-import Button from '../common/Button';
 import Profile from '../common/Profile';
 
 interface PhotoAnswerEditorProps {
@@ -28,19 +27,13 @@ const PhotoAnswerEditor = ({
     answer: imageFile as File,
   });
 
-  const handleFileInput = () => {
+  const handleFileInput = (e: MouseEvent<HTMLDivElement>) => {
+    // FIXME: confirm 두번 뜨는 현상 확인
+    e.stopPropagation(); // 이벤트 버블링 방지
     if (inputRef.current) confirm(SYS_MESSAGE.EDIT) && inputRef.current.click();
   };
 
-  const handlePhotoCancel = () => {
-    if (confirm(SYS_MESSAGE.CANCEL)) {
-      setImageFile(answer || null);
-      mutate();
-    }
-  };
-
   const handlePhotoSave = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
     if (e.target.files && e.target.files.length > 0) {
       setImageFile(e.target.files[0]);
       mutate();
@@ -48,7 +41,7 @@ const PhotoAnswerEditor = ({
   };
 
   return (
-    <div className="shadow-card flex h-4/5 w-[90%] flex-col gap-4 rounded-2xl bg-white p-4">
+    <div className="flex h-4/5 w-[90%] flex-col gap-4 rounded-2xl bg-white p-4 shadow-card">
       <Profile
         type={userImg ? 'image' : 'default'}
         layout="horizontal"
@@ -62,17 +55,15 @@ const PhotoAnswerEditor = ({
         onClick={handleFileInput}
       >
         {imageFile && (
-          <div className="flex justify-center gap-1">
+          <div className="flex flex-1 items-center justify-center">
             <img
               src={
                 typeof imageFile == 'string'
                   ? imageFile
                   : URL.createObjectURL(imageFile)
               }
-              className="flex-1"
               alt="user-image"
             />
-            <Button label="삭제" onClick={handlePhotoCancel} theme="subtle" />
           </div>
         )}
         {!imageFile && (
@@ -81,7 +72,12 @@ const PhotoAnswerEditor = ({
             <p className="font-ryurue text-gray-40">{SYS_MESSAGE.WRITE}</p>
           </>
         )}
-        <input type="file" className="hidden" onChange={handlePhotoSave} />
+        <input
+          ref={inputRef}
+          type="file"
+          className="hidden"
+          onChange={handlePhotoSave}
+        />
       </div>
     </div>
   );
