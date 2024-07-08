@@ -15,8 +15,16 @@ const CHALLENGE = {
   GROUP: 'challenges/group',
 };
 
+const USER = '/users';
+
+const RECAP = {
+  LIST: 'recap/list',
+};
+
 export default {
   AUTH,
   FAMILY,
   CHALLENGE,
+  USER,
+  RECAP,
 };

@@ -44,6 +44,9 @@ export default {
       'pretendard-normal': 400,
       'pretendard-bold': 700,
     },
+    boxShadow: {
+      card: '0px 4px 4px 0px rgba(0,0,0,0.30)',
+    },
     extend: {
       backgroundImage: {
         paper: "url('/src/assets/images/paper.svg')",

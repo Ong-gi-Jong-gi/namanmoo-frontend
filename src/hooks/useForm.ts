@@ -36,6 +36,7 @@ const useForm = <T>({ initialValues, onSubmit, validate }: UseFormProps<T>) => {
     errors,
     handleChange,
     handleSubmit,
+    setValues,
   };
 };
 export default useForm;
