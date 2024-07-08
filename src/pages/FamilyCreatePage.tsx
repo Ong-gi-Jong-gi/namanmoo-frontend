@@ -35,7 +35,7 @@ const FamilyCreatePage = () => {
       <p className="mb-3 font-ryurue text-ryurue-base text-gray-40">
         나는 우리 가족에서 _입니다.
       </p>
-      <FamilyRole myRole={myRole} setMyRole={setMyRole} />
+      <FamilyRole myRole={myRole} changeRole={setMyRole} />
       <Button label="가족 생성하기" onClick={handleCreateBtn} type="full" />
     </div>
   );
