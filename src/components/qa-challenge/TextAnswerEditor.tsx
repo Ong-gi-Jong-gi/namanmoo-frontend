@@ -1,40 +1,45 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { FaCheck, FaXmark } from 'react-icons/fa6';
-import { useParams } from 'react-router-dom';
-import { usePostNormalChallenge } from '../../apis/challenge/postNormalChallenge';
+import { SYS_MESSAGE } from '../../constants/message';
 import { UserRole } from '../../types/family';
 import Profile from '../common/Profile';
 import Textarea from '../common/Textarea';
 
-interface AnswerEditorProps {
+interface TextAnswerEditorProps {
   role: UserRole;
   answer: string | null;
   userImg?: string;
+  mutate: ({ answer }: { answer: string }) => void;
 }
 
-const AnswerEditor = ({ role, answer, userImg }: AnswerEditorProps) => {
-  const { challengeId } = useParams<{ challengeId: string }>();
+const TextAnswerEditor = ({
+  role,
+  answer,
+  userImg,
+  mutate,
+}: TextAnswerEditorProps) => {
   const [value, setValue] = useState<string>(answer || '');
   const [status, setStatus] = useState<'view' | 'edit'>('view');
-  const { mutate } = usePostNormalChallenge({
-    challengeId: challengeId || '',
-    answer: value,
-  });
+  // const { mutate } = usePostNormalChallenge();
+
   const answerClass = clsx('font-ryurue text-ryurue-base', {
     'text-gray-40': !answer,
   });
   const handleClick = () => {
-    confirm('수정하시겠습니까?') && setStatus('edit');
+    confirm(SYS_MESSAGE.EDIT) && setStatus('edit');
   };
   const handleCancel = () => {
-    if (confirm('작성 중인 내용이 사라집니다. 취소하시겠습니까?')) {
+    if (confirm(SYS_MESSAGE.CANCEL)) {
       setStatus('view');
       setValue(answer || '');
     }
   };
   const handleSave = () => {
-    confirm('저장하시겠습니까?') && mutate();
+    confirm(SYS_MESSAGE.SAVE) &&
+      mutate({
+        answer: value,
+      });
     setStatus('view');
   };
   return (
@@ -49,7 +54,7 @@ const AnswerEditor = ({ role, answer, userImg }: AnswerEditorProps) => {
       />
       {status === 'view' && (
         <span className={answerClass} onClick={handleClick}>
-          {answer || '눌러서 답변을 작성해주세요'}
+          {answer || SYS_MESSAGE.WRITE}
         </span>
       )}
       {status === 'edit' && (
@@ -73,4 +78,4 @@ const AnswerEditor = ({ role, answer, userImg }: AnswerEditorProps) => {
   );
 };
 
-export default AnswerEditor;
+export default TextAnswerEditor;

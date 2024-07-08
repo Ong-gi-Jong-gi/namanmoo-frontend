@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useGetNormalChallenge } from '../../apis/challenge/getNormalChallenge';
+import { usePostNormalChallenge } from '../../apis/challenge/postNormalChallenge';
+import { SYS_MESSAGE } from '../../constants/message';
 import { formatDate } from '../../utils/formatter';
-import AnswerEditor from './AnswerEditor';
-import AnswerField from './AnswerField';
 import ChallengeHeader from './ChallengeHeader';
+import TextAnswerEditor from './TextAnswerEditor';
+import TextAnswerField from './TextAnswerField';
 
 const NormalChallengeContainer = () => {
   const { challengeId } = useParams();
@@ -11,9 +13,12 @@ const NormalChallengeContainer = () => {
     useGetNormalChallenge({
       challengeId: challengeId,
     });
+  const { mutate } = usePostNormalChallenge({
+    challengeId: challengeId || '',
+  });
   if (isLoading) return <div>Loading...</div>;
   if (!hasData || !myAnswer || !challengeInfo)
-    return <div>데이터가 존재하지 않습니다.</div>;
+    return <div>{SYS_MESSAGE.NO_DATA}</div>;
   return (
     <div className="flex h-full w-full flex-col gap-16">
       <ChallengeHeader
@@ -22,14 +27,15 @@ const NormalChallengeContainer = () => {
         challengeTitle={challengeInfo.challengeTitle}
       />
       <div className="flex flex-col gap-12">
-        <AnswerEditor
+        <TextAnswerEditor
           role={myAnswer.role}
           key={myAnswer.userId}
           userImg={myAnswer.userImg}
           answer={myAnswer.answer}
+          mutate={mutate}
         />
         {answerList.map((answer) => (
-          <AnswerField
+          <TextAnswerField
             key={answer.userId}
             canView={challengeInfo.isCompleted}
             {...answer}
