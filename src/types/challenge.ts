@@ -1,3 +1,4 @@
+import { ChallengeAnswerDto } from '../apis/dtos/challengeDtos';
 import { UserInfo } from './user';
 
 type ChallengeType = 'NormalC' | 'GroupC' | 'FaceTimeC' | 'PhotoC' | 'VoiceC';
@@ -20,4 +21,9 @@ export interface ChallengeGroupDetail
 
 export interface ChallengeAnswer extends Omit<UserInfo, 'name'> {
   answer: string;
+}
+
+export interface ChallengeGroupAnswer {
+  challengeTitle: string;
+  answerList: ChallengeAnswerDto[];
 }

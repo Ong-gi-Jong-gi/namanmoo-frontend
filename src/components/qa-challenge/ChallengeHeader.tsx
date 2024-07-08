@@ -1,6 +1,6 @@
 interface ChallengeHeaderProps {
-  challengeNumber: string;
-  challengeDate: string;
+  challengeNumber?: string;
+  challengeDate?: string;
   challengeTitle: string;
 }
 
@@ -11,10 +11,12 @@ const ChallengeHeader = ({
 }: ChallengeHeaderProps) => {
   return (
     <div className="flex w-full flex-col gap-4 font-pretendard">
-      <div className="space-x-6 text-pretendard-base font-pretendard-normal text-gray-40">
-        <span>#{challengeNumber}번째 질문</span>
-        <span>{challengeDate}</span>
-      </div>
+      {challengeNumber && challengeDate && (
+        <div className="space-x-6 text-pretendard-base font-pretendard-normal text-gray-40">
+          <span>#{challengeNumber}번째 질문</span>
+          <span>{challengeDate}</span>
+        </div>
+      )}
       <span className="text-pretendard-md font-pretendard-bold">
         {challengeTitle}
       </span>
