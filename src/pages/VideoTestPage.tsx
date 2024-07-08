@@ -1,18 +1,12 @@
 import { useState } from 'react';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
-import FaceFilter from '../components/face-challenge/FaceFilter';
 import Test from '../components/face-challenge/Test';
 
-type Status = 'Livekit' | 'Face';
-
 const VideoTestPage = () => {
-  const [status, setStatus] = useState<Status>('Livekit');
   return (
     <div>
-      <Button label="Livekit" onClick={() => setStatus('Livekit')} />
-      <Button label="Face" onClick={() => setStatus('Face')} />
-      {status === 'Livekit' ? <LivekitRoom /> : <FaceFilter />}
+      <LivekitRoom />
     </div>
   );
 };

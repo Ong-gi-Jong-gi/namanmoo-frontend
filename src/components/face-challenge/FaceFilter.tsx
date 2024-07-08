@@ -1,6 +1,6 @@
+import { useTrackRefContext } from '@livekit/components-react';
 import { type FaceLandmarksDetector } from '@tensorflow-models/face-landmarks-detection';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Webcam from 'react-webcam';
 import { calculateSunglassesPosition } from '../../utils/calculateFilterPosition';
 import { loadFaceLandmarker } from '../../utils/loadModel';
 
@@ -10,12 +10,13 @@ const videoSize = {
 };
 
 function FaceFilter() {
-  const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const initialLoadedRef = useRef<boolean>(false);
   const [status, setStatus] = useState<
     'Initializing...' | 'Load Model...' | 'Model Loaded'
   >('Initializing...');
+  const trackRef = useTrackRefContext();
+  const trackCanvasRef = useRef<HTMLCanvasElement>(null);
 
   const estimateFacesLoop = useCallback(
     (
@@ -23,14 +24,28 @@ function FaceFilter() {
       image: HTMLImageElement,
       ctx: CanvasRenderingContext2D,
     ) => {
-      const video = webcamRef.current?.video;
+      if (!trackRef) return;
+      const video = trackRef?.publication?.track
+        ?.attachedElements[0] as HTMLVideoElement;
 
       if (!video) return;
-
       const actualWidth = video.getBoundingClientRect().width;
       const actualHeight = video.getBoundingClientRect().height;
 
-      model.estimateFaces(video).then((face) => {
+      trackCanvasRef.current!.width = actualWidth;
+      trackCanvasRef.current!.height = actualHeight;
+      const trackCtx = trackCanvasRef.current!.getContext('2d');
+      trackCtx?.drawImage(video, 0, 0, actualWidth, actualHeight);
+      const trackImageData = trackCtx?.getImageData(
+        0,
+        0,
+        actualWidth,
+        actualHeight,
+      );
+
+      if (!trackImageData) return;
+
+      model.estimateFaces(trackImageData).then((face) => {
         canvasRef.current!.width = actualWidth;
         canvasRef.current!.height = actualHeight;
 
@@ -40,17 +55,17 @@ function FaceFilter() {
           const { x, y, width, height } = calculateSunglassesPosition(
             face[0].keypoints,
           );
-          const scaledX = x * scale;
-          const scaledY = y * scale;
           const scaledWidth = width * scale;
           const scaledHeight = height * scale;
+          const scaledX = x + scaledWidth / 2;
+          const scaledY = y;
 
           ctx.drawImage(image, scaledX, scaledY, scaledWidth, scaledHeight);
         }
         requestAnimationFrame(() => estimateFacesLoop(model, image, ctx));
       });
     },
-    [],
+    [trackRef],
   );
 
   useEffect(() => {
@@ -74,21 +89,17 @@ function FaceFilter() {
   }, [estimateFacesLoop]);
 
   return (
-    <main>
-      <div className="relative">
-        <Webcam
-          className="-scale-x-100"
-          width={videoSize.width}
-          height={videoSize.height}
-          ref={webcamRef}
-        />
-        <canvas
-          ref={canvasRef}
-          className="absolute left-0 top-0 -scale-x-100 bg-none"
-        />
-      </div>
-      <p className="status">{status}</p>
-    </main>
+    <>
+      <canvas
+        ref={canvasRef}
+        className="absolute left-0 top-0 -scale-x-100 bg-none"
+      />
+      <canvas
+        ref={trackCanvasRef}
+        className="absolute left-0 top-0 opacity-0"
+      />
+      <p className="absolute -bottom-4 left-2">{status}</p>
+    </>
   );
 }
 
