@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useGetNormalChallenge } from '../../apis/challenge/getNormalChallenge';
+import { usePostNormalChallenge } from '../../apis/challenge/postNormalChallenge';
 import { SYS_MESSAGE } from '../../constants/message';
 import { formatDate } from '../../utils/formatter';
 import ChallengeHeader from './ChallengeHeader';
@@ -12,6 +13,9 @@ const NormalChallengeContainer = () => {
     useGetNormalChallenge({
       challengeId: challengeId,
     });
+  const { mutate } = usePostNormalChallenge({
+    challengeId: challengeId || '',
+  });
   if (isLoading) return <div>Loading...</div>;
   if (!hasData || !myAnswer || !challengeInfo)
     return <div>{SYS_MESSAGE.NO_DATA}</div>;
@@ -28,6 +32,7 @@ const NormalChallengeContainer = () => {
           key={myAnswer.userId}
           userImg={myAnswer.userImg}
           answer={myAnswer.answer}
+          mutate={mutate}
         />
         {answerList.map((answer) => (
           <TextAnswerField

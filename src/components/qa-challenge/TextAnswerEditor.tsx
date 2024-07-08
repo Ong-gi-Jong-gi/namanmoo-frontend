@@ -1,8 +1,6 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { FaCheck, FaXmark } from 'react-icons/fa6';
-import { useParams } from 'react-router-dom';
-import { usePostNormalChallenge } from '../../apis/challenge/postNormalChallenge';
 import { SYS_MESSAGE } from '../../constants/message';
 import { UserRole } from '../../types/family';
 import Profile from '../common/Profile';
@@ -12,16 +10,19 @@ interface TextAnswerEditorProps {
   role: UserRole;
   answer: string | null;
   userImg?: string;
+  mutate: ({ answer }: { answer: string }) => void;
 }
 
-const TextAnswerEditor = ({ role, answer, userImg }: TextAnswerEditorProps) => {
-  const { challengeId } = useParams<{ challengeId: string }>();
+const TextAnswerEditor = ({
+  role,
+  answer,
+  userImg,
+  mutate,
+}: TextAnswerEditorProps) => {
   const [value, setValue] = useState<string>(answer || '');
   const [status, setStatus] = useState<'view' | 'edit'>('view');
-  const { mutate } = usePostNormalChallenge({
-    challengeId: challengeId || '',
-    answer: value,
-  });
+  // const { mutate } = usePostNormalChallenge();
+
   const answerClass = clsx('font-ryurue text-ryurue-base', {
     'text-gray-40': !answer,
   });
@@ -35,7 +36,10 @@ const TextAnswerEditor = ({ role, answer, userImg }: TextAnswerEditorProps) => {
     }
   };
   const handleSave = () => {
-    confirm(SYS_MESSAGE.SAVE) && mutate();
+    confirm(SYS_MESSAGE.SAVE) &&
+      mutate({
+        answer: value,
+      });
     setStatus('view');
   };
   return (

@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useGetGroupChallenge } from '../../apis/challenge/getGroupChallenge';
+import { usePostGroupChallenge } from '../../apis/challenge/postGroupChallenge';
 import { SYS_MESSAGE } from '../../constants/message';
 import { formatDate } from '../../utils/formatter';
 import ChallengeHeader from './ChallengeHeader';
@@ -7,7 +8,7 @@ import TextAnswerEditor from './TextAnswerEditor';
 import TextAnswerField from './TextAnswerField';
 
 const GroupChallengeContainer = () => {
-  const { challengeId } = useParams();
+  const { challengeId } = useParams<{ challengeId: string }>();
   const {
     challengeInfo,
     firstAnswer,
@@ -20,6 +21,7 @@ const GroupChallengeContainer = () => {
   } = useGetGroupChallenge({
     challengeId,
   });
+  const { mutate } = usePostGroupChallenge({ challengeId: challengeId || '' });
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -47,6 +49,7 @@ const GroupChallengeContainer = () => {
           key={firstAnswer.userId}
           userImg={firstAnswer.userImg}
           answer={firstAnswer.answer}
+          mutate={mutate}
         />
         {firstAnswerList.map((answer) => (
           <TextAnswerField

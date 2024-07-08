@@ -12,16 +12,15 @@ const postNormalChallenge = async (challengeId: string, answer: string) => {
 
 export const usePostNormalChallenge = ({
   challengeId,
-  answer,
 }: {
   challengeId: string;
-  answer: string;
 }) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationKey: [API.CHALLENGE.NORMAL, challengeId, answer],
-    mutationFn: () => postNormalChallenge(challengeId, answer),
-    onMutate: () => ({ challengeId, answer }),
+    mutationKey: [API.CHALLENGE.NORMAL, challengeId],
+    mutationFn: ({ answer }: { answer: string }) =>
+      postNormalChallenge(challengeId, answer),
+    onMutate: (variables) => ({ challengeId, ...variables }),
     onSettled: () =>
       queryClient.invalidateQueries({
         queryKey: [API.CHALLENGE.NORMAL, challengeId],
