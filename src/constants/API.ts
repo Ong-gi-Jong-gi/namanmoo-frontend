@@ -11,6 +11,7 @@ const FAMILY = {
 const CHALLENGE = {
   TODAY: 'challenges/today',
   NORMAL: 'challenges/normal',
+  PHOTO: 'challenges/photo',
 };
 
 export default {
