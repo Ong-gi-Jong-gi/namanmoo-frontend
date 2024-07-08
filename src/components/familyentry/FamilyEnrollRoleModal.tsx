@@ -15,6 +15,10 @@ const FamilyEnrollRole = () => {
     naviate('/main');
   };
 
+  const handleRoleBtn = (value: UserRole) => {
+    setMyRole(value);
+  };
+
   return (
     <div className="flex flex-col gap-16">
       <div>
@@ -24,7 +28,7 @@ const FamilyEnrollRole = () => {
         </p>
         sdasdaaa
       </div>
-      <FamilyRole myRole={myRole} setMyRole={setMyRole} />
+      <FamilyRole myRole={myRole} changeRole={handleRoleBtn} />
       <Button
         label="완료"
         theme="neutral"
