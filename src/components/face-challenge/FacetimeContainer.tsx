@@ -31,6 +31,7 @@ const FacetimeContainer = () => {
   useEffect(() => {
     loadFaceLandmarker().then((model) => {
       setFaceLandmarker(model);
+      console.log('Face Landmarker Loaded');
     });
   }, [setFaceLandmarker]);
 
