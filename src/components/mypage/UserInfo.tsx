@@ -24,11 +24,10 @@ const UserInfo = () => {
     <div className="flex flex-col gap-5">
       <Header />
       <Profile
-        type="default"
+        type={userInfo.userImg ? 'image' : 'default'}
         layout="horizontal"
         userName={userInfo.name}
         userRole={userInfo.role}
-        // TODO: 이미지 확인 필요
         src={userInfo.userImg}
         isText
       />

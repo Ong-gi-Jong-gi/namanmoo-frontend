@@ -11,13 +11,21 @@ const CompleteRecapList = () => {
 
   return (
     <div className="flex h-full flex-1 flex-col">
-      <h3 className="flex-1 font-ryurue text-ryurue-md">추억 저장소</h3>
-      <div className="overflow-scroll">
-        <div className="grid grid-cols-2 gap-3">
-          {recapList.map((recapUnit: RecapUnit) => (
-            <CompleteRecapUnit key={recapUnit.luckyId} {...recapUnit} />
-          ))}
-        </div>
+      <h3 className="font-ryurue text-ryurue-md">추억 저장소</h3>
+      <div className="flex-1 overflow-scroll">
+        {recapList && (
+          <div className="grid grid-cols-2 gap-3">
+            {recapList.map((recapUnit: RecapUnit) => (
+              <CompleteRecapUnit key={recapUnit.luckyId} {...recapUnit} />
+            ))}
+          </div>
+        )}
+
+        {!recapList && (
+          <div className="flex h-full items-center justify-center font-ryurue text-ryurue-md text-gray-40">
+            <p>추억을 만들어보세요!</p>
+          </div>
+        )}
       </div>
     </div>
   );
