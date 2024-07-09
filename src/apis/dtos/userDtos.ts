@@ -13,6 +13,6 @@ export class UserInfoDto {
     this.name = data.name;
     this.nickname = data.nickname;
     this.role = data.role;
-    this.userImg = data.memberImage;
+    this.userImg = data.userImg;
   }
 }
