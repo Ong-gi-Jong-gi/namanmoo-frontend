@@ -1,5 +1,5 @@
+import QueryString from 'qs';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { useGetMyFamilyInfo } from '../apis/family/getMyFamilyInfo';
 import ChallengeSection from '../components/main/ChallengeSection';
 import FamilyList from '../components/main/FamilyList';
@@ -8,18 +8,20 @@ import Navbar from '../components/main/Navbar';
 import useModalStore from '../store/modalStore';
 
 const MainPage = () => {
-  const params = useParams();
+  const queryData = QueryString.parse(location.search, {
+    ignoreQueryPrefix: true,
+  });
 
   const { data: familyList, isLoading } = useGetMyFamilyInfo();
   const { openModal } = useModalStore();
   useEffect(() => {
-    if (familyList?.length == 1 && params['code']) {
+    if (familyList?.length == 1 && queryData['code']) {
       openModal({
-        content: <InviteModal code={params['code']} />,
+        content: <InviteModal code={queryData['code'] as string} />,
         showCloseBtn: true,
       });
     }
-  }, [familyList, openModal, params]);
+  }, [familyList, openModal]);
 
   if (isLoading) return <div>가족 정보 Loading...</div>;
   if (!familyList) return <div>가족 정보가 없습니다.</div>;
