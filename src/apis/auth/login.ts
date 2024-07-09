@@ -24,8 +24,6 @@ const postLogin = async (loginId: string, password: string) => {
 
     const authorization = headers['authorization'];
 
-    console.log('Authorization Header:', authorization);
-
     return { data: data?.data, authorization };
   } catch (error) {
     if ((error as AxiosError).response?.status === 401) {
@@ -51,7 +49,7 @@ export const usePostLogin = () => {
         expires: expireDate,
       });
 
-      if (data.familyId) navigate(routes.family.entry);
+      if (data.familyId == 'null') navigate(routes.family.entry);
       else navigate(routes.main);
     },
     onError: (error: Error) => {
