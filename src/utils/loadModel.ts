@@ -7,7 +7,8 @@ export const loadFaceLandmarker = () => {
     faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh,
     {
       runtime: 'mediapipe',
-      maxFaces: 2,
+      solutionPath: 'node_modules/@mediapipe/face_mesh',
+      maxFaces: 1,
       refineLandmarks: false,
     },
   );
