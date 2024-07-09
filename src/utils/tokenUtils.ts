@@ -1,7 +1,6 @@
 import base64 from 'base-64';
 import { TokenType } from '../types/token';
-
-// FIXME: Token 개선 이후 사용 예정
+import { getCookie } from './cookie';
 
 const parseJwtToken: (arg: string) => TokenType = (jwtToken: string) => {
   //jwt토큰 디코딩
@@ -15,11 +14,20 @@ const parseJwtToken: (arg: string) => TokenType = (jwtToken: string) => {
   return decodingInfoJson;
 };
 
-export const getExpireTime = (jwtToken: string) => {
+// FIXME: Token 개선 이후 사용 예정
+export const getExpireTime = () => {
+  const jwtToken = getCookie('authorization');
   const parsedToken = parseJwtToken(jwtToken);
 
   console.log(new Date(parsedToken.exp));
   console.log(new Date());
 
   return (parsedToken.exp - new Date().getTime()) / 60000;
+};
+
+export const getUserId = () => {
+  const jwtToken = getCookie('authorization');
+  const parsedToken = parseJwtToken(jwtToken);
+
+  return parsedToken.loginId;
 };

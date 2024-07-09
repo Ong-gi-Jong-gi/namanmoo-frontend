@@ -12,12 +12,12 @@ const FamilyList = ({ familyList }: FamilyListProps) => {
   const disabledCount = Math.max(0, MAX_FAMILY_MEMBER - familyList.length);
 
   return (
-    <div className="scrollbar-hide absolute left-0 inline-flex h-32 w-full items-center gap-5 overflow-x-scroll px-6">
+    <div className="absolute left-0 inline-flex h-32 w-full items-center gap-5 overflow-x-scroll px-6 scrollbar-hide">
       {/* My Profile */}
       <Profile
         type={myInfo?.userImg ? 'image' : 'default'}
         src={myInfo?.userImg}
-        userName="나"
+        userName={myInfo?.nickname}
         userRole={myInfo?.role}
         isText
       />
