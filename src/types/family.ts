@@ -8,3 +8,7 @@ export type UserRole = '아빠' | '엄마' | '아들' | '딸';
 export interface GetMyFamilyInfoResponse {
   members: UserInfo[];
 }
+
+export interface CreateFamilyResponse {
+  code: string;
+}

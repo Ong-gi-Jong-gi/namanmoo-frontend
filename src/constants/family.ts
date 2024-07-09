@@ -4,6 +4,7 @@ import { UserRole } from '../types/family';
 export const MAX_FAMILY_MEMBER = 4;
 
 export const FAMILY_SIZE = Object.freeze({
+  DEFAULT_SIZE: 4,
   MIN_FAMILY_SIZE: 3,
   MAX_FMAILY_SIZE: 5,
 });
