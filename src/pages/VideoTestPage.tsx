@@ -26,7 +26,7 @@ const LivekitRoom = () => {
   }, [setFaceLandmarker]);
 
   const handleClick = () => {
-    localStorage.setItem('lkName', name);
+    localStorage.setItem('mooluck-nickname', name);
     setIsEntrance(true);
   };
   return (

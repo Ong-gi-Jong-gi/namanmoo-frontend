@@ -17,8 +17,8 @@ const FacetimeContainer = () => {
     'testRoom',
     {
       userInfo: {
-        identity: `${localStorage.getItem('lkName')}`,
-        name: `${localStorage.getItem('lkName')}`,
+        identity: `${localStorage.getItem('mooluck-nickname')}`,
+        name: `${localStorage.getItem('mooluck-nickname')}`,
       },
     },
   );
@@ -65,7 +65,7 @@ function MyVideoConference() {
 function MyParticipantTile() {
   const trackRef = useTrackRefContext();
   const isUser =
-    trackRef.participant.identity === localStorage.getItem('lkName');
+    trackRef.participant.identity === localStorage.getItem('mooluck-nickname');
   const isMuted = trackRef.publication?.track?.isMuted;
 
   return (
