@@ -1,9 +1,8 @@
 import {
   ControlBar,
-  GridLayout,
   LiveKitRoom,
   ParticipantTile,
-  RoomAudioRenderer,
+  TrackLoop,
   useToken,
   useTrackRefContext,
   useTracks,
@@ -15,8 +14,8 @@ import useFaceLandmarkerStore from '../../store/faceLandmarkerStore';
 import { loadFaceLandmarker } from '../../utils/loadModel';
 import FaceFilter from './FaceFilter';
 
-export default function Test() {
-  const { status, setStatus, setFaceLandmarker } = useFaceLandmarkerStore();
+const FacetimeContainer = () => {
+  const { setFaceLandmarker } = useFaceLandmarkerStore();
 
   const token = useToken(
     `${import.meta.env.VITE_NODE_API_URL}/getToken`,
@@ -30,12 +29,10 @@ export default function Test() {
   );
 
   useEffect(() => {
-    setStatus('Load Model...');
     loadFaceLandmarker().then((model) => {
       setFaceLandmarker(model);
-      setStatus('Model Loaded');
     });
-  }, [setStatus, setFaceLandmarker]);
+  }, [setFaceLandmarker]);
 
   return (
     <LiveKitRoom
@@ -43,11 +40,10 @@ export default function Test() {
       audio={true}
       token={token}
       serverUrl={import.meta.env.VITE_WEBSOCKET_URL}
-      className="h-full w-full"
+      className="flex h-full w-full flex-col"
       data-lk-theme="default"
     >
       <MyVideoConference />
-      <RoomAudioRenderer />
       <ControlBar
         controls={{
           camera: true,
@@ -58,22 +54,22 @@ export default function Test() {
         }}
         variation="minimal"
       />
-      <span>{status}</span>
     </LiveKitRoom>
   );
-}
+};
 
 function MyVideoConference() {
-  // `useTracks` returns all camera and screen share tracks. If a user
-  // joins without a published camera track, a placeholder track is returned.
   const tracks = useTracks(
     [{ source: Track.Source.Camera, withPlaceholder: true }],
     { onlySubscribed: false },
   );
+
   return (
-    <GridLayout tracks={tracks} className="h-full w-full">
-      <MyParticipantTile />
-    </GridLayout>
+    <div className="grid h-full min-h-0 w-full min-w-0 grid-rows-4 items-center justify-center">
+      <TrackLoop tracks={tracks}>
+        <MyParticipantTile />
+      </TrackLoop>
+    </div>
   );
 }
 
@@ -84,9 +80,11 @@ function MyParticipantTile() {
   const isMuted = trackRef.publication?.track?.isMuted;
 
   return (
-    <div className="relative h-fit w-fit">
+    <div className="relative">
       <ParticipantTile />
       {isUser && !isMuted && <FaceFilter />}
     </div>
   );
 }
+
+export default FacetimeContainer;
