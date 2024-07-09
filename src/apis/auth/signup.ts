@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { api } from '..';
+import api from '..';
 import API from '../../constants/API';
 import routes from '../../constants/routes';
 import { SignupValues } from '../../types/auth';
