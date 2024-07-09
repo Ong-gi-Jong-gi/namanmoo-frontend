@@ -1,18 +1,24 @@
 import clsx from 'clsx';
 import useModalStore from '../../store/modalStore';
+import { UserInfo } from '../../types/user';
 import Button from '../common/Button';
 import Profile from '../common/Profile';
 import FamilyEnrollRole from './FamilyEnrollRoleModal';
 
-const FamilyJoinModal = () => {
+interface Props {
+  familyId: string;
+  familyName: string;
+  members: UserInfo[];
+}
+
+const FamilyJoinModal = ({ familyId, familyName, members }: Props) => {
   const { openModal, closeModal } = useModalStore();
-  const familyName = '옹기종기';
 
   const handleJoinBtn = () => {
     closeModal();
 
     openModal({
-      content: <FamilyEnrollRole />,
+      content: <FamilyEnrollRole familyId={familyId} />,
       showCloseBtn: true,
     });
   };
@@ -20,18 +26,21 @@ const FamilyJoinModal = () => {
   return (
     <div className="flex w-full flex-col items-center gap-9">
       <div className="flex h-12 w-full items-center justify-center">
-        {new Array(4).fill(0).map((_, index: number) => {
+        {members.map((member: UserInfo, index: number) => {
           const zIndex = `z-${40 - 10 * index}`;
           return (
             <span
-              key={index}
+              key={member.userId}
               className={clsx(
                 'relative',
                 `${zIndex}`,
                 `${index ? '-ml-8' : 'ml-0'}`,
               )}
             >
-              <Profile />
+              <Profile
+                type={member.userImg ? 'image' : 'default'}
+                src={member.userImg}
+              />
             </span>
           );
         })}

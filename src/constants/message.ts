@@ -5,4 +5,5 @@ export const SYS_MESSAGE = Object.freeze({
   WRITE: '눌러서 답변을 작성해주세요',
   ANSWER_YET: '아직 답변하지 않았습니다.',
   NO_DATA: '데이터가 존재하지 않습니다.',
+  NO_ROLE: '선택된 역할이 없습니다.',
 });

@@ -1,33 +1,47 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { ChangeEvent, useState } from 'react';
+import { useCreateFamily } from '../apis/family/postCreateFamily';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import Select from '../components/common/Select';
 import FamilyRole from '../components/familycreate/FamilyRole';
+import { FAMILY_SIZE } from '../constants/family';
 import { UserRole } from '../types/family';
 
 const FamilyCreatePage = () => {
-  const navigate = useNavigate();
+  const [familySize, setFamilySize] = useState<number>(
+    FAMILY_SIZE.DEFAULT_SIZE,
+  );
+  const [familyName, setFamilyName] = useState<string>('');
   const [myRole, setMyRole] = useState<UserRole | ''>('');
-  const code = 'abc'; // TODO: API Call
+  const { mutate } = useCreateFamily();
 
   const handleCreateBtn = () => {
-    navigate(`/main?code=${code}`);
+    mutate({ familyName, familySize, ownerRole: myRole });
   };
+
+  const handleFamilySize = (e: ChangeEvent<HTMLSelectElement>) => {
+    setFamilySize(parseInt(e.target.value));
+  };
+
+  const handleFamilyName = (e: ChangeEvent<HTMLInputElement>) => {
+    setFamilyName(e.target.value);
+  };
+
   return (
     <div className="flex h-full flex-col justify-evenly">
       <Select
         label="가족 구성원 수"
         description="우리 가족은 _명 입니다."
-        options={[4]}
-        value={4}
+        options={[familySize]}
+        value={familySize}
+        onChange={handleFamilySize}
       />
       <Input
         label="가족 별명"
         description="우리 가족 별명은 _입니다."
-        onChange={() => {}}
+        onChange={handleFamilyName}
         isFull={true}
-        value={''}
+        value={familyName}
         placeholder="별명"
       />
 
