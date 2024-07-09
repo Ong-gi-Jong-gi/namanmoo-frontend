@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '..';
+import { api } from '..';
 import API from '../../constants/API';
 import { UserInfoDto } from '../dtos/userDtos';
 
