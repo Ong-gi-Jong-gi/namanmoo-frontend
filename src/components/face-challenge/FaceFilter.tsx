@@ -1,11 +1,10 @@
 import { useTrackRefContext } from '@livekit/components-react';
 import { type FaceLandmarksDetector } from '@tensorflow-models/face-landmarks-detection';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import useFaceLandmarkerStore from '../../store/faceLandmarkerStore';
 import { calculateSunglassesPosition } from '../../utils/calculateFilterPosition';
+import { loadFaceLandmarker } from '../../utils/loadModel';
 
 function FaceFilter() {
-  const { faceLandmarker } = useFaceLandmarkerStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const initialLoadedRef = useRef<boolean>(false);
   const trackRef = useTrackRefContext();
@@ -55,21 +54,17 @@ function FaceFilter() {
 
       if (!trackImageData) return;
 
-      model.estimateFaces(trackImageData).then((face) => {
+      model.estimateFaces(video).then((face) => {
         canvasRef.current!.width = actualWidth;
         canvasRef.current!.height = actualHeight;
 
         ctx.clearRect(0, 0, actualWidth, actualHeight);
         if (face[0]) {
-          const { x, y, width, height, angle } = calculateSunglassesPosition(
+          const { x, y, width, height } = calculateSunglassesPosition(
             face[0].keypoints,
           );
 
-          ctx.translate(x + width / 2, y + height / 2);
-          ctx.rotate((angle * Math.PI) / 180);
-          ctx.drawImage(image, -width / 2, -height / 2, width, height);
-          ctx.rotate((-angle * Math.PI) / 180);
-          ctx.translate(-(x + width / 2), -(y + height / 2));
+          ctx.drawImage(image, x, y, width, height);
         }
         requestAnimationFrame(() => estimateFacesLoop(model, image, ctx));
       });
@@ -82,11 +77,14 @@ function FaceFilter() {
   }, [loadImageAndSetupCanvas]);
 
   useEffect(() => {
-    if (!image || !canvasContext || !faceLandmarker) return;
-    requestAnimationFrame(() =>
-      estimateFacesLoop(faceLandmarker, image, canvasContext),
-    );
-  }, [estimateFacesLoop, faceLandmarker, image, canvasContext]);
+    if (!image || !canvasContext) return;
+    // 인식 모델 로드
+    loadFaceLandmarker().then((model) => {
+      requestAnimationFrame(() =>
+        estimateFacesLoop(model, image, canvasContext),
+      );
+    });
+  }, [image, canvasContext, estimateFacesLoop]);
 
   return (
     <>

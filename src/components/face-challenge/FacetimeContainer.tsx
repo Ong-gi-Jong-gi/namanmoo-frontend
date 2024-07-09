@@ -9,7 +9,7 @@ import {
 } from '@livekit/components-react';
 import '@livekit/components-styles';
 import { Track } from 'livekit-client';
-import FaceFilter from './FaceFilter';
+import PrejoinCam from './PrejoinFaceFilter';
 
 const FacetimeContainer = () => {
   const token = useToken(
@@ -70,8 +70,8 @@ function MyParticipantTile() {
 
   return (
     <div className="relative">
-      <ParticipantTile />
-      {isUser && !isMuted && <FaceFilter />}
+      <ParticipantTile hidden={isUser && !isMuted} />
+      {isUser && !isMuted && <PrejoinCam />}
     </div>
   );
 }

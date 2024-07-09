@@ -7,8 +7,8 @@ export const loadFaceLandmarker = () => {
     faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh,
     {
       runtime: 'tfjs',
-      maxFaces: 2,
-      refineLandmarks: false,
+      maxFaces: 1, // 인식할 얼굴의 최대 개수
+      refineLandmarks: true, // 랜드마크를 더 정교하게 인식할지 여부
     },
   );
 };

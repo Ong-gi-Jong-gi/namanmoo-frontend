@@ -2,25 +2,35 @@ import { FaceLandmarksDetector } from '@tensorflow-models/face-landmarks-detecti
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import { calculateSunglassesPosition } from '../../utils/calculateFilterPosition';
+import { loadFaceLandmarker } from '../../utils/loadModel';
 
-const PrejoinFaceFilter = () => {
+const videoSize = {
+  width: 640,
+  height: 480,
+};
+
+const PrejoinCam = () => {
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const initialLoadedRef = useRef(false);
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [canvasContext, setCanvasContext] =
     useState<CanvasRenderingContext2D | null>(null);
 
   const loadImageAndSetupCanvas = useCallback(() => {
-    const canvas = canvasRef.current;
-    const context = canvas?.getContext('2d');
-    if (!context) return;
+    const canvasContext = canvasRef.current?.getContext('2d');
+    if (!canvasContext || initialLoadedRef.current) return;
 
-    const img = new Image();
-    img.src = 'src/assets/filter/sunglasses.png';
-    img.onload = () => setImage(img);
+    initialLoadedRef.current = true;
+    const image = new Image();
+    image.src = 'src/assets/filter/sunglasses.png';
 
-    setCanvasContext(context);
-  }, []);
+    image.onload = () => {
+      setImage(image);
+    };
+
+    setCanvasContext(canvasContext);
+  }, [setImage, setCanvasContext]);
 
   const estimateFacesLoop = useCallback(
     (
@@ -28,33 +38,38 @@ const PrejoinFaceFilter = () => {
       image: HTMLImageElement,
       ctx: CanvasRenderingContext2D,
     ) => {
-      if (!webcamRef.current) return;
-      const video = webcamRef.current.video;
-
+      const video = webcamRef.current?.video;
       if (!video) return;
       const actualWidth = video.getBoundingClientRect().width;
       const actualHeight = video.getBoundingClientRect().height;
+      console.log('actualWidth', actualWidth);
 
-      canvasRef.current!.width = actualWidth;
-      canvasRef.current!.height = actualHeight;
+      const scaleX = actualWidth / videoSize.width;
+      const scaleY = actualHeight / videoSize.height;
 
       model.estimateFaces(video).then((face) => {
-        canvasRef.current!.width = actualWidth;
-        canvasRef.current!.height = actualHeight;
-
+        // 캔버스 초기화
         ctx.clearRect(0, 0, actualWidth, actualHeight);
+
         if (face[0]) {
-          const { x, y, width, height, angle } = calculateSunglassesPosition(
+          canvasRef.current!.width = actualWidth;
+          canvasRef.current!.height = actualHeight;
+          const { x, y, width, height } = calculateSunglassesPosition(
             face[0].keypoints,
           );
 
-          ctx.translate(x + width / 2, y + height / 2);
-          ctx.rotate((angle * Math.PI) / 180);
-          ctx.drawImage(image, -width / 2, -height / 2, width, height);
-          ctx.rotate((-angle * Math.PI) / 180);
-          ctx.translate(-(x + width / 2), -(y + height / 2));
+          const widthScaled = width * scaleX;
+          const heightScaled = height * scaleY;
+          const xScaled = x * scaleX;
+          const yScaled = y * scaleY;
+
+          ctx.drawImage(image, xScaled, yScaled, widthScaled, heightScaled);
         }
-        requestAnimationFrame(() => estimateFacesLoop(model, image, ctx));
+
+        // 재귀 호출
+        requestAnimationFrame(() => {
+          estimateFacesLoop(model, image, ctx);
+        });
       });
     },
     [],
@@ -64,12 +79,26 @@ const PrejoinFaceFilter = () => {
     loadImageAndSetupCanvas();
   }, [loadImageAndSetupCanvas]);
 
+  useEffect(() => {
+    if (!image || !canvasContext) return;
+    // 인식 모델 로드
+    loadFaceLandmarker().then((model) => {
+      requestAnimationFrame(() =>
+        estimateFacesLoop(model, image, canvasContext),
+      );
+    });
+  }, [image, canvasContext, estimateFacesLoop]);
+
   return (
-    <div className="relative">
-      <Webcam ref={webcamRef} />
-      <canvas ref={canvasRef} className="absolute left-0 top-0" />
+    <div className="relative h-fit w-fit">
+      <Webcam
+        width={videoSize.width}
+        height={videoSize.height}
+        ref={webcamRef}
+      />
+      <canvas className="absolute left-0 top-0" ref={canvasRef} />
     </div>
   );
 };
 
-export default PrejoinFaceFilter;
+export default PrejoinCam;
