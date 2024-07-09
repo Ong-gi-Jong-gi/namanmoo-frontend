@@ -1,8 +1,12 @@
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import routes from '../../../constants/routes';
+import { getCookie } from '../../../utils/cookie';
 
 const PrivateLayout = () => {
-  // TODO: 로그인 여부에 따라 로그인 페이지로 리다이렉트
-  console.log('로그인 유무 확인 필요');
+  const token = getCookie('authorization');
+
+  if (!token) return <Navigate to={routes.login} replace />;
+
   return <Outlet />;
 };
 
