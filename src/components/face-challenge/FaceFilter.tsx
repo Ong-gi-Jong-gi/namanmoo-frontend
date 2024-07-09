@@ -3,9 +3,10 @@ import { type FaceLandmarksDetector } from '@tensorflow-models/face-landmarks-de
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useFaceLandmarkerStore from '../../store/faceLandmarkerStore';
 import { calculateSunglassesPosition } from '../../utils/calculateFilterPosition';
+import { loadFaceLandmarker } from '../../utils/loadModel';
 
 function FaceFilter() {
-  const { faceLandmarker } = useFaceLandmarkerStore();
+  const { faceLandmarker, setFaceLandmarker } = useFaceLandmarkerStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const initialLoadedRef = useRef<boolean>(false);
   const trackRef = useTrackRefContext();
@@ -24,6 +25,8 @@ function FaceFilter() {
     const img = new Image();
     img.src = 'src/assets/filter/sunglasses.png';
     img.onload = () => setImage(img);
+
+    console.log(img, 'image loaded');
 
     setCanvasContext(context);
   }, []);
@@ -55,7 +58,7 @@ function FaceFilter() {
 
       if (!trackImageData) return;
 
-      model.estimateFaces(video).then((face) => {
+      model.estimateFaces(trackImageData).then((face) => {
         console.log(face);
         canvasRef.current!.width = actualWidth;
         canvasRef.current!.height = actualHeight;
@@ -84,11 +87,26 @@ function FaceFilter() {
   }, [loadImageAndSetupCanvas]);
 
   useEffect(() => {
+    if (!faceLandmarker) {
+      console.log('faceLandmarker is not loaded');
+      loadFaceLandmarker().then((model) => {
+        setFaceLandmarker(model);
+        console.log('Face Landmarker Loaded');
+      });
+      return;
+    }
     if (!image || !canvasContext || !faceLandmarker) return;
+    console.log('start face detection');
     requestAnimationFrame(() =>
       estimateFacesLoop(faceLandmarker, image, canvasContext),
     );
-  }, [estimateFacesLoop, faceLandmarker, image, canvasContext]);
+  }, [
+    estimateFacesLoop,
+    faceLandmarker,
+    image,
+    canvasContext,
+    setFaceLandmarker,
+  ]);
 
   return (
     <>
@@ -100,7 +118,6 @@ function FaceFilter() {
         ref={trackCanvasRef}
         className="absolute left-0 top-0 opacity-0"
       />
-      <p className="absolute -top-4 left-2">{status}</p>
     </>
   );
 }
