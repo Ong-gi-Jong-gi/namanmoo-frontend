@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-type IconButtonTheme = 'primary' | 'neutral' | 'subtle';
+type IconButtonTheme = 'primary' | 'neutral' | 'subtle' | 'selectedNeutral';
 
 interface IconButtonStyleProps {
   theme?: IconButtonTheme;
@@ -18,6 +18,7 @@ const btnTheme = {
     'bg-primary-10 hover:bg-primary-30 text-gray-50 hover:text-white border-primary-30',
   neutral:
     'bg-secondary-10 hover:bg-secondary-20 text-gray-50 hover:text-white border-secondary-20',
+  selectedNeutral: 'bg-secondary-20 text-gray-50 border-secondary-20',
   subtle: 'text-gray-50 hover:border-gray-40 border-gray-40 border-opacity-0',
 };
 

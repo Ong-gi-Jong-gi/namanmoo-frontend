@@ -54,7 +54,7 @@ function MyVideoConference() {
   );
 
   return (
-    <div className="grid h-full min-h-0 w-full min-w-0 grid-rows-4 items-center justify-center">
+    <div className="grid h-full min-h-0 w-full min-w-0 grid-cols-2 grid-rows-2 items-center justify-center">
       <TrackLoop tracks={tracks}>
         <MyParticipantTile />
       </TrackLoop>
@@ -69,7 +69,7 @@ function MyParticipantTile() {
   const isMuted = trackRef.publication?.track?.isMuted;
 
   return (
-    <div className="relative">
+    <div className="flex h-full w-full items-center">
       <ParticipantTile hidden={isUser && !isMuted} />
       {isUser && !isMuted && <PrejoinCam />}
     </div>
