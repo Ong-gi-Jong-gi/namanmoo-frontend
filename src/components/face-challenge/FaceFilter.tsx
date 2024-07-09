@@ -61,6 +61,7 @@ function FaceFilter() {
 
         ctx.clearRect(0, 0, actualWidth, actualHeight);
         if (face[0]) {
+          console.log('face detected!');
           const { x, y, width, height, angle } = calculateSunglassesPosition(
             face[0].keypoints,
           );

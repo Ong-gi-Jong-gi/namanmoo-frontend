@@ -65,7 +65,7 @@ function MyVideoConference() {
   );
 
   return (
-    <div className="grid h-full min-h-0 w-full min-w-0 grid-rows-4 items-center justify-center">
+    <div className="grid h-full min-h-0 w-full min-w-0 grid-cols-2 grid-rows-2 items-center justify-center">
       <TrackLoop tracks={tracks}>
         <MyParticipantTile />
       </TrackLoop>
@@ -81,7 +81,7 @@ function MyParticipantTile() {
 
   return (
     <div className="relative">
-      <ParticipantTile />
+      <ParticipantTile className="h-full w-full" />
       {isUser && !isMuted && <FaceFilter />}
     </div>
   );
