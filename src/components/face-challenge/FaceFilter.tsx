@@ -55,7 +55,8 @@ function FaceFilter() {
 
       if (!trackImageData) return;
 
-      model.estimateFaces(trackImageData).then((face) => {
+      model.estimateFaces(video).then((face) => {
+        console.log(face);
         canvasRef.current!.width = actualWidth;
         canvasRef.current!.height = actualHeight;
 
