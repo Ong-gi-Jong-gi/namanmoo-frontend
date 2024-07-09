@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
-import Test from '../components/face-challenge/Test';
+import FacetimeContainer from '../components/face-challenge/FacetimeContainer';
 
 const VideoTestPage = () => {
   return (
@@ -22,7 +22,7 @@ const LivekitRoom = () => {
     <>
       {isEntrance ? (
         <>
-          <Test />
+          <FacetimeContainer />
         </>
       ) : (
         <>
