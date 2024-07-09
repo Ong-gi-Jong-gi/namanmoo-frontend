@@ -1,18 +1,29 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { usePostJoinFamily } from '../../apis/family/postJoinFamily';
+import { SYS_MESSAGE } from '../../constants/message';
 import useModalStore from '../../store/modalStore';
 import { UserRole } from '../../types/family';
 import Button from '../common/Button';
 import FamilyRole from '../familycreate/FamilyRole';
 
-const FamilyEnrollRole = () => {
+interface Props {
+  familyId: string;
+}
+
+const FamilyEnrollRole = ({ familyId }: Props) => {
   const [myRole, setMyRole] = useState<UserRole | ''>('');
   const { closeModal } = useModalStore();
-  const naviate = useNavigate();
+  const { mutate } = usePostJoinFamily();
 
   const handleCompleteBtn = () => {
-    closeModal();
-    naviate('/main');
+    if (myRole != '') {
+      closeModal();
+      mutate({ familyId, role: myRole });
+
+      window.location.href = '/main';
+    } else {
+      alert(SYS_MESSAGE.NO_ROLE);
+    }
   };
 
   const handleRoleBtn = (value: UserRole) => {
@@ -26,7 +37,6 @@ const FamilyEnrollRole = () => {
         <p className="mb-3 font-ryurue text-ryurue-base text-gray-40">
           나는 우리 가족에서 _입니다.
         </p>
-        sdasdaaa
       </div>
       <FamilyRole myRole={myRole} changeRole={handleRoleBtn} />
       <Button
