@@ -10,9 +10,14 @@ import {
 } from '@livekit/components-react';
 import '@livekit/components-styles';
 import { Track } from 'livekit-client';
+import { useEffect } from 'react';
+import useFaceLandmarkerStore from '../../store/faceLandmarkerStore';
+import { loadFaceLandmarker } from '../../utils/loadModel';
 import FaceFilter from './FaceFilter';
 
 export default function Test() {
+  const { status, setStatus, setFaceLandmarker } = useFaceLandmarkerStore();
+
   const token = useToken(
     `${import.meta.env.VITE_NODE_API_URL}/getToken`,
     'testRoom',
@@ -23,6 +28,14 @@ export default function Test() {
       },
     },
   );
+
+  useEffect(() => {
+    setStatus('Load Model...');
+    loadFaceLandmarker().then((model) => {
+      setFaceLandmarker(model);
+      setStatus('Model Loaded');
+    });
+  }, [setStatus, setFaceLandmarker]);
 
   return (
     <LiveKitRoom
@@ -45,6 +58,7 @@ export default function Test() {
         }}
         variation="minimal"
       />
+      <span>{status}</span>
     </LiveKitRoom>
   );
 }
