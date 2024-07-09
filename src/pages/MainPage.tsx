@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useGetMyFamilyInfo } from '../apis/family/getMyFamilyInfo';
 import ChallengeSection from '../components/main/ChallengeSection';
 import FamilyList from '../components/main/FamilyList';
@@ -7,16 +8,18 @@ import Navbar from '../components/main/Navbar';
 import useModalStore from '../store/modalStore';
 
 const MainPage = () => {
+  const params = useParams();
+
   const { data: familyList, isLoading } = useGetMyFamilyInfo();
   const { openModal } = useModalStore();
   useEffect(() => {
-    if (familyList?.length == 1) {
+    if (familyList?.length == 1 && params['code']) {
       openModal({
-        content: <InviteModal code={'OJ348212'} />,
+        content: <InviteModal code={params['code']} />,
         showCloseBtn: true,
       });
     }
-  }, [familyList, openModal]);
+  }, [familyList, openModal, params]);
 
   if (isLoading) return <div>가족 정보 Loading...</div>;
   if (!familyList) return <div>가족 정보가 없습니다.</div>;
