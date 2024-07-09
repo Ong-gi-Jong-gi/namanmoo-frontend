@@ -28,3 +28,4 @@ export interface ChallengeGroupAnswer {
   answerList: ChallengeAnswerDto[];
 }
 export type FilterType = 'none' | 'sunglasses';
+export type FilterTypeWithoutNone = Exclude<FilterType, 'none'>;

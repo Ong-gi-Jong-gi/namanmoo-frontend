@@ -9,9 +9,12 @@ import {
 } from '@livekit/components-react';
 import '@livekit/components-styles';
 import { Track } from 'livekit-client';
+import { useNavigate } from 'react-router-dom';
+import Button from '../common/Button';
 import PrejoinCam from './PrejoinFaceFilter';
 
 const FacetimeContainer = () => {
+  const navigate = useNavigate();
   const token = useToken(
     `${import.meta.env.VITE_NODE_API_URL}/getToken`,
     'testRoom',
@@ -43,6 +46,13 @@ const FacetimeContainer = () => {
         }}
         variation="minimal"
       />
+      <Button
+        onClick={() => {
+          navigate('/main');
+        }}
+        label="나가기"
+        theme="primary"
+      />
     </LiveKitRoom>
   );
 };
@@ -71,7 +81,7 @@ function MyParticipantTile() {
   return (
     <div className="flex h-full w-full items-center">
       <ParticipantTile hidden={isUser && !isMuted} />
-      {isUser && !isMuted && <PrejoinCam />}
+      {isUser && !isMuted && <PrejoinCam filterType="none" />}
     </div>
   );
 }

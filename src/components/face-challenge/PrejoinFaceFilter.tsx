@@ -47,7 +47,6 @@ const PrejoinCam = ({ filterType }: PrejoinCamProps) => {
       if (!video) return;
       const actualWidth = video.getBoundingClientRect().width;
       const actualHeight = video.getBoundingClientRect().height;
-      console.log('actualWidth', actualWidth);
 
       const scaleX = actualWidth / videoSize.width;
       const scaleY = actualHeight / videoSize.height;
