@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
+import { postCreateChallenge } from '../../apis/challenge/postCreateChallenge';
 import routes from '../../constants/routes';
 
 interface BaseChallengeButtonProps {
@@ -56,7 +57,7 @@ const ChallengeButton = (props: ChallengeButtonProps) => {
   const navigate = useNavigate();
 
   const layoutClass = clsx(
-    'h-32 w-full items-center justify-center gap-2 rounded-md bg-paper bg-contain px-9 py-5 font-ryurue shadow',
+    'shadow h-32 w-full items-center justify-center gap-2 rounded-md bg-paper bg-contain px-9 py-5 font-ryurue',
     {
       flex: type === 'active',
       'grid grid-rows-[24px_1fr]': type !== 'active',
@@ -69,9 +70,9 @@ const ChallengeButton = (props: ChallengeButtonProps) => {
     { 'text-gray-40': type === 'disabled' },
   );
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (type === 'active') {
-      console.log('챌린지 시작 API 요청');
+      await postCreateChallenge(new Date().getTime());
     }
     if (type === 'ongoing') {
       navigate(`${routes.challenge}/${props.challengeId}`);
