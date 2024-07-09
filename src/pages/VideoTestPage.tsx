@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import FacetimeContainer from '../components/face-challenge/FacetimeContainer';
+import PrejoinFaceFilter from '../components/face-challenge/PrejoinFaceFilter';
+import useFaceLandmarkerStore from '../store/faceLandmarkerStore';
+import { loadFaceLandmarker } from '../utils/loadModel';
 
 const VideoTestPage = () => {
   return (
@@ -12,8 +15,16 @@ const VideoTestPage = () => {
 };
 
 const LivekitRoom = () => {
+  const { setFaceLandmarker } = useFaceLandmarkerStore();
   const [name, setName] = useState('');
   const [isEntrance, setIsEntrance] = useState(false);
+
+  useEffect(() => {
+    loadFaceLandmarker().then((model) => {
+      setFaceLandmarker(model);
+    });
+  }, [setFaceLandmarker]);
+
   const handleClick = () => {
     localStorage.setItem('lkName', name);
     setIsEntrance(true);
@@ -26,6 +37,7 @@ const LivekitRoom = () => {
         </>
       ) : (
         <>
+          <PrejoinFaceFilter />
           <Input
             label="이름을 입력해주세요"
             value={name}
