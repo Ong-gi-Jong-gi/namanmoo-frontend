@@ -10,7 +10,6 @@ interface ChallengeSectionProps {
 const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
   const { data: challengeInfo, isLoading } = useGetTodayChallenge({
     enabled: currentFamilySize === MAX_FAMILY_MEMBER,
-    challengeDate: `2024-09-01`,
   });
   if (isLoading) return <div>챌린지 정보 Loading...</div>;
 
