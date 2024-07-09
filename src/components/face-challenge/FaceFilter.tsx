@@ -1,8 +1,5 @@
 import { useTrackRefContext } from '@livekit/components-react';
-import {
-  Face,
-  type FaceLandmarksDetector,
-} from '@tensorflow-models/face-landmarks-detection';
+import { type FaceLandmarksDetector } from '@tensorflow-models/face-landmarks-detection';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useFaceLandmarkerStore from '../../store/faceLandmarkerStore';
 import { calculateSunglassesPosition } from '../../utils/calculateFilterPosition';
@@ -31,21 +28,6 @@ function FaceFilter() {
     setCanvasContext(context);
   }, []);
 
-  const drawSunglasses = useCallback(
-    (face: Face, ctx: CanvasRenderingContext2D, image: HTMLImageElement) => {
-      const { x, y, width, height, angle } = calculateSunglassesPosition(
-        face.keypoints,
-      );
-
-      ctx.translate(x + width / 2, y + height / 2);
-      ctx.rotate((angle * Math.PI) / 180);
-      ctx.drawImage(image, -width / 2, -height / 2, width, height);
-      ctx.rotate((-angle * Math.PI) / 180);
-      ctx.translate(-(x + width / 2), -(y + height / 2));
-    },
-    [],
-  );
-
   const estimateFacesLoop = useCallback(
     (
       model: FaceLandmarksDetector,
@@ -73,17 +55,26 @@ function FaceFilter() {
 
       if (!trackImageData) return;
 
-      model.estimateFaces(trackImageData).then((faces) => {
-        if (faces.length > 0) {
-          canvasRef.current!.width = actualWidth;
-          canvasRef.current!.height = actualHeight;
-          ctx.clearRect(0, 0, actualWidth, actualHeight);
-          drawSunglasses(faces[0], ctx, image);
+      model.estimateFaces(trackImageData).then((face) => {
+        canvasRef.current!.width = actualWidth;
+        canvasRef.current!.height = actualHeight;
+
+        ctx.clearRect(0, 0, actualWidth, actualHeight);
+        if (face[0]) {
+          const { x, y, width, height, angle } = calculateSunglassesPosition(
+            face[0].keypoints,
+          );
+
+          ctx.translate(x + width / 2, y + height / 2);
+          ctx.rotate((angle * Math.PI) / 180);
+          ctx.drawImage(image, -width / 2, -height / 2, width, height);
+          ctx.rotate((-angle * Math.PI) / 180);
+          ctx.translate(-(x + width / 2), -(y + height / 2));
         }
         requestAnimationFrame(() => estimateFacesLoop(model, image, ctx));
       });
     },
-    [trackRef, drawSunglasses],
+    [trackRef],
   );
 
   useEffect(() => {
