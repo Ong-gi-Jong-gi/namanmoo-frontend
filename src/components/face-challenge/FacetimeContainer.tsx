@@ -9,14 +9,9 @@ import {
 } from '@livekit/components-react';
 import '@livekit/components-styles';
 import { Track } from 'livekit-client';
-import { useEffect } from 'react';
-import useFaceLandmarkerStore from '../../store/faceLandmarkerStore';
-import { loadFaceLandmarker } from '../../utils/loadModel';
 import FaceFilter from './FaceFilter';
 
 const FacetimeContainer = () => {
-  const { setFaceLandmarker } = useFaceLandmarkerStore();
-
   const token = useToken(
     `${import.meta.env.VITE_NODE_API_URL}/getToken`,
     'testRoom',
@@ -27,12 +22,6 @@ const FacetimeContainer = () => {
       },
     },
   );
-
-  useEffect(() => {
-    loadFaceLandmarker().then((model) => {
-      setFaceLandmarker(model);
-    });
-  }, [setFaceLandmarker]);
 
   return (
     <LiveKitRoom
