@@ -27,4 +27,4 @@ export interface ChallengeGroupAnswer {
   challengeTitle: string;
   answerList: ChallengeAnswerDto[];
 }
-export type filterType = 'none' | 'sunglasses';
+export type FilterType = 'none' | 'sunglasses';

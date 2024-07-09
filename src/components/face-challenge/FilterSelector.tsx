@@ -1,15 +1,15 @@
 import { BsSunglasses } from 'react-icons/bs';
 import { VscCircleSlash } from 'react-icons/vsc';
-import { filterType } from '../../types/challenge';
+import { FilterType } from '../../types/challenge';
 import IconButton from '../common/IconButton';
 
 interface FilterSelectorProps {
-  filterType: filterType;
-  setFilterType: (filterType: filterType) => void;
+  filterType: FilterType;
+  setFilterType: (filterType: FilterType) => void;
 }
 
 const filterIconMap: {
-  [key in filterType]: JSX.Element;
+  [key in FilterType]: JSX.Element;
 } = {
   none: <VscCircleSlash size={28} />,
   sunglasses: <BsSunglasses size={28} />,
@@ -21,8 +21,8 @@ const FilterSelector = ({ filterType, setFilterType }: FilterSelectorProps) => {
       {Object.keys(filterIconMap).map((type) => (
         <IconButton
           key={type}
-          onClick={() => setFilterType(type as filterType)}
-          icon={filterIconMap[type as filterType]}
+          onClick={() => setFilterType(type as FilterType)}
+          icon={filterIconMap[type as FilterType]}
           theme={type === filterType ? 'selectedNeutral' : 'neutral'}
         />
       ))}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { filterType } from '../../types/challenge';
+import { FilterType } from '../../types/challenge';
 import Button from '../common/Button';
 import Header from '../common/Header';
 import ChallengeHeader from '../qa-challenge/ChallengeHeader';
@@ -11,7 +11,7 @@ interface PrejoinContainerProps {
 }
 
 const PrejoinContainer = ({ setIsJoined }: PrejoinContainerProps) => {
-  const [filterType, setFilterType] = useState<filterType>('none');
+  const [filterType, setFilterType] = useState<FilterType>('none');
   const challengeTitle = 'FaceTime Challenge';
   const challengeNumber = '1';
   const challengeDate = '18237492378';
@@ -25,7 +25,7 @@ const PrejoinContainer = ({ setIsJoined }: PrejoinContainerProps) => {
           challengeNumber={challengeNumber}
           challengeDate={challengeDate}
         />
-        <PrejoinCam />
+        <PrejoinCam filterType={filterType} />
         <FilterSelector
           filterType={filterType}
           setFilterType={(filterType) => setFilterType(filterType)}

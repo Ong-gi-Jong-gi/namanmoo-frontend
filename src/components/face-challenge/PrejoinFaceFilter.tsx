@@ -1,6 +1,7 @@
 import { FaceLandmarksDetector } from '@tensorflow-models/face-landmarks-detection';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
+import { FilterType } from '../../types/challenge';
 import { calculateSunglassesPosition } from '../../utils/calculateFilterPosition';
 import { loadFaceLandmarker } from '../../utils/loadModel';
 
@@ -9,7 +10,11 @@ const videoSize = {
   height: 480,
 };
 
-const PrejoinCam = () => {
+interface PrejoinCamProps {
+  filterType: FilterType;
+}
+
+const PrejoinCam = ({ filterType }: PrejoinCamProps) => {
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const initialLoadedRef = useRef(false);
