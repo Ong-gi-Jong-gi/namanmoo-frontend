@@ -9,6 +9,15 @@ export interface GetMyFamilyInfoResponse {
   members: UserInfo[];
 }
 
+export interface GetFamilyInfoResponse extends GetMyFamilyInfoResponse {
+  familyName: string;
+  familyId: string;
+}
+
 export interface CreateFamilyResponse {
   code: string;
+}
+
+export interface JoinFamilyResponse {
+  familyId: string;
 }
