@@ -1,40 +1,24 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '..';
+import { authorizedApi } from '..';
 import API from '../../constants/API';
 
-const postUserInfo = async (
-  userId: string,
-  nickname: string,
-  name: string,
-  userImg: string,
-) => {
-  const { data } = await api.post(API.USER, {
-    userId,
-    nickname,
-    name,
-    userImg,
+const postUserInfo = async (formData: FormData) => {
+  const { data } = await authorizedApi.post(API.USER, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
 
   return data;
 };
 
-export const usePostUserInfo = ({
-  userId,
-  nickname,
-  name,
-  userImg,
-}: {
-  userId: string;
-  nickname: string;
-  name: string;
-  userImg: string;
-}) => {
+export const usePostUserInfo = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: [API.USER],
-    mutationFn: () => postUserInfo(userId, nickname, name, userImg),
-    onMutate: () => ({ userId, nickname, name, userImg }),
+    mutationFn: (postForm: FormData) => postUserInfo(postForm),
+    onMutate: (variables) => ({ ...variables }),
     onSettled: () =>
       queryClient.invalidateQueries({
         queryKey: [API.USER],
