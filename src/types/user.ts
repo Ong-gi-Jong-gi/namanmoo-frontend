@@ -5,5 +5,5 @@ export interface UserInfo {
   name: string;
   nickname: string;
   role: UserRole;
-  memberImage: string;
+  userImg: string;
 }
