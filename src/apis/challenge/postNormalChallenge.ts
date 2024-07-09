@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '..';
+import { authorizedApi } from '..';
 import API from '../../constants/API';
 
 const postNormalChallenge = async (challengeId: string, answer: string) => {
-  const { data } = await api.post(API.CHALLENGE.NORMAL, {
+  const { data } = await authorizedApi.post(API.CHALLENGE.NORMAL, {
     challengeId,
     answer,
   });

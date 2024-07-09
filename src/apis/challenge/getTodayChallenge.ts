@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '..';
+import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { responseRoot } from '../../types/api';
 import { ChallengeInfo } from '../../types/challenge';
 import { ChallengeInfoDto } from '../dtos/challengeDtos';
 
 const getTodayChallenge = async (challengeDate: string) => {
-  const { data } = await api.get<responseRoot<ChallengeInfo>>(
+  const { data } = await authorizedApi.get<responseRoot<ChallengeInfo>>(
     `${API.CHALLENGE.TODAY}?challegDate=${challengeDate}`,
   );
 

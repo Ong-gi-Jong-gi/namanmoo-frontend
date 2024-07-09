@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '..';
+import { authorizedApi } from '..';
 import API from '../../constants/API';
 
 const postPhotoCallenge = async (challengeId: string, answer: File) => {
-  const { data } = await api.post(API.CHALLENGE.PHOTO, {
+  const { data } = await authorizedApi.post(API.CHALLENGE.PHOTO, {
     challengeId,
     answer,
   });

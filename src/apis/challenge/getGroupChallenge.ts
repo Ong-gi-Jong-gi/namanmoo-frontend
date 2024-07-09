@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '..';
+import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { ChallengeAnswer } from '../../types/challenge';
 import { separateMyAnswer } from '../../utils/separator';
@@ -10,7 +10,7 @@ import {
 } from '../dtos/challengeDtos';
 
 const getGroupChallenge = async (challengeId: string) => {
-  const { data } = await api.get(
+  const { data } = await authorizedApi.get(
     `${API.CHALLENGE.GROUP}?challengeId=${challengeId}`,
   );
 

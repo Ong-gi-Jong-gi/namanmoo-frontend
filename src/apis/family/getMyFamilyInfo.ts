@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '..';
+import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { GetMyFamilyInfoResponse } from '../../types/family';
 import { UserInfoDto } from '../dtos/userDtos';
 import { responseRoot } from './../../types/api';
 
 const getMyFamilyInfo = async () => {
-  const { data } = await api.get<responseRoot<GetMyFamilyInfoResponse>>(
-    API.FAMILY.MY,
-  );
+  const { data } = await authorizedApi.get<
+    responseRoot<GetMyFamilyInfoResponse>
+  >(API.FAMILY.MY);
 
   return data?.data?.members.map((member) => new UserInfoDto(member));
 };
