@@ -6,7 +6,7 @@ export const loadFaceLandmarker = () => {
   return faceLandmarksDetection.createDetector(
     faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh,
     {
-      runtime: 'tfjs',
+      runtime: 'mediapipe',
       maxFaces: 2,
       refineLandmarks: false,
     },
