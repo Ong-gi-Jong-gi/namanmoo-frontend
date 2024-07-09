@@ -5,7 +5,7 @@ import Test from '../components/face-challenge/Test';
 
 const VideoTestPage = () => {
   return (
-    <div>
+    <div className="h-full w-full">
       <LivekitRoom />
     </div>
   );
