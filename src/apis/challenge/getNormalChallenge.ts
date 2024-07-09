@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '..';
+import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { ChallengeAnswer } from '../../types/challenge';
 import { separateMyAnswer } from '../../utils/separator';
 import { ChallengeAnswerDto, ChallengeDetailDto } from '../dtos/challengeDtos';
 
 const getNormalChallenge = async (challengeId: string) => {
-  const { data } = await api.get(
+  const { data } = await authorizedApi.get(
     `${API.CHALLENGE.NORMAL}?challengeId=${challengeId}`,
   );
 

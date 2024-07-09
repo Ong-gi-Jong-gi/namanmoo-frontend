@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '..';
+import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { RecapUnit } from '../../types/recap';
 import { RecapUnitDTO } from '../dtos/recapDtos';
 
 const getRecapList = async () => {
-  const { data } = await api.get(`${API.RECAP.LIST}`);
+  const { data } = await authorizedApi.get(`${API.RECAP.LIST}`);
 
   return {
     recapList: data.data.map(
