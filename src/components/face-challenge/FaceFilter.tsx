@@ -4,11 +4,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { calculateSunglassesPosition } from '../../utils/calculateFilterPosition';
 import { loadFaceLandmarker } from '../../utils/loadModel';
 
-const videoSize = {
-  width: 640,
-  height: 480,
-};
-
 function FaceFilter() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const initialLoadedRef = useRef<boolean>(false);
@@ -49,18 +44,17 @@ function FaceFilter() {
         canvasRef.current!.width = actualWidth;
         canvasRef.current!.height = actualHeight;
 
-        const scale = actualWidth / videoSize.width;
         ctx.clearRect(0, 0, actualWidth, actualHeight);
         if (face[0]) {
-          const { x, y, width, height } = calculateSunglassesPosition(
+          const { x, y, width, height, angle } = calculateSunglassesPosition(
             face[0].keypoints,
           );
-          const scaledWidth = width * scale;
-          const scaledHeight = height * scale;
-          const scaledX = x + scaledWidth / 2;
-          const scaledY = y;
 
-          ctx.drawImage(image, scaledX, scaledY, scaledWidth, scaledHeight);
+          ctx.translate(x + width / 2, y + height / 2);
+          ctx.rotate((angle * Math.PI) / 180);
+          ctx.drawImage(image, -width / 2, -height / 2, width, height);
+          ctx.rotate((-angle * Math.PI) / 180);
+          ctx.translate(-(x + width / 2), -(y + height / 2));
         }
         requestAnimationFrame(() => estimateFacesLoop(model, image, ctx));
       });
@@ -98,7 +92,7 @@ function FaceFilter() {
         ref={trackCanvasRef}
         className="absolute left-0 top-0 opacity-0"
       />
-      <p className="absolute -bottom-4 left-2">{status}</p>
+      <p className="absolute -top-4 left-2">{status}</p>
     </>
   );
 }

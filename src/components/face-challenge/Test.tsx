@@ -5,6 +5,7 @@ import {
   ParticipantTile,
   RoomAudioRenderer,
   useToken,
+  useTrackRefContext,
   useTracks,
 } from '@livekit/components-react';
 import '@livekit/components-styles';
@@ -63,10 +64,15 @@ function MyVideoConference() {
 }
 
 function MyParticipantTile() {
+  const trackRef = useTrackRefContext();
+  const isUser =
+    trackRef.participant.identity === localStorage.getItem('lkName');
+  const isMuted = trackRef.publication?.track?.isMuted;
+
   return (
     <div className="relative h-fit w-fit">
       <ParticipantTile />
-      <FaceFilter />
+      {isUser && !isMuted && <FaceFilter />}
     </div>
   );
 }
