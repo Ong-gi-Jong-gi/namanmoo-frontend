@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouteObject } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouteObject } from 'react-router-dom';
 import DefaultLayout from './components/common/layouts/DefaultLayout';
 import PrivateLayout from './components/common/layouts/PrivateLayout';
 import routes from './constants/routes';
@@ -56,6 +56,10 @@ const router = createBrowserRouter([
     path: '', // default route
     element: <DefaultLayout />,
     children: [
+      {
+        path: '/',
+        element: <Navigate to={routes.main} replace />,
+      },
       {
         // 회원가입 페이지
         path: routes.signup,

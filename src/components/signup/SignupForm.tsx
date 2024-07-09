@@ -26,7 +26,7 @@ const SignupForm = () => {
   });
 
   return (
-    <form onSubmit={handleSubmit} className="flex w-full flex-col gap-12">
+    <form onSubmit={handleSubmit} className="flex w-full flex-col gap-10">
       <h2 className="mx-auto font-ryurue text-ryurue-lg">회원가입</h2>
       <Input
         value={values.userId}
