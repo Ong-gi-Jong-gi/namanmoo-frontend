@@ -4,23 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '..';
 import API from '../../constants/API';
 import routes from '../../constants/routes';
-import { LoginValues } from '../../types/auth';
-import { setCookie } from '../../utils/cookie'; // 쿠키 설정 함수 import
+import { responseRoot } from '../../types/api';
+import { LoginValues, UserLoginType } from '../../types/auth';
+import { setCookie } from '../../utils/cookie';
 
 const postLogin = async (loginId: string, password: string) => {
   try {
-    const { data, headers } = await api.post(API.AUTH.LOGIN, {
-      loginId,
-      password,
-    });
+    const { data, headers } = await api.post<responseRoot<UserLoginType>>(
+      API.AUTH.LOGIN,
+      {
+        loginId,
+        password,
+      },
+    );
 
     if (data.status === '401') {
       throw new Error('아이디 또는 비밀번호가 일치하지 않습니다.');
     }
 
     const authorization = headers['authorization'];
-
-    console.log('Authorization Header:', authorization);
 
     return { data: data?.data, authorization };
   } catch (error) {
@@ -37,7 +39,7 @@ export const usePostLogin = () => {
     mutationKey: [API.AUTH.LOGIN],
     mutationFn: ({ userId, password }: LoginValues) =>
       postLogin(userId, password),
-    onSuccess: ({ authorization }) => {
+    onSuccess: ({ data, authorization }) => {
       const expireDate = new Date();
       expireDate.setMinutes(expireDate.getMinutes() + 5);
 
@@ -46,7 +48,9 @@ export const usePostLogin = () => {
         secure: true,
         expires: expireDate,
       });
-      navigate(routes.main);
+
+      if (data.familyId == 'null') navigate(routes.family.entry);
+      else navigate(routes.main);
     },
     onError: (error: Error) => {
       alert(error.message);

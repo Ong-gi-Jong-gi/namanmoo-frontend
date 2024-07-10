@@ -34,7 +34,7 @@ const FamilyEntryPage = () => {
   }, []);
 
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-between px-12 py-10 text-center">
+    <div className="flex h-full w-full flex-col items-center justify-between text-center">
       <div>
         <p className="mt-[120px] font-ryurue text-ryurue-lg">{SERVICE_NAME}</p>
         <p className="font-ryurue text-ryurue-base">{WELCOME_MESSAGE}</p>

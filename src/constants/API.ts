@@ -6,6 +6,9 @@ const AUTH = {
 
 const FAMILY = {
   MY: 'family/info',
+  CREATE: '/family',
+  JOIN: '/family/join',
+  INFO: '/family',
 };
 
 const CHALLENGE = {

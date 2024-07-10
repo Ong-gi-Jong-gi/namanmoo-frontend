@@ -3,7 +3,7 @@ import UserInfo from '../components/mypage/UserInfo';
 
 const MyPage = () => {
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex h-full flex-col gap-16">
       <UserInfo />
       <CompleteRecapList />
     </div>

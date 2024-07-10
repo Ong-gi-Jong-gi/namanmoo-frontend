@@ -1,5 +1,6 @@
 import { ChangeEvent, useRef } from 'react';
 import { MdOutlineEdit } from 'react-icons/md';
+import { usePostUserInfo } from '../../apis/user/postUserInfo';
 import DefaultImage from '../../assets/profile/default.svg';
 import FORM_INFO from '../../constants/FORM_INFO';
 import useForm from '../../hooks/useForm';
@@ -21,7 +22,7 @@ interface ModalProps {
 const UserInfoEditModal = ({ role, userImg, name, nickname }: ModalProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { closeModal } = useModalStore();
-  // TODO: const { mutate } = usePostUserInfo();
+  const { mutate } = usePostUserInfo();
 
   const { values, handleChange, handleSubmit, errors, setValues } =
     useForm<UserInfoEditType>({
@@ -32,8 +33,21 @@ const UserInfoEditModal = ({ role, userImg, name, nickname }: ModalProps) => {
         nickname,
       },
       onSubmit: () => {
-        // mutate();
-        console.log(values);
+        const postForm = new FormData();
+        const blobUserInfo = new Blob(
+          [
+            JSON.stringify({
+              name: values.name,
+              nickname: values.nickname,
+              role: values.role,
+            }),
+          ],
+          { type: 'application/json' },
+        );
+        postForm.append('userInfo', blobUserInfo);
+        postForm.append('userImg', values.userImg);
+
+        mutate(postForm);
         closeModal();
       },
       validate: userInfoEditValidate,
@@ -59,7 +73,8 @@ const UserInfoEditModal = ({ role, userImg, name, nickname }: ModalProps) => {
 
   const handleProfileImg = (e: ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.files);
-    if (e.target.files && e.target.files.length > 0) {
+    if (e.target.files != null && e.target.files.length > 0) {
+      console.log(e.target.files[0]);
       setValues((state) => ({ ...state, userImg: e.target.files![0] }));
     }
   };
@@ -71,8 +86,8 @@ const UserInfoEditModal = ({ role, userImg, name, nickname }: ModalProps) => {
     >
       <h2 className="font-ryurue text-ryurue-md">프로필 수정</h2>
       <div className="relative hover:cursor-pointer" onClick={handleFileInput}>
-        <div className="h-20 w-20 overflow-hidden rounded-full border">
-          <img src={profileImage()} alt="user-profile" />
+        <div className="h-20 w-20 overflow-hidden rounded-full border border-secondary-20">
+          <img src={profileImage()} alt="user-profile" className="w-full" />
         </div>
         <div className="absolute bottom-[-2px] right-[-2px] rounded-full bg-primary-20 p-1">
           <MdOutlineEdit />

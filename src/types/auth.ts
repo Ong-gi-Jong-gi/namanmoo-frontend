@@ -1,3 +1,4 @@
+import { UserInfo } from '@livekit/components-react';
 import { UserRole } from './family';
 
 export interface LoginValues {
@@ -18,4 +19,8 @@ export interface UserInfoEditType {
   nickname: string;
   userImg: string | File;
   role: UserRole;
+}
+
+export interface UserLoginType extends Omit<UserInfo, 'userId'> {
+  familyId: string | null;
 }
