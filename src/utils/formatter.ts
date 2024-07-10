@@ -1,5 +1,8 @@
 export const formatDate = (timestamp: string): string => {
-  const date = new Date(timestamp);
+  const today = new Date(timestamp);
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const date = today.getDate();
 
-  return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
+  return `${year}.${month > 10 ? month : month + 1}.${date}`;
 };
