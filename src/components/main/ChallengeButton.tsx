@@ -5,6 +5,7 @@ import routes from '../../constants/routes';
 
 interface BaseChallengeButtonProps {
   text: string;
+  theme?: string;
 }
 
 interface ActiveChallengeButtonProps extends BaseChallengeButtonProps {
@@ -75,7 +76,12 @@ const ChallengeButton = (props: ChallengeButtonProps) => {
       await postCreateChallenge(new Date().getTime());
     }
     if (type === 'ongoing') {
-      navigate(`${routes.challenge}/${props.challengeId}`);
+      // navigate(`${routes.challenge}/${props.challengeId}`, {
+      //   state: { type: props.theme },
+      // });
+      // FIXME: URL 형태 수정 필요
+
+      navigate(`${routes.challenge}/${props.challengeId}?type=${props.theme}`);
     }
   };
 

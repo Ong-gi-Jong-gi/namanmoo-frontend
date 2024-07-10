@@ -41,6 +41,7 @@ const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
           challengeId={challengeInfo.challengeId}
           text={challengeInfo.challengeTitle}
           day={challengeInfo.challengeNumber}
+          theme={challengeInfo.challengeType}
         />
       </>
     );
