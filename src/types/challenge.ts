@@ -1,7 +1,13 @@
 import { ChallengeAnswerDto } from '../apis/dtos/challengeDtos';
 import { UserInfo } from './user';
 
-type ChallengeType = 'NormalC' | 'GroupC' | 'FaceTimeC' | 'PhotoC' | 'VoiceC';
+type ChallengeType =
+  | 'NORMAL'
+  | 'GROUP_CHILD'
+  | 'GROUP_PARENT'
+  | 'FACETIME'
+  | 'PHOTO'
+  | 'VOICE';
 
 export interface ChallengeInfo {
   challengeId: string;
@@ -13,7 +19,7 @@ export interface ChallengeInfo {
 export interface ChallengeDetail
   extends Omit<ChallengeInfo, 'challengeId' | 'challengeType'> {
   challengeDate: string;
-  isCompleted: boolean;
+  isComplete: boolean;
 }
 
 export interface ChallengeGroupDetail

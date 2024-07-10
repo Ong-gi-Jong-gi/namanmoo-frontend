@@ -23,12 +23,12 @@ export class ChallengeInfoDto {
 export class ChallengeGroupDetailDto {
   public readonly challengeNumber: string;
   public readonly challengeDate: string;
-  public readonly isCompleted: boolean;
+  public readonly isComplete: boolean;
 
   constructor(data: ChallengeDetail) {
     this.challengeNumber = data.challengeNumber;
     this.challengeDate = data.challengeDate;
-    this.isCompleted = data.isCompleted;
+    this.isComplete = data.isComplete;
   }
 }
 

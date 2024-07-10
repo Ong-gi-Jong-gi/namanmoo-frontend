@@ -10,7 +10,7 @@ interface TextAnswerEditorProps {
   role: UserRole;
   answer: string | null;
   userImg?: string;
-  mutate: ({ answer }: { answer: string }) => void;
+  mutate: ({ answerContent }: { answerContent: string }) => void;
 }
 
 const TextAnswerEditor = ({
@@ -38,7 +38,7 @@ const TextAnswerEditor = ({
   const handleSave = () => {
     confirm(SYS_MESSAGE.SAVE) &&
       mutate({
-        answer: value,
+        answerContent: value,
       });
     setStatus('view');
   };

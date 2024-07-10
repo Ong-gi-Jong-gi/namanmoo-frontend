@@ -37,7 +37,7 @@ const NormalChallengeContainer = () => {
         {answerList.map((answer) => (
           <TextAnswerField
             key={answer.userId}
-            canView={challengeInfo.isCompleted}
+            canView={challengeInfo.isComplete}
             {...answer}
           />
         ))}

@@ -12,11 +12,12 @@ const FAMILY = {
 };
 
 const CHALLENGE = {
-  TODAY: 'challenges/today',
-  NORMAL: 'challenges/normal',
-  PHOTO: 'challenges/photo',
-  GROUP: 'challenges/group',
-  FACE: 'challenges/face',
+  CREATE: '/challenges',
+  TODAY: '/challenges/today',
+  NORMAL: '/challenges/normal',
+  PHOTO: '/challenges/photo',
+  GROUP: '/challenges/group',
+  FACE: '/challenges/face',
 };
 
 const USER = '/users';
