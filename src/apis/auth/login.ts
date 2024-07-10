@@ -40,6 +40,7 @@ export const usePostLogin = () => {
     mutationFn: ({ userId, password }: LoginValues) =>
       postLogin(userId, password),
     onSuccess: ({ data, authorization }) => {
+      console.log('login', data);
       const expireDate = new Date();
       expireDate.setMinutes(expireDate.getMinutes() + 5);
 

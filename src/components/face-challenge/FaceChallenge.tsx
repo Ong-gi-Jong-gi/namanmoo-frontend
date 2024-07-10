@@ -12,6 +12,7 @@ const FaceChallenge = () => {
   });
   if (isLoading) return <div>Loading...</div>;
   if (!data) return <div>Challenge not found</div>;
+  console.log(data);
 
   const { challengeInfo, code } = data;
 

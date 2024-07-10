@@ -21,6 +21,7 @@ const PrejoinCam = ({ filterType }: PrejoinCamProps) => {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [canvasContext, setCanvasContext] =
     useState<CanvasRenderingContext2D | null>(null);
+  console.log(filterType);
 
   const loadImageAndSetupCanvas = useCallback(() => {
     const canvasContext = canvasRef.current?.getContext('2d');

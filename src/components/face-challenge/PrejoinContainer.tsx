@@ -12,11 +12,12 @@ interface PrejoinContainerProps {
   setIsJoined: (isJoined: boolean) => void;
 }
 
-const PrejoinContainer = ({ setIsJoined }: PrejoinContainerProps) => {
+const PrejoinContainer = ({
+  setIsJoined,
+  challengeInfo,
+}: PrejoinContainerProps) => {
   const [filterType, setFilterType] = useState<FilterType>('none');
-  const challengeTitle = 'FaceTime Challenge';
-  const challengeNumber = '1';
-  const challengeDate = '18237492378';
+  const { challengeTitle, challengeNumber, challengeDate } = challengeInfo;
 
   return (
     <>

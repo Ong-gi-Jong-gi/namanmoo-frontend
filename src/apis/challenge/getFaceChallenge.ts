@@ -5,11 +5,13 @@ import { ChallengeDetailDto } from '../dtos/challengeDtos';
 
 const getFaceChallenge = async (challengeId: string) => {
   const { data } = await authorizedApi.get(
-    `${API.CHALLENGE.FACE}/${challengeId}`,
+    `${API.CHALLENGE.FACE}?challengeId=${challengeId}`,
   );
 
+  console.log(data);
+
   return {
-    challengeInfo: new ChallengeDetailDto(data?.data?.challengeInfo),
+    challengeInfo: new ChallengeDetailDto(data?.data),
     code: data?.data?.code,
   };
 };
