@@ -22,10 +22,7 @@ const PhotoAnswerEditor = ({
   const [imageFile, setImageFile] = useState<File | string | null>(
     answer || null,
   );
-  const { mutate } = usePostPhotoChallenge({
-    challengeId: challengeId || '',
-    answer: imageFile as File,
-  });
+  const { mutate } = usePostPhotoChallenge();
 
   const handleFileInput = (e: MouseEvent<HTMLDivElement>) => {
     // FIXME: confirm 두번 뜨는 현상 확인
@@ -36,7 +33,13 @@ const PhotoAnswerEditor = ({
   const handlePhotoSave = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setImageFile(e.target.files[0]);
-      mutate();
+
+      const formData = new FormData();
+
+      if (challengeId) formData.append('challengeId', challengeId);
+      if (e.target.files[0]) formData.append('answer', e.target.files[0]);
+
+      mutate(formData);
     }
   };
 

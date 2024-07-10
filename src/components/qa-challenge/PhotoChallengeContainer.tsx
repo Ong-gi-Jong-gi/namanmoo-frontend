@@ -17,7 +17,7 @@ const PhotoChallengeContainer = () => {
     return <div>{SYS_MESSAGE.NO_DATA}</div>;
 
   return (
-    <div className="flex w-full flex-1 flex-col gap-16">
+    <div className="flex h-full w-full flex-1 flex-col gap-16">
       <div>
         <ChallengeHeader
           challengeNumber={challengeInfo.challengeNumber}
