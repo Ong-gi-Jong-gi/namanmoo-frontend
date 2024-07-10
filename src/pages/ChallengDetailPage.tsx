@@ -1,6 +1,7 @@
 import QueryString from 'qs';
 import { Navigate, useLocation } from 'react-router-dom';
 import Header from '../components/common/Header';
+import FaceChallenge from '../components/face-challenge/FaceChallenge';
 import FacetimeContainer from '../components/face-challenge/FacetimeContainer';
 import GroupChallengeContainer from '../components/qa-challenge/GroupChallengeContainer';
 import NormalChallengeContainer from '../components/qa-challenge/NormalChallengeContainer';
@@ -37,7 +38,7 @@ const ChallengDetailPage = () => {
     } else if (queryData.type.includes('GROUP_')) {
       return <GroupChallengeContainer />;
     } else if (queryData.type == 'FACETIME') {
-      return <FacetimeContainer />;
+      return <FaceChallenge />;
     } else if (queryData.type == 'PHOTO') {
       return <PhotoChallengeContainer />;
     } else if (queryData.type == 'VOICE') {
