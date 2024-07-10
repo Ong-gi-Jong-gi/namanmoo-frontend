@@ -19,9 +19,6 @@ export const getExpireTime = () => {
   const jwtToken = getCookie('authorization');
   const parsedToken = parseJwtToken(jwtToken);
 
-  console.log(new Date(parsedToken.exp));
-  console.log(new Date());
-
   return (parsedToken.exp - new Date().getTime()) / 60000;
 };
 

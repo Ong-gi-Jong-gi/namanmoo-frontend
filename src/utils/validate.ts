@@ -116,10 +116,6 @@ export const signupValidate = (values: SignupValues) => {
     FORM_INFO.SIGNUP.password.pattern &&
     !FORM_INFO.SIGNUP.password.pattern.test(values.password)
   ) {
-    console.log(
-      values.password,
-      FORM_INFO.SIGNUP.password.pattern.test(values.password),
-    );
     errors = {
       ...errors,
       password: FORM_INFO.SIGNUP.password.errorMsg,
