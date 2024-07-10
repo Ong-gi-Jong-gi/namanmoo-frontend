@@ -16,6 +16,7 @@ const CHALLENGE = {
   NORMAL: 'challenges/normal',
   PHOTO: 'challenges/photo',
   GROUP: 'challenges/group',
+  FACE: 'challenges/face',
 };
 
 const USER = '/users';
