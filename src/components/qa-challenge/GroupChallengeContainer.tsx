@@ -54,7 +54,7 @@ const GroupChallengeContainer = () => {
         {firstAnswerList.map((answer) => (
           <TextAnswerField
             key={answer.userId}
-            canView={challengeInfo.isCompleted}
+            canView={challengeInfo.isComplete}
             {...answer}
           />
         ))}
@@ -65,7 +65,7 @@ const GroupChallengeContainer = () => {
         {secondAnswerList.map((answer) => (
           <TextAnswerField
             key={answer.userId}
-            canView={challengeInfo.isCompleted}
+            canView={challengeInfo.isComplete}
             {...answer}
           />
         ))}

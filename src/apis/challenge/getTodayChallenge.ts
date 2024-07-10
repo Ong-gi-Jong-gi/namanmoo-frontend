@@ -5,9 +5,9 @@ import { responseRoot } from '../../types/api';
 import { ChallengeInfo } from '../../types/challenge';
 import { ChallengeInfoDto } from '../dtos/challengeDtos';
 
-const getTodayChallenge = async (challengeDate: string) => {
+const getTodayChallenge = async () => {
   const { data } = await authorizedApi.get<responseRoot<ChallengeInfo>>(
-    `${API.CHALLENGE.TODAY}?challegDate=${challengeDate}`,
+    `${API.CHALLENGE.TODAY}?challengeDate=${new Date().getTime().toString()}`,
   );
 
   if (data.status === '200') return new ChallengeInfoDto(data?.data);
@@ -19,14 +19,12 @@ const getTodayChallenge = async (challengeDate: string) => {
 };
 export const useGetTodayChallenge = ({
   enabled = true,
-  challengeDate,
 }: {
   enabled?: boolean;
-  challengeDate: string;
 }) => {
   return useQuery({
-    queryKey: [API.CHALLENGE.TODAY, challengeDate],
-    queryFn: () => getTodayChallenge(challengeDate),
+    queryKey: [API.CHALLENGE.TODAY],
+    queryFn: () => getTodayChallenge(),
     enabled,
   });
 };

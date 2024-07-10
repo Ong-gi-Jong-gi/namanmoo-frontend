@@ -38,7 +38,7 @@ const PhotoChallengeContainer = () => {
           {answerList.map((answer) => (
             <PhotoAnswerField
               key={answer.userId}
-              canView={challengeInfo.isCompleted}
+              canView={challengeInfo.isComplete}
               answer={answer.answer}
               nickname={answer.nickname}
               role={answer.role}

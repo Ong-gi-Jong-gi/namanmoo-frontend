@@ -1,3 +1,4 @@
+import QueryString from 'qs';
 import { useEffect } from 'react';
 import { useGetMyFamilyInfo } from '../apis/family/getMyFamilyInfo';
 import ChallengeSection from '../components/main/ChallengeSection';
@@ -7,12 +8,16 @@ import Navbar from '../components/main/Navbar';
 import useModalStore from '../store/modalStore';
 
 const MainPage = () => {
+  const queryData = QueryString.parse(location.search, {
+    ignoreQueryPrefix: true,
+  });
+
   const { data: familyList, isLoading } = useGetMyFamilyInfo();
   const { openModal } = useModalStore();
   useEffect(() => {
-    if (familyList?.length == 1) {
+    if (familyList?.length == 1 && queryData['code']) {
       openModal({
-        content: <InviteModal code={'OJ348212'} />,
+        content: <InviteModal code={queryData['code'] as string} />,
         showCloseBtn: true,
       });
     }

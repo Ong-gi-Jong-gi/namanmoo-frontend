@@ -1,14 +1,14 @@
 import { ChallengeAnswerDto } from '../apis/dtos/challengeDtos';
 import { UserInfo } from '../types/user';
+import { getUserId } from './tokenUtils';
 
-// FIXME: 현재 로그인한 유저 id를 어떻게 가져올지 결정해야 함
-const userId = 'wer122a';
 interface MyFamilyInfo {
   myInfo: UserInfo | null;
   members: UserInfo[];
 }
 
 export const separateMyInfo = (userList: UserInfo[]) => {
+  const userId = getUserId();
   return userList.reduce(
     (acc, cur) => {
       if (cur.userId === userId) {
@@ -26,6 +26,7 @@ interface FamilyAnswer {
 }
 
 export const separateMyAnswer = (answerList: ChallengeAnswerDto[]) => {
+  const userId = getUserId();
   return answerList.reduce(
     (acc, cur) => {
       if (cur.userId === userId) {

@@ -72,9 +72,7 @@ const UserInfoEditModal = ({ role, userImg, name, nickname }: ModalProps) => {
   };
 
   const handleProfileImg = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
     if (e.target.files != null && e.target.files.length > 0) {
-      console.log(e.target.files[0]);
       setValues((state) => ({ ...state, userImg: e.target.files![0] }));
     }
   };

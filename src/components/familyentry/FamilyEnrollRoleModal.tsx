@@ -19,8 +19,6 @@ const FamilyEnrollRole = ({ familyId }: Props) => {
     if (myRole != '') {
       closeModal();
       mutate({ familyId, role: myRole });
-
-      window.location.href = '/main';
     } else {
       alert(SYS_MESSAGE.NO_ROLE);
     }
