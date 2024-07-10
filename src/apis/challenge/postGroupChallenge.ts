@@ -2,10 +2,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
 
-const postGroupChallenge = async (challengeId: string, answer: string) => {
+const postGroupChallenge = async (
+  challengeId: string,
+  answerContent: string,
+) => {
   const { data } = await authorizedApi.post(API.CHALLENGE.GROUP, {
     challengeId,
-    answer,
+    answerContent,
   });
 
   return data;
@@ -20,8 +23,8 @@ export const usePostGroupChallenge = ({
 
   return useMutation({
     mutationKey: [API.CHALLENGE.GROUP, challengeId],
-    mutationFn: ({ answer }: { answer: string }) =>
-      postGroupChallenge(challengeId, answer),
+    mutationFn: ({ answerContent }: { answerContent: string }) =>
+      postGroupChallenge(challengeId, answerContent),
     onMutate: (variables) => ({ challengeId, ...variables }),
     onSettled: () =>
       queryClient.invalidateQueries({
