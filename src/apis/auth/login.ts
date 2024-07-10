@@ -40,6 +40,7 @@ export const usePostLogin = () => {
     mutationFn: ({ userId, password }: LoginValues) =>
       postLogin(userId, password),
     onSuccess: ({ data, authorization }) => {
+      console.log('login', data);
       const expireDate = new Date();
       expireDate.setMinutes(expireDate.getMinutes() + 5);
 
@@ -48,6 +49,8 @@ export const usePostLogin = () => {
         secure: true,
         expires: expireDate,
       });
+
+      localStorage.setItem('mooluck-nickname', data.nickname);
 
       if (data.familyId == 'null') navigate(routes.family.entry);
       else navigate(routes.main);

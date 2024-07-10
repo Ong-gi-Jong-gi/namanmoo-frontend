@@ -1,5 +1,5 @@
-import { UserInfo } from '@livekit/components-react';
 import { UserRole } from './family';
+import { UserInfo } from './user';
 
 export interface LoginValues {
   userId: string;

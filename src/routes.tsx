@@ -71,7 +71,7 @@ const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: 'test',
+        path: 'face/:challengeId',
         element: <VideoTestPage />,
       },
       {

@@ -9,30 +9,26 @@ import {
 } from '@livekit/components-react';
 import '@livekit/components-styles';
 import { Track } from 'livekit-client';
-import { useEffect } from 'react';
-import useFaceLandmarkerStore from '../../store/faceLandmarkerStore';
-import { loadFaceLandmarker } from '../../utils/loadModel';
-import FaceFilter from './FaceFilter';
+import { useNavigate } from 'react-router-dom';
+import Button from '../common/Button';
+import PrejoinCam from './PrejoinCam';
 
-const FacetimeContainer = () => {
-  const { setFaceLandmarker } = useFaceLandmarkerStore();
+interface FacetimeContainerProps {
+  code: string;
+}
 
+const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
+  const navigate = useNavigate();
   const token = useToken(
     `${import.meta.env.VITE_NODE_API_URL}/getToken`,
-    'testRoom',
+    code,
     {
       userInfo: {
-        identity: `${localStorage.getItem('lkName')}`,
-        name: `${localStorage.getItem('lkName')}`,
+        identity: `${localStorage.getItem('mooluck-nickname')}`,
+        name: `${localStorage.getItem('mooluck-nickname')}`,
       },
     },
   );
-
-  useEffect(() => {
-    loadFaceLandmarker().then((model) => {
-      setFaceLandmarker(model);
-    });
-  }, [setFaceLandmarker]);
 
   return (
     <LiveKitRoom
@@ -54,6 +50,13 @@ const FacetimeContainer = () => {
         }}
         variation="minimal"
       />
+      <Button
+        onClick={() => {
+          navigate('/main');
+        }}
+        label="나가기"
+        theme="primary"
+      />
     </LiveKitRoom>
   );
 };
@@ -65,7 +68,7 @@ function MyVideoConference() {
   );
 
   return (
-    <div className="grid h-full min-h-0 w-full min-w-0 grid-rows-4 items-center justify-center">
+    <div className="grid h-full min-h-0 w-full min-w-0 grid-cols-2 grid-rows-2 items-center justify-center">
       <TrackLoop tracks={tracks}>
         <MyParticipantTile />
       </TrackLoop>
@@ -76,13 +79,13 @@ function MyVideoConference() {
 function MyParticipantTile() {
   const trackRef = useTrackRefContext();
   const isUser =
-    trackRef.participant.identity === localStorage.getItem('lkName');
+    trackRef.participant.identity === localStorage.getItem('mooluck-nickname');
   const isMuted = trackRef.publication?.track?.isMuted;
 
   return (
-    <div className="relative">
-      <ParticipantTile />
-      {isUser && !isMuted && <FaceFilter />}
+    <div className="flex h-full w-full items-center">
+      <ParticipantTile hidden={isUser && !isMuted} />
+      {isUser && !isMuted && <PrejoinCam filterType="none" />}
     </div>
   );
 }
