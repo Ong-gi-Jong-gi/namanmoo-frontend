@@ -11,7 +11,7 @@ import '@livekit/components-styles';
 import { Track } from 'livekit-client';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
-import PrejoinCam from './PrejoinFaceFilter';
+import PrejoinCam from './PrejoinCam';
 
 const FacetimeContainer = () => {
   const navigate = useNavigate();

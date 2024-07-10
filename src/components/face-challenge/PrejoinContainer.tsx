@@ -4,7 +4,7 @@ import Button from '../common/Button';
 import Header from '../common/Header';
 import ChallengeHeader from '../qa-challenge/ChallengeHeader';
 import FilterSelector from './FilterSelector';
-import PrejoinCam from './PrejoinFaceFilter';
+import PrejoinCam from './PrejoinCam';
 
 interface PrejoinContainerProps {
   setIsJoined: (isJoined: boolean) => void;
