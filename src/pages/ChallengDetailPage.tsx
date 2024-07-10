@@ -2,7 +2,6 @@ import QueryString from 'qs';
 import { Navigate, useLocation } from 'react-router-dom';
 import Header from '../components/common/Header';
 import FaceChallenge from '../components/face-challenge/FaceChallenge';
-import FacetimeContainer from '../components/face-challenge/FacetimeContainer';
 import GroupChallengeContainer from '../components/qa-challenge/GroupChallengeContainer';
 import NormalChallengeContainer from '../components/qa-challenge/NormalChallengeContainer';
 import PhotoChallengeContainer from '../components/qa-challenge/PhotoChallengeContainer';
