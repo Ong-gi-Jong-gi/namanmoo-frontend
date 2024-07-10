@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ChallengeDetailDto } from '../../apis/dtos/challengeDtos';
 import { FilterType } from '../../types/challenge';
 import Button from '../common/Button';
 import Header from '../common/Header';
@@ -7,6 +8,7 @@ import FilterSelector from './FilterSelector';
 import PrejoinCam from './PrejoinCam';
 
 interface PrejoinContainerProps {
+  challengeInfo: ChallengeDetailDto;
   setIsJoined: (isJoined: boolean) => void;
 }
 

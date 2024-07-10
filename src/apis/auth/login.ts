@@ -49,6 +49,8 @@ export const usePostLogin = () => {
         expires: expireDate,
       });
 
+      localStorage.setItem('mooluck-nickname', data.nickname);
+
       if (data.familyId == 'null') navigate(routes.family.entry);
       else navigate(routes.main);
     },

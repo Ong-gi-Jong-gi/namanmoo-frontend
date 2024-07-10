@@ -13,11 +13,15 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import PrejoinCam from './PrejoinCam';
 
-const FacetimeContainer = () => {
+interface FacetimeContainerProps {
+  code: string;
+}
+
+const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
   const navigate = useNavigate();
   const token = useToken(
     `${import.meta.env.VITE_NODE_API_URL}/getToken`,
-    'testRoom',
+    code,
     {
       userInfo: {
         identity: `${localStorage.getItem('mooluck-nickname')}`,
