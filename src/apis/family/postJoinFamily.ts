@@ -19,5 +19,8 @@ export const usePostJoinFamily = () => {
     mutationKey: [API.FAMILY.JOIN],
     mutationFn: ({ familyId, role }: { familyId: string; role: UserRole }) =>
       postJoinFamily(familyId, role),
+    onSuccess: () => {
+      window.location.href = '/main';
+    },
   });
 };
