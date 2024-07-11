@@ -12,22 +12,21 @@ const FaceChallenge = () => {
   });
   if (isLoading) return <div>Loading...</div>;
   if (!data) return <div>Challenge not found</div>;
-  console.log(data);
 
   const { challengeInfo, code } = data;
 
   return (
     <div className="flex h-full w-full flex-col">
-      {isJoined ? (
-        <FacetimeContainer code={code} />
-      ) : (
-        <>
-          <PrejoinContainer
-            setIsJoined={(isJoined) => setIsJoined(isJoined)}
-            challengeInfo={challengeInfo}
-          />
-        </>
-      )}
+        {isJoined ? (
+          <FacetimeContainer code={code} />
+        ) : (
+          <>
+            <PrejoinContainer
+              setIsJoined={(isJoined) => setIsJoined(isJoined)}
+              challengeInfo={challengeInfo}
+            />
+          </>
+        )}
     </div>
   );
 };
