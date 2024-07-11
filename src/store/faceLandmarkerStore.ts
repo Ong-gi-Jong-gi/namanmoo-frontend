@@ -27,5 +27,6 @@ export const useFaceLandmarker = create<FaceLandmarkerStore>((set) => ({
       numFaces: 1,
     });
     set({ faceLandmarker, isLoaded: true });
+    console.log('FaceLandmarker loaded.', faceLandmarker);
   },
 }));
