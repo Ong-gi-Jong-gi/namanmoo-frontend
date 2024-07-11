@@ -33,5 +33,10 @@ export interface ChallengeGroupAnswer {
   challengeTitle: string;
   answerList: ChallengeAnswerDto[];
 }
+
+export interface ChallengeListUnitType extends ChallengeInfo {
+  isComplete: boolean;
+}
+
 export type FilterType = 'none' | 'sunglasses';
 export type FilterTypeWithoutNone = Exclude<FilterType, 'none'>;
