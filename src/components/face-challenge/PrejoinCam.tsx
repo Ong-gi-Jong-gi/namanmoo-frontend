@@ -41,6 +41,8 @@ const PrejoinCam = () => {
       if (faceLandmarks && faceLandmarks.length > 0) {
         // 캔버스 초기화
         ctx.clearRect(0, 0, actualWidth, actualHeight);
+        canvasRef.current!.width = actualWidth;
+        canvasRef.current!.height = actualHeight;
 
         // 필터 위치 계산
         const position = calcSunglassesPosition(
