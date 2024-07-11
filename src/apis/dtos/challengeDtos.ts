@@ -3,7 +3,7 @@ import {
   ChallengeDetail,
   ChallengeGroupAnswer,
   ChallengeInfo,
-  ChallengeListUnit,
+  ChallengeListUnitType,
 } from '../../types/challenge';
 import { UserInfoDto } from './userDtos';
 
@@ -64,7 +64,7 @@ export class ChallengeGroupAnswerDto {
 export class ChallengeListUnitDto extends ChallengeInfoDto {
   public readonly isComplete: boolean;
 
-  constructor(data: ChallengeListUnit) {
+  constructor(data: ChallengeListUnitType) {
     super(data);
     this.isComplete = data.isComplete;
   }
