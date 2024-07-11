@@ -10,14 +10,17 @@ const CompleteRecapList = () => {
   if (!hasData || !recapList) <div>{SYS_MESSAGE.NO_DATA}</div>;
 
   return (
-    <div className="flex h-full flex-1 flex-col">
+    <div className="flex h-full flex-1 flex-col gap-3">
       <h3 className="font-ryurue text-ryurue-md">추억 저장소</h3>
-      <div className="flex-1 overflow-scroll">
+      <div className="flex-1 overflow-scroll scrollbar-hide">
         {recapList && (
           <div className="grid grid-cols-2 gap-3">
-            {recapList.map((recapUnit: RecapUnit) => (
-              <CompleteRecapUnit key={recapUnit.luckyId} {...recapUnit} />
-            ))}
+            {recapList.map((recapUnit: RecapUnit) => {
+              console.log(recapUnit);
+              return (
+                <CompleteRecapUnit key={recapUnit.luckyId} {...recapUnit} />
+              );
+            })}
           </div>
         )}
 
