@@ -1,106 +1,130 @@
-import { FaceLandmarksDetector } from '@tensorflow-models/face-landmarks-detection';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
-import { FilterType } from '../../types/challenge';
-import { calculateSunglassesPosition } from '../../utils/calculateFilterPosition';
-import { loadFaceLandmarker } from '../../utils/loadModel';
+import { useFaceLandmarker } from '../../store/faceLandmarkerStore';
+import { useFilterTypeStore } from '../../store/filterTypeStore';
+import { calcSunglassesPosition } from '../../utils/calculateFilterPosition';
 
 const videoSize = {
   width: 640,
   height: 480,
 };
 
-interface PrejoinCamProps {
-  filterType: FilterType;
-}
-
-const PrejoinCam = ({ filterType }: PrejoinCamProps) => {
+const PrejoinCam = () => {
+  const { filterType } = useFilterTypeStore();
+  const { faceLandmarker, isLoaded, loadFaceLandmarker } = useFaceLandmarker();
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const initialLoadedRef = useRef(false);
-  const [image, setImage] = useState<HTMLImageElement | null>(null);
-  const [canvasContext, setCanvasContext] =
-    useState<CanvasRenderingContext2D | null>(null);
-  console.log(filterType);
+  const [filterImage, setFilterImage] = useState<HTMLImageElement | null>(null);
+  const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
+  const animationFrameId = useRef<number | null>(null);
 
-  const loadImageAndSetupCanvas = useCallback(() => {
-    const canvasContext = canvasRef.current?.getContext('2d');
-    if (!canvasContext || initialLoadedRef.current) return;
+  const estimateFacesLoop = useCallback(() => {
+    if (filterType === 'none') return;
+    const video = webcamRef.current?.video;
+    if (!video || !filterImage || !ctx || !faceLandmarker) return;
 
-    initialLoadedRef.current = true;
-    const image = new Image();
-    image.src = 'src/assets/filter/sunglasses.png';
+    const actualWidth = video.getBoundingClientRect().width;
+    const actualHeight = video.getBoundingClientRect().height;
 
-    image.onload = () => {
-      setImage(image);
-    };
+    if (actualWidth === 0 || actualHeight === 0) {
+      console.error('Invalid video dimensions.');
+      animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
+      return;
+    }
 
-    setCanvasContext(canvasContext);
-  }, [setImage, setCanvasContext]);
-
-  const estimateFacesLoop = useCallback(
-    (
-      model: FaceLandmarksDetector,
-      image: HTMLImageElement,
-      ctx: CanvasRenderingContext2D,
-    ) => {
-      const video = webcamRef.current?.video;
-      if (!video) return;
-      const actualWidth = video.getBoundingClientRect().width;
-      const actualHeight = video.getBoundingClientRect().height;
-
-      const scaleX = actualWidth / videoSize.width;
-      const scaleY = actualHeight / videoSize.height;
-
-      model.estimateFaces(video).then((face) => {
+    const startTimeMs = performance.now();
+    try {
+      const { faceLandmarks } = faceLandmarker.detectForVideo(
+        video,
+        startTimeMs,
+      );
+      if (faceLandmarks && faceLandmarks.length > 0) {
         // 캔버스 초기화
         ctx.clearRect(0, 0, actualWidth, actualHeight);
 
-        if (face[0]) {
-          canvasRef.current!.width = actualWidth;
-          canvasRef.current!.height = actualHeight;
-          const { x, y, width, height } = calculateSunglassesPosition(
-            face[0].keypoints,
-          );
+        // 필터 위치 계산
+        const position = calcSunglassesPosition(
+          faceLandmarks[0],
+          actualWidth,
+          actualHeight,
+        );
 
-          const widthScaled = width * scaleX;
-          const heightScaled = height * scaleY;
-          const xScaled = x * scaleX;
-          const yScaled = y * scaleY;
-
-          ctx.drawImage(image, xScaled, yScaled, widthScaled, heightScaled);
+        if (!position) {
+          console.warn('Failed to calculate filter position.');
+          animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
+          return;
         }
 
-        // 재귀 호출
-        requestAnimationFrame(() => {
-          estimateFacesLoop(model, image, ctx);
-        });
-      });
-    },
-    [],
-  );
+        // 필터 그리기
+        ctx.drawImage(
+          filterImage,
+          position.x,
+          position.y,
+          position.width,
+          position.height,
+        );
+      } else {
+        console.warn('No face landmarks detected.');
+        animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
+        return;
+      }
+    } catch (error) {
+      // 오류 발생 시 초기화 후 몇 초 후 재시도
+      setTimeout(() => {
+        loadFaceLandmarker();
+      }, 1000); // 1초 후 재시도
+      return;
+    }
+
+    animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
+  }, [ctx, faceLandmarker, filterImage, loadFaceLandmarker, filterType]);
 
   useEffect(() => {
-    loadImageAndSetupCanvas();
-  }, [loadImageAndSetupCanvas]);
+    if (!canvasRef.current) return;
+    setCtx(canvasRef.current.getContext('2d'));
+    // 캔버스 크기를 비디오 크기와 맞춤
+    if (webcamRef.current && webcamRef.current.video) {
+      canvasRef.current.width =
+        webcamRef.current.video.getBoundingClientRect().width;
+      canvasRef.current.height =
+        webcamRef.current.video.getBoundingClientRect().height;
+    }
+  }, [canvasRef, webcamRef]);
 
   useEffect(() => {
-    if (!image || !canvasContext) return;
-    // 인식 모델 로드
-    loadFaceLandmarker().then((model) => {
-      requestAnimationFrame(() =>
-        estimateFacesLoop(model, image, canvasContext),
+    const image = new Image();
+    image.src = '/src/assets/filter/sunglasses.png';
+    image.onload = () => {
+      setFilterImage(image);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log('filterType changed:', filterType);
+    if (
+      filterImage &&
+      ctx &&
+      isLoaded &&
+      webcamRef.current?.video &&
+      filterType !== 'none'
+    ) {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+      animationFrameId.current = requestAnimationFrame(() =>
+        estimateFacesLoop(),
       );
-    });
-  }, [image, canvasContext, estimateFacesLoop]);
+    } else if (filterType === 'none' && ctx) {
+      ctx.clearRect(0, 0, videoSize.width, videoSize.height);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+    }
+  }, [estimateFacesLoop, filterImage, ctx, isLoaded, webcamRef, filterType]);
 
   return (
-    <div className="relative h-fit w-fit">
-      <Webcam
-        width={videoSize.width}
-        height={videoSize.height}
-        ref={webcamRef}
-      />
+    <div className="relative">
+      <Webcam ref={webcamRef} className="m-auto" />
       <canvas className="absolute left-0 top-0" ref={canvasRef} />
     </div>
   );
