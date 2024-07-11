@@ -2,6 +2,7 @@ import { ChallengeDetailDto } from '../../apis/dtos/challengeDtos';
 import Button from '../common/Button';
 import Header from '../common/Header';
 import ChallengeHeader from '../qa-challenge/ChallengeHeader';
+import FilterSelector from './FilterSelector';
 import PrejoinCam from './PrejoinCam';
 
 interface PrejoinContainerProps {
@@ -13,7 +14,6 @@ const PrejoinContainer = ({
   setIsJoined,
   challengeInfo,
 }: PrejoinContainerProps) => {
-  // const [filterType, setFilterType] = useState<FilterType>('none');
   const { challengeTitle, challengeNumber, challengeDate } = challengeInfo;
 
   return (
@@ -25,11 +25,8 @@ const PrejoinContainer = ({
           challengeNumber={challengeNumber}
           challengeDate={challengeDate}
         />
-        <PrejoinCam filterType="none" />
-        {/* <FilterSelector
-          filterType={filterType}
-          setFilterType={(filterType) => setFilterType(filterType)}
-        /> */}
+        <PrejoinCam />
+        <FilterSelector />
         <Button
           label="시작하기"
           onClick={() => setIsJoined(true)}
