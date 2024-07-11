@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetFaceChallenge } from '../../apis/challenge/getFaceChallenge';
+import FaceLandmark from './FaceLandmark';
 import FacetimeContainer from './FacetimeContainer';
 import PrejoinContainer from './PrejoinContainer';
 
@@ -17,6 +18,7 @@ const FaceChallenge = () => {
 
   return (
     <div className="flex h-full w-full flex-col">
+      <FaceLandmark>
         {isJoined ? (
           <FacetimeContainer code={code} />
         ) : (
@@ -27,6 +29,7 @@ const FaceChallenge = () => {
             />
           </>
         )}
+      </FaceLandmark>
     </div>
   );
 };
