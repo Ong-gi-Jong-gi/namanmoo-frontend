@@ -18,7 +18,7 @@ const UserInfo = () => {
   const handleUserEditModal = () => {
     openModal({
       content: <UserInfoEditModal {...userInfo} />,
-      showCloseBtn: false,
+      showCloseBtn: true,
     });
   };
 
