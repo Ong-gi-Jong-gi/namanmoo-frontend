@@ -11,6 +11,7 @@ import '@livekit/components-styles';
 import { Track } from 'livekit-client';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
+import FilterSelector from './FilterSelector';
 import PrejoinCam from './PrejoinCam';
 
 interface FacetimeContainerProps {
@@ -50,6 +51,7 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
         }}
         variation="minimal"
       />
+      <FilterSelector />
       <Button
         onClick={() => {
           navigate('/main');
@@ -85,7 +87,7 @@ function MyParticipantTile() {
   return (
     <div className="flex h-full w-full items-center">
       <ParticipantTile hidden={isUser && !isMuted} />
-      {isUser && !isMuted && <PrejoinCam filterType="none" />}
+      {isUser && !isMuted && <PrejoinCam />}
     </div>
   );
 }

@@ -1,12 +1,8 @@
 import { BsSunglasses } from 'react-icons/bs';
 import { VscCircleSlash } from 'react-icons/vsc';
+import { useFilterTypeStore } from '../../store/filterTypeStore';
 import { FilterType } from '../../types/challenge';
 import IconButton from '../common/IconButton';
-
-interface FilterSelectorProps {
-  filterType: FilterType;
-  setFilterType: (filterType: FilterType) => void;
-}
 
 const filterIconMap: {
   [key in FilterType]: JSX.Element;
@@ -15,7 +11,8 @@ const filterIconMap: {
   sunglasses: <BsSunglasses size={28} />,
 };
 
-const FilterSelector = ({ filterType, setFilterType }: FilterSelectorProps) => {
+const FilterSelector = () => {
+  const { filterType, setFilterType } = useFilterTypeStore();
   return (
     <div className="flex w-full items-center justify-center gap-2">
       {Object.keys(filterIconMap).map((type) => (
