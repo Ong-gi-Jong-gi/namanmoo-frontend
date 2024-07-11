@@ -125,7 +125,7 @@ const PrejoinCam = () => {
   }, [estimateFacesLoop, filterImage, ctx, isLoaded, webcamRef, filterType]);
 
   return (
-    <div className="relative">
+    <div className="relative -scale-x-100">
       <Webcam ref={webcamRef} className="m-auto" />
       <canvas className="absolute left-0 top-0" ref={canvasRef} />
     </div>
