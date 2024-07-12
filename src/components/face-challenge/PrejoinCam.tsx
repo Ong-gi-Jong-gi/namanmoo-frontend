@@ -1,43 +1,12 @@
-import { NormalizedLandmark } from '@mediapipe/tasks-vision';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
+import FILTER from '../../constants/FILTER';
 import { useFaceLandmarker } from '../../store/faceLandmarkerStore';
 import { useFilterTypeStore } from '../../store/filterTypeStore';
-import { FilterTypeWithoutNone } from '../../types/challenge';
-import {
-  calcDogPosition,
-  calcRainbowPosition,
-  calcSunglassesPosition,
-} from '../../utils/calculateFilterPosition';
 
 const videoSize = {
   width: 640,
   height: 480,
-};
-
-const filterImageMap: {
-  [key in FilterTypeWithoutNone]: string;
-} = {
-  sunglasses: '/src/assets/filter/sunglasses.png',
-  rainbow: '/src/assets/filter/rainbow.png',
-  dog: '/src/assets/filter/doggy.png',
-};
-
-const filterCalculationMap: {
-  [key in FilterTypeWithoutNone]: (
-    keypoints: NormalizedLandmark[],
-    canvasWidth: number,
-    canvasHeight: number,
-  ) => {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  } | null;
-} = {
-  sunglasses: calcSunglassesPosition,
-  rainbow: calcRainbowPosition,
-  dog: calcDogPosition,
 };
 
 const PrejoinCam = () => {
@@ -76,7 +45,7 @@ const PrejoinCam = () => {
         canvasRef.current!.height = actualHeight;
 
         // 필터 위치 계산
-        const position = filterCalculationMap[filterType](
+        const position = FILTER.CALCULATOR[filterType](
           faceLandmarks[0],
           actualWidth,
           actualHeight,
@@ -123,7 +92,7 @@ const PrejoinCam = () => {
   useEffect(() => {
     if (!filterType || filterType === 'none') return;
     const image = new Image();
-    image.src = filterImageMap[filterType];
+    image.src = FILTER.IMAGE[filterType];
     image.onload = () => {
       setFilterImage(image);
     };
