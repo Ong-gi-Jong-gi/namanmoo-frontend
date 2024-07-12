@@ -14,6 +14,7 @@ const FAMILY = {
 const CHALLENGE = {
   CREATE: '/challenges',
   TODAY: '/challenges/today',
+  LIST: '/challenges/list',
   NORMAL: '/challenges/normal',
   PHOTO: '/challenges/photo',
   GROUP: '/challenges/group',
