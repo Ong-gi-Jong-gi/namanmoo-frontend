@@ -1,18 +1,16 @@
 import {
   ControlBar,
   LiveKitRoom,
-  ParticipantTile,
   TrackLoop,
   useToken,
-  useTrackRefContext,
   useTracks,
 } from '@livekit/components-react';
 import '@livekit/components-styles';
 import { Track } from 'livekit-client';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
+import CustomParticipantTile from './CustomParticipantTile';
 import FilterSelector from './FilterSelector';
-import PrejoinCam from './PrejoinCam';
 
 interface FacetimeContainerProps {
   code: string;
@@ -72,24 +70,9 @@ function MyVideoConference() {
   return (
     <div className="grid h-full min-h-0 w-full min-w-0 grid-cols-2 grid-rows-2 items-center justify-center">
       <TrackLoop tracks={tracks}>
-        <MyParticipantTile />
+        <CustomParticipantTile />
       </TrackLoop>
     </div>
   );
 }
-
-function MyParticipantTile() {
-  const trackRef = useTrackRefContext();
-  const isUser =
-    trackRef.participant.identity === localStorage.getItem('mooluck-nickname');
-  const isMuted = trackRef.publication?.track?.isMuted;
-
-  return (
-    <div className="flex h-full w-full items-center">
-      <ParticipantTile hidden={isUser && !isMuted} />
-      {isUser && !isMuted && <PrejoinCam />}
-    </div>
-  );
-}
-
 export default FacetimeContainer;
