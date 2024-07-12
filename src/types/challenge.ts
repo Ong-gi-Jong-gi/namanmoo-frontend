@@ -34,7 +34,7 @@ export interface ChallengeGroupAnswer {
   answerList: ChallengeAnswerDto[];
 }
 
-export interface ChallengeListUnit extends ChallengeInfo {
+export interface ChallengeListUnitType extends ChallengeInfo {
   isComplete: boolean;
 }
 
