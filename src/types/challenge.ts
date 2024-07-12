@@ -40,3 +40,13 @@ export interface ChallengeListUnitType extends ChallengeInfo {
 
 export type FilterType = 'none' | 'sunglasses' | 'rainbow' | 'dog';
 export type FilterTypeWithoutNone = Exclude<FilterType, 'none'>;
+export interface FilterPosition {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+export interface VideoSize {
+  width: number;
+  height: number;
+}
