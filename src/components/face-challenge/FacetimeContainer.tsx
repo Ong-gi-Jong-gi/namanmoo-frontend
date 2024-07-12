@@ -1,6 +1,7 @@
 import {
   ControlBar,
   LiveKitRoom,
+  RoomAudioRenderer,
   TrackLoop,
   useToken,
   useTracks,
@@ -39,6 +40,7 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
       data-lk-theme="default"
     >
       <MyVideoConference />
+      <RoomAudioRenderer />
       <ControlBar
         controls={{
           camera: true,
@@ -62,14 +64,14 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
 };
 
 function MyVideoConference() {
-  const tracks = useTracks(
+  const camaraTracks = useTracks(
     [{ source: Track.Source.Camera, withPlaceholder: true }],
     { onlySubscribed: false },
   );
 
   return (
     <div className="grid h-full min-h-0 w-full min-w-0 grid-cols-2 grid-rows-2 items-center justify-center">
-      <TrackLoop tracks={tracks}>
+      <TrackLoop tracks={camaraTracks}>
         <CustomParticipantTile />
       </TrackLoop>
     </div>

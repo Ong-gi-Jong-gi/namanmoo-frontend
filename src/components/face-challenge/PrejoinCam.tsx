@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
-import useFaceFilter from '../../hooks/useFaceFilter';
+import useFaceFilterWithModel from '../../hooks/useFaceFilterWithModel';
 
 const PrejoinCam = () => {
   const webcamRef = useRef<Webcam>(null);
   const [videoElement, setVideoElement] = useState<HTMLVideoElement | null>(
     null,
   );
-  const { canvasRef } = useFaceFilter(videoElement, true);
+  const { canvasRef } = useFaceFilterWithModel(videoElement, true);
 
   useEffect(() => {
     if (webcamRef.current && webcamRef.current.video) {
