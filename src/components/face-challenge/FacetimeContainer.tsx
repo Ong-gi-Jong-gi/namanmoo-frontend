@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import CustomParticipantTile from './CustomParticipantTile';
 import FilterSelector from './FilterSelector';
+import ScreenRecorder from './ScreenRecorder';
 
 interface FacetimeContainerProps {
   code: string;
@@ -59,6 +60,7 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
         label="나가기"
         theme="primary"
       />
+      <ScreenRecorder />
     </LiveKitRoom>
   );
 };
