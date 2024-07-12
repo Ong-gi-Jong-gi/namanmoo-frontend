@@ -4,11 +4,16 @@ import useFaceFilter from '../../hooks/useFaceFilter';
 
 const CustomParticipantTile = () => {
   const trackRef = useTrackRefContext();
+  const isUser =
+    trackRef.participant?.identity === localStorage.getItem('mooluck-nickname');
   const isMuted = trackRef.publication?.track?.isMuted;
   const [videoElement, setVideoElement] = useState<HTMLVideoElement | null>(
     null,
   );
-  const { canvasRef } = useFaceFilter(videoElement, !isMuted || false);
+  const { canvasRef } = useFaceFilter(
+    videoElement,
+    (!isMuted && isUser) || false,
+  );
 
   useEffect(() => {
     if (trackRef.publication?.track?.attachedElements[0]) {
