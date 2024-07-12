@@ -38,5 +38,5 @@ export interface ChallengeListUnitType extends ChallengeInfo {
   isComplete: boolean;
 }
 
-export type FilterType = 'none' | 'sunglasses';
+export type FilterType = 'none' | 'sunglasses' | 'rainbow' | 'dog';
 export type FilterTypeWithoutNone = Exclude<FilterType, 'none'>;

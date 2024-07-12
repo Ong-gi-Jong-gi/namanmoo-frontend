@@ -8,8 +8,6 @@ const getFaceChallenge = async (challengeId: string) => {
     `${API.CHALLENGE.FACE}?challengeId=${challengeId}`,
   );
 
-  console.log(data);
-
   return {
     challengeInfo: new ChallengeDetailDto(data?.data),
     code: data?.data?.code,
