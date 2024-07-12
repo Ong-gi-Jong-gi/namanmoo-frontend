@@ -1,4 +1,6 @@
 import { BsSunglasses } from 'react-icons/bs';
+import { GiRainbowStar } from 'react-icons/gi';
+import { MdOutlinePets } from 'react-icons/md';
 import { VscCircleSlash } from 'react-icons/vsc';
 import { useFilterTypeStore } from '../../store/filterTypeStore';
 import { FilterType } from '../../types/challenge';
@@ -9,6 +11,8 @@ const filterIconMap: {
 } = {
   none: <VscCircleSlash size={28} />,
   sunglasses: <BsSunglasses size={28} />,
+  rainbow: <GiRainbowStar size={28} />,
+  dog: <MdOutlinePets size={28} />,
 };
 
 const FilterSelector = () => {

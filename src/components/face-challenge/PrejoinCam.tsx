@@ -1,12 +1,43 @@
+import { NormalizedLandmark } from '@mediapipe/tasks-vision';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import { useFaceLandmarker } from '../../store/faceLandmarkerStore';
 import { useFilterTypeStore } from '../../store/filterTypeStore';
-import { calcSunglassesPosition } from '../../utils/calculateFilterPosition';
+import { FilterTypeWithoutNone } from '../../types/challenge';
+import {
+  calcDogPosition,
+  calcRainbowPosition,
+  calcSunglassesPosition,
+} from '../../utils/calculateFilterPosition';
 
 const videoSize = {
   width: 640,
   height: 480,
+};
+
+const filterImageMap: {
+  [key in FilterTypeWithoutNone]: string;
+} = {
+  sunglasses: '/src/assets/filter/sunglasses.png',
+  rainbow: '/src/assets/filter/rainbow.png',
+  dog: '/src/assets/filter/doggy.png',
+};
+
+const filterCalculationMap: {
+  [key in FilterTypeWithoutNone]: (
+    keypoints: NormalizedLandmark[],
+    canvasWidth: number,
+    canvasHeight: number,
+  ) => {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null;
+} = {
+  sunglasses: calcSunglassesPosition,
+  rainbow: calcRainbowPosition,
+  dog: calcDogPosition,
 };
 
 const PrejoinCam = () => {
@@ -45,7 +76,7 @@ const PrejoinCam = () => {
         canvasRef.current!.height = actualHeight;
 
         // 필터 위치 계산
-        const position = calcSunglassesPosition(
+        const position = filterCalculationMap[filterType](
           faceLandmarks[0],
           actualWidth,
           actualHeight,
@@ -57,14 +88,10 @@ const PrejoinCam = () => {
           return;
         }
 
+        const { x, y, width, height } = position;
+
         // 필터 그리기
-        ctx.drawImage(
-          filterImage,
-          position.x,
-          position.y,
-          position.width,
-          position.height,
-        );
+        ctx.drawImage(filterImage, x, y, width, height);
       } else {
         console.warn('No face landmarks detected.');
         animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
@@ -94,15 +121,15 @@ const PrejoinCam = () => {
   }, [canvasRef, webcamRef]);
 
   useEffect(() => {
+    if (!filterType || filterType === 'none') return;
     const image = new Image();
-    image.src = '/src/assets/filter/sunglasses.png';
+    image.src = filterImageMap[filterType];
     image.onload = () => {
       setFilterImage(image);
     };
-  }, []);
+  }, [filterType]);
 
   useEffect(() => {
-    console.log('filterType changed:', filterType);
     if (
       filterImage &&
       ctx &&
