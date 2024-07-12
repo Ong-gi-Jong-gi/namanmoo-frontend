@@ -1,9 +1,11 @@
 import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 import { RecapUnit } from '../../types/recap';
 import { formatDate } from '../../utils/formatter';
 import Lucky from '../main/Lucky';
 
 const CompleteRecapUnit = ({ luckyStatus, startDate, endDate }: RecapUnit) => {
+  const navigate = useNavigate();
   const luckySize = clsx(
     'flex h-40 items-center',
     `${luckyStatus == 3 ? 'p-3' : ''}`,
@@ -16,8 +18,12 @@ const CompleteRecapUnit = ({ luckyStatus, startDate, endDate }: RecapUnit) => {
     isAlive ? 'bg-primary-10' : 'bg-secondary-10',
   );
 
+  const handleClickUnit = () => {
+    navigate('/recap');
+  }
+
   return (
-    <div className={luckyTile}>
+    <div className={luckyTile} onClick={handleClickUnit}>
       <div className={luckySize}>
         <Lucky level={luckyStatus} />
       </div>
