@@ -15,7 +15,7 @@ const MainPage = () => {
   const { data: familyList, isLoading } = useGetMyFamilyInfo();
   const { openModal } = useModalStore();
   useEffect(() => {
-    if (familyList?.length == 1 && queryData['code']) {
+    if (familyList?.length == 1) {
       openModal({
         content: <InviteModal code={queryData['code'] as string} />,
         showCloseBtn: true,
