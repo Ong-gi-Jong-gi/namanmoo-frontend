@@ -66,7 +66,7 @@ jobs:
             sudo docker pull ${{ env.IMAGE_NAME }}
             sudo docker stop mooluck-react || true
             sudo docker rm mooluck-react || true
-            sudo docker run -d --name mooluck-node -p 5173:5173 \
+            sudo docker run -d --name mooluck-react -p 5173:5173 \
               -e VITE_API_URL=${{ secrets.VITE_API_URL }} \
               -e VITE_WEBSOCKET_URL=${{ secrets.VITE_WEBSOCKET_URL }} \
               -e VITE_NODE_API_URL=${{ secrets.VITE_NODE_API_URL }} \
