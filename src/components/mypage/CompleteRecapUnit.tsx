@@ -9,14 +9,23 @@ const CompleteRecapUnit = ({ luckyStatus, startDate, endDate }: RecapUnit) => {
     `${luckyStatus == 3 ? 'p-3' : ''}`,
   );
 
+  const isAlive = new Date().getTime() < parseInt(endDate);
+
+  const luckyTile = clsx(
+    'flex flex-col items-center justify-center rounded-md p-4',
+    isAlive ? 'bg-primary-10' : 'bg-secondary-10',
+  );
+
   return (
-    <div className="flex flex-col items-center justify-center rounded-md bg-secondary-10 p-4">
+    <div className={luckyTile}>
       <div className={luckySize}>
         <Lucky level={luckyStatus} />
       </div>
       <div className="font-ryurue text-ryurue-base">
-        <p>{formatDate(startDate)}</p>
-        <p>{`~ ${formatDate(endDate)}`}</p>
+        <p>
+          {formatDate(startDate)} {isAlive && <span>~</span>}
+        </p>
+        {!isAlive ? <p>{`~ ${formatDate(endDate)}`}</p> : null}
       </div>
     </div>
   );
