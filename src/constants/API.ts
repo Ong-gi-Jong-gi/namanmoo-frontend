@@ -24,7 +24,10 @@ const CHALLENGE = {
 const USER = '/users';
 
 const RECAP = {
-  LIST: 'recap/list',
+  LIST: '/recap/list',
+  RANK: '/recap/ranking',
+  STATISTICS: '/recap/statistics',
+  MIGOS: '/recap/migos',
 };
 
 export default {
