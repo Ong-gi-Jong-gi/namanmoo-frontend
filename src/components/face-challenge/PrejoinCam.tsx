@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import useFaceFilterWithModel from '../../hooks/useFaceFilterWithModel';
 
@@ -23,4 +23,5 @@ const PrejoinCam = () => {
   );
 };
 
-export default PrejoinCam;
+const MemoizedPrejoinCam = React.memo(PrejoinCam);
+export default MemoizedPrejoinCam;

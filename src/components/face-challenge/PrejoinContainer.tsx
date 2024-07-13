@@ -3,7 +3,7 @@ import Button from '../common/Button';
 import Header from '../common/Header';
 import ChallengeHeader from '../qa-challenge/ChallengeHeader';
 import FilterSelector from './FilterSelector';
-import PrejoinCam from './PrejoinCam';
+import MemoizedPrejoinCam from './PrejoinCam';
 
 interface PrejoinContainerProps {
   challengeInfo: ChallengeDetailDto;
@@ -25,7 +25,7 @@ const PrejoinContainer = ({
           challengeNumber={challengeNumber}
           challengeDate={challengeDate}
         />
-        <PrejoinCam />
+        <MemoizedPrejoinCam />
         <FilterSelector />
         <Button
           label="시작하기"
