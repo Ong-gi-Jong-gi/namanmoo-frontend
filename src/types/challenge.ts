@@ -50,3 +50,4 @@ export interface VideoSize {
   width: number;
   height: number;
 }
+export type facetimeChallengeStatus = 'idle' | 'ongoing' | 'finished';
