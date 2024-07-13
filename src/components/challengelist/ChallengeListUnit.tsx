@@ -14,7 +14,7 @@ const ChallengeListUnit = ({
   const navigate = useNavigate();
 
   const listUnitClassName = clsx(
-    `border-gray-3 relative flex flex-col justify-between gap-1 rounded-lg border border-gray-30 bg-gray-10 px-4 py-2`,
+    `border-gray-3 relative flex flex-col justify-between gap-1 rounded-lg border border-gray-30 bg-gray-10 px-4 py-2 font-ryurue`,
     {},
     {},
   );
@@ -25,9 +25,9 @@ const ChallengeListUnit = ({
 
   return (
     <div className={listUnitClassName} onClick={handleUnitClick}>
-      <p className="font-ryurue text-pretendard-md text-secondary-20">{`#${parseInt(challengeNumber) > 10 ? challengeNumber : '0' + challengeNumber}`}</p>
+      <p className="text-pretendard-md text-secondary-20">{`#${parseInt(challengeNumber) > 10 ? challengeNumber : '0' + challengeNumber}`}</p>
 
-      <p className="h-full truncate text-ellipsis font-ryurue text-ryurue-base">
+      <p className="h-full truncate text-ellipsis text-ryurue-base">
         {`${challengeTitle}`}
       </p>
       {isComplete && (
