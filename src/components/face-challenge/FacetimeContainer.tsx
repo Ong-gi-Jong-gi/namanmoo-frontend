@@ -2,17 +2,13 @@ import {
   ControlBar,
   LiveKitRoom,
   RoomAudioRenderer,
-  TrackLoop,
   useToken,
-  useTracks,
 } from '@livekit/components-react';
 import '@livekit/components-styles';
-import { Track } from 'livekit-client';
 import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
-import CustomParticipantTile from './CustomParticipantTile';
+import MemoizedCustomVideoConference from './CustomVideoConference';
 import FilterSelector from './FilterSelector';
-import HTML2Canvas from './HTML2Canvas';
 
 interface FacetimeContainerProps {
   code: string;
@@ -40,10 +36,7 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
       className="flex h-full w-full flex-col"
       data-lk-theme="default"
     >
-      <HTML2Canvas>
-        <MyVideoConference />
-      </HTML2Canvas>
-
+      <MemoizedCustomVideoConference />
       <RoomAudioRenderer />
       <ControlBar
         controls={{
@@ -55,6 +48,7 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
         }}
         variation="minimal"
       />
+
       <FilterSelector />
       <Button
         onClick={() => {
@@ -66,19 +60,4 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
     </LiveKitRoom>
   );
 };
-
-function MyVideoConference() {
-  const camaraTracks = useTracks(
-    [{ source: Track.Source.Camera, withPlaceholder: true }],
-    { onlySubscribed: false },
-  );
-
-  return (
-    <div className="grid h-full min-h-0 w-full min-w-0 grid-cols-2 grid-rows-2 items-center justify-center">
-      <TrackLoop tracks={camaraTracks}>
-        <CustomParticipantTile />
-      </TrackLoop>
-    </div>
-  );
-}
 export default FacetimeContainer;
