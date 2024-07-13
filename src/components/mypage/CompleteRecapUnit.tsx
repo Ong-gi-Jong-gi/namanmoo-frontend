@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
+import routes from '../../constants/routes';
 import { RecapUnit } from '../../types/recap';
 import { formatDate } from '../../utils/formatter';
 import Lucky from '../main/Lucky';
@@ -19,8 +20,8 @@ const CompleteRecapUnit = ({ luckyStatus, startDate, endDate }: RecapUnit) => {
   );
 
   const handleClickUnit = () => {
-    navigate('/recap');
-  }
+    navigate(routes.recap);
+  };
 
   return (
     <div className={luckyTile} onClick={handleClickUnit}>
