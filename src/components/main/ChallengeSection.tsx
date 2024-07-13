@@ -8,7 +8,7 @@ interface ChallengeSectionProps {
 }
 
 const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
-  const { data: challengeInfo, isLoading } = useGetTodayChallenge({
+  const { challengeInfo, isDone, isLoading } = useGetTodayChallenge({
     enabled: currentFamilySize === MAX_FAMILY_MEMBER,
   });
   if (isLoading) return <div>챌린지 정보 Loading...</div>;
@@ -26,7 +26,7 @@ const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
           />
         </>
       );
-    if (!challengeInfo)
+    if (!challengeInfo || isDone)
       return (
         <>
           <Lucky level={1} />

@@ -16,6 +16,11 @@ export interface ChallengeInfo {
   challengeType: ChallengeType;
 }
 
+export interface ChallengeToday {
+  challengeInfo: ChallengeInfo;
+  isDone: boolean;
+}
+
 export interface ChallengeDetail
   extends Omit<ChallengeInfo, 'challengeId' | 'challengeType'> {
   challengeDate: string;
