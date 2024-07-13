@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetFaceChallenge } from '../../apis/challenge/getFaceChallenge';
 import FaceLandmark from './FaceLandmark';
-import FacetimeContainer from './FacetimeContainer';
+import FacetimeContainer from './facetime/FacetimeContainer';
 import PrejoinContainer from './prejoin/PrejoinContainer';
 
 const FaceChallenge = () => {
