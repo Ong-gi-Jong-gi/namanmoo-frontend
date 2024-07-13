@@ -11,8 +11,8 @@ const getRecapRank = async (luckyId: string) => {
 
   return {
     recapDetail: new RecapDetailDTO({
-      totalCount: data.totalCount,
-      luckyStatus: data.luckyStatus,
+      totalCount: data.data.totalCount,
+      luckyStatus: data.data.luckyStatus,
     }),
     ranking: data.data.ranking.map(
       (rank: RecapRanking) => new RecapRankingDTO(rank),
