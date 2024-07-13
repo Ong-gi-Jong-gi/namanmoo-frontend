@@ -1,8 +1,8 @@
-import { ChallengeDetailDto } from '../../apis/dtos/challengeDtos';
-import Button from '../common/Button';
-import Header from '../common/Header';
-import ChallengeHeader from '../qa-challenge/ChallengeHeader';
-import FilterSelector from './FilterSelector';
+import { ChallengeDetailDto } from '../../../apis/dtos/challengeDtos';
+import Button from '../../common/Button';
+import Header from '../../common/Header';
+import ChallengeHeader from '../../qa-challenge/ChallengeHeader';
+import FilterSelector from '../FilterSelector';
 import MemoizedPrejoinCam from './PrejoinCam';
 
 interface PrejoinContainerProps {
