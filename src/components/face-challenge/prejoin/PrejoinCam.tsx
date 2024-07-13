@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
-import useFaceFilterWithModel from '../../hooks/useFaceFilterWithModel';
+import useFaceFilterWithModel from '../../../hooks/useFaceFilterWithModel';
 
 const PrejoinCam = () => {
   const webcamRef = useRef<Webcam>(null);

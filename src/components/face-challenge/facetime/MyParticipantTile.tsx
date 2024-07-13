@@ -5,9 +5,9 @@ import {
   useTrackRefContext,
 } from '@livekit/components-react';
 import { useEffect, useState } from 'react';
-import useFaceFilterWithModel from '../../hooks/useFaceFilterWithModel';
-import { useFilterTypeStore } from '../../store/filterTypeStore';
-import ScreenRecorder from './ScreenRecorder';
+import useFaceFilterWithModel from '../../../hooks/useFaceFilterWithModel';
+import { useFilterTypeStore } from '../../../store/filterTypeStore';
+import ScreenRecorder from '../ScreenRecorder';
 
 const encoder = new TextEncoder();
 

@@ -48,7 +48,6 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
         }}
         variation="minimal"
       />
-
       <FilterSelector />
       <Button
         onClick={() => {
