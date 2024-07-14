@@ -1,9 +1,9 @@
-import { useGetRecapMigos } from '../../apis/recap/getRecapAppreciations.ts';
-import { RecapMigos } from '../../types/recap.ts';
+import { useGetRecapAppreciations } from '../../apis/recap/getRecapAppreciations.ts';
+import { RecapAppreciationsType } from '../../types/recap.ts';
 import RecapThanksAndSorryUnit from './RecapAppreciationsUnit.tsx';
 
 const RecapAppreciations = ({ luckyId }: { luckyId: string }) => {
-  const { migos, isLoading } = useGetRecapMigos({ luckyId });
+  const { appreciations, isLoading } = useGetRecapAppreciations({ luckyId });
 
   if (isLoading) <div>Loading...</div>;
 
@@ -16,7 +16,7 @@ const RecapAppreciations = ({ luckyId }: { luckyId: string }) => {
         정말 행복한 일이죠.
       </p>
       <div className="h-full w-full">
-        {migos.map((migo: RecapMigos, index: number) => (
+        {appreciations.map((migo: RecapAppreciationsType, index: number) => (
           <RecapThanksAndSorryUnit key={migo.userId} {...migo} index={index} />
         ))}
       </div>

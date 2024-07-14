@@ -1,34 +1,36 @@
 import { useQuery } from '@tanstack/react-query';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
-import { RecapMigos } from '../../types/recap';
-import { RecapMigosDTO } from '../dtos/recapDtos';
+import { RecapAppreciationsType } from '../../types/recap';
+import { RecapAppreciationsDTO } from '../dtos/recapDtos';
 
-const getRecapMigos = async (luckyId: string) => {
+const getRecapAppreciations = async (luckyId: string) => {
   const { data } = await authorizedApi.get(
-    `${API.RECAP.MIGOS}/?luckyId=${luckyId}`,
+    `${API.RECAP.APPRECIATIONS}/?luckyId=${luckyId}`,
   );
 
   return {
-    migos: data.data.map((migo: RecapMigos) => new RecapMigosDTO(migo)),
+    appreciations: data.data.map(
+      (migo: RecapAppreciationsType) => new RecapAppreciationsDTO(migo),
+    ),
   } as {
-    migos: RecapMigosDTO[];
+    appreciations: RecapAppreciationsDTO[];
   };
 };
 
-export const useGetRecapMigos = ({ luckyId }: { luckyId: string }) => {
+export const useGetRecapAppreciations = ({ luckyId }: { luckyId: string }) => {
   const { data, isLoading } = useQuery({
-    queryKey: [API.RECAP.MIGOS, luckyId],
-    queryFn: () => getRecapMigos(luckyId),
+    queryKey: [API.RECAP.APPRECIATIONS, luckyId],
+    queryFn: () => getRecapAppreciations(luckyId),
   });
 
   const hasData = !!data;
 
-  const migos = hasData ? data.migos : [];
+  const appreciations = hasData ? data.appreciations : [];
 
   return {
     isLoading,
     hasData,
-    migos,
+    appreciations,
   };
 };

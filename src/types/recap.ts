@@ -10,7 +10,7 @@ export interface RecapUnit {
 
 export interface RecapUser extends Omit<UserInfo, 'name'> {}
 
-export interface RecapMigos extends RecapUser {
+export interface RecapAppreciationsType extends RecapUser {
   thanks: string;
   sorry: string;
 }

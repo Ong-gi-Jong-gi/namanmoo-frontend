@@ -1,8 +1,8 @@
 import clsx from 'clsx';
-import { RecapMigos } from '../../types/recap';
+import { RecapAppreciationsType } from '../../types/recap';
 import Profile from '../common/Profile';
 
-interface Props extends RecapMigos {
+interface Props extends RecapAppreciationsType {
   index: number;
 }
 
@@ -21,7 +21,7 @@ const RecapThanksAndSorryUnit = ({
     4: '-rotate-12',
   };
 
-  const migosUnitClass = clsx(
+  const appreciationsUnitClass = clsx(
     '-mt-[80px] flex h-64 w-64 flex-col justify-between rounded-2xl border-[5px] border-secondary-20 bg-background p-3 font-ryurue text-ryurue-base',
     index % 2 ? 'float-right' : 'float-left',
     index % 2 ? 'border-primary-20' : 'border-secondary-20',
@@ -29,7 +29,7 @@ const RecapThanksAndSorryUnit = ({
   );
 
   return (
-    <div className={migosUnitClass}>
+    <div className={appreciationsUnitClass}>
       <Profile
         type={userImg ? 'image' : 'default'}
         layout="horizontal"

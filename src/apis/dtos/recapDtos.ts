@@ -1,7 +1,7 @@
 import { UserRole } from '../../types/family';
 import {
   RecapDetail,
-  RecapMigos,
+  RecapAppreciationsType,
   RecapRanking,
   RecapStatistics,
   RecapUnit,
@@ -37,11 +37,11 @@ export class RecapUserDTO {
   }
 }
 
-export class RecapMigosDTO extends RecapUserDTO {
+export class RecapAppreciationsDTO extends RecapUserDTO {
   public readonly thanks: string;
   public readonly sorry: string;
 
-  constructor(data: RecapMigos) {
+  constructor(data: RecapAppreciationsType) {
     super(data);
     this.thanks = data.thanks;
     this.sorry = data.sorry;

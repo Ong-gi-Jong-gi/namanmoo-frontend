@@ -27,7 +27,7 @@ const RECAP = {
   LIST: '/recap/list',
   RANK: '/recap/ranking',
   STATISTICS: '/recap/statistics',
-  MIGOS: '/recap/migos',
+  APPRECIATIONS: '/recap/appreciations',
 };
 
 export default {
