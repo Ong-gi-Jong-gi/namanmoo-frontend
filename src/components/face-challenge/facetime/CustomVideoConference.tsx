@@ -1,8 +1,6 @@
 import { TrackLoop, useTracks } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import React from 'react';
-import useChallengeLogic from '../../../hooks/useChallengeLogin';
-import Button from '../../common/Button';
 import CustomParticipantTile from './CustomParticipantTile';
 
 const CustomVideoConference = () => {
@@ -10,7 +8,6 @@ const CustomVideoConference = () => {
     [{ source: Track.Source.Camera, withPlaceholder: true }],
     { onlySubscribed: false },
   );
-  const { handleChangeStatus, status: challengeStatus } = useChallengeLogic();
 
   return (
     <>
@@ -19,12 +16,6 @@ const CustomVideoConference = () => {
           <CustomParticipantTile />
         </TrackLoop>
       </div>
-      {challengeStatus === 'idle' && (
-        <Button
-          label={`챌린지 시작! - 현재: ${challengeStatus}`}
-          onClick={handleChangeStatus}
-        />
-      )}
     </>
   );
 };
