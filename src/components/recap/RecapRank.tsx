@@ -20,7 +20,9 @@ const RecapRank = ({ luckyId }: { luckyId: string }) => {
         무언가를 함께한다는 건<br />
         정말 행복한 일이죠.
       </p>
-      <Lucky level={recapDetail.luckyStatus} />
+      <div className="flex min-h-[200px] items-center">
+        <Lucky level={recapDetail.luckyStatus} />
+      </div>
       <p className="font-ryurue text-ryurue-base">
         이 행운이는 총
         <span className="mx-2 text-red">{`${recapDetail.totalCount}`}</span>번
