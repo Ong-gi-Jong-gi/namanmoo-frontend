@@ -34,7 +34,6 @@ const RecapPage = () => {
 
   const handleRecapNextPage = () => {
     if (recapPage < RECAP_LENGTH - 1) {
-      console.log(recapPage + 1);
       setRecapPage((pre) => pre + 1);
     } else navigate(routes.mypage);
   };

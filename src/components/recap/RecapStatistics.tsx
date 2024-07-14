@@ -6,8 +6,6 @@ import RecapStatisticsTopic from './RecapStatisticsTopic';
 const RecapStatistics = ({ luckyId }: { luckyId: string }) => {
   const { hasData, isLoading, topics } = useGetRecapStatistics({ luckyId });
 
-  console.log(topics);
-
   if (isLoading) return <div>Loading...</div>;
   if (!hasData) return <div>{SYS_MESSAGE.NO_DATA}</div>;
 
