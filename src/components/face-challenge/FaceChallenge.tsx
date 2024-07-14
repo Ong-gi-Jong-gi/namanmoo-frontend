@@ -26,6 +26,7 @@ const FaceChallenge = () => {
             <PrejoinContainer
               setIsJoined={(isJoined) => setIsJoined(isJoined)}
               challengeInfo={challengeInfo}
+              code={code}
             />
           </>
         )}
