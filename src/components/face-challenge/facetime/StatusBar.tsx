@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useEffect } from 'react';
 import useSocket from '../../../hooks/useSocket';
 import { useFacetimeChallengeStore } from '../../../store/facetimeChallengeStore';
 
@@ -8,7 +9,14 @@ interface StatusBarProps {
 
 const StatusBar = ({ code }: StatusBarProps) => {
   const { status, remainingTime } = useFacetimeChallengeStore();
-  const { emitChallengeStart } = useSocket();
+  const { emitChallengeStart, emitLeave, emitDisconnect } = useSocket();
+  useEffect(() => {
+    if (status === 'finished' && remainingTime <= 0) {
+      emitLeave(code);
+      emitDisconnect();
+    }
+  }, [emitLeave, code, remainingTime, status, emitDisconnect]);
+
   const handleChallengeStart = () => {
     emitChallengeStart(code);
   };
