@@ -2,17 +2,24 @@ import { useQuery } from '@tanstack/react-query';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { responseRoot } from '../../types/api';
-import { ChallengeInfo } from '../../types/challenge';
+import { ChallengeToday } from '../../types/challenge';
 import { ChallengeInfoDto } from '../dtos/challengeDtos';
 
 const getTodayChallenge = async () => {
-  const { data } = await authorizedApi.get<responseRoot<ChallengeInfo>>(
+  const { data } = await authorizedApi.get<responseRoot<ChallengeToday>>(
     `${API.CHALLENGE.TODAY}?challengeDate=${new Date().getTime().toString()}`,
   );
 
-  if (data.status === '200') return new ChallengeInfoDto(data?.data);
+  if (data.status === '200')
+    return {
+      challengeInfo: new ChallengeInfoDto(data.data.challengeInfo),
+      isDone: data.data.isDone,
+    };
   if (data.status === '404' && data.message === 'challenge not found') {
-    return null;
+    return {
+      challengeInfo: null,
+      isDone: false,
+    };
   }
 
   throw new Error(data.message);
@@ -22,9 +29,24 @@ export const useGetTodayChallenge = ({
 }: {
   enabled?: boolean;
 }) => {
-  return useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: [API.CHALLENGE.TODAY],
     queryFn: () => getTodayChallenge(),
     enabled,
   });
+
+  const challengeInfo = data
+    ? data.challengeInfo
+    : ({
+        challengeId: '',
+        challengeNumber: '',
+        challengeTitle: '',
+        challengeType: '',
+      } as ChallengeInfoDto);
+
+  return {
+    challengeInfo,
+    isDone: data && data.isDone,
+    isLoading,
+  };
 };
