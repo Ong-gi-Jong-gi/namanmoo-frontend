@@ -1,7 +1,7 @@
 import { TrackLoop, useTracks } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import React from 'react';
-import HTML2Canvas from '../HTML2Canvas';
+import HTML2Canvas from '../utils/ScreenCapturer';
 import CustomParticipantTile from './CustomParticipantTile';
 
 const CustomVideoConference = () => {

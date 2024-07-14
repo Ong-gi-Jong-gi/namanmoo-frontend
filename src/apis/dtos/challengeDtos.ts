@@ -4,6 +4,7 @@ import {
   ChallengeGroupAnswer,
   ChallengeInfo,
   ChallengeListUnitType,
+  ChallengeType,
 } from '../../types/challenge';
 import { UserInfoDto } from './userDtos';
 
@@ -11,7 +12,7 @@ export class ChallengeInfoDto {
   public readonly challengeId: string;
   public readonly challengeNumber: string;
   public readonly challengeTitle: string;
-  public readonly challengeType: string;
+  public readonly challengeType: ChallengeType;
 
   constructor(data: ChallengeInfo) {
     this.challengeId = data.challengeId;
