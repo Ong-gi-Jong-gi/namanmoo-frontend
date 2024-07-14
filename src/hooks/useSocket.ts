@@ -22,7 +22,6 @@ const useSocket = () => {
     const handleChallengeEnd = () => {
       console.log('challengeEnd');
       setStatus('finished');
-      socket.emit(SOCKET_EVENT.LEAVE);
     };
 
     const handleRemainingTime = (msg: { remainingTime: number }) => {
@@ -57,7 +56,18 @@ const useSocket = () => {
     [socket],
   );
 
-  return { emitJoin, emitChallengeStart };
+  const emitLeave = useCallback(
+    (code: string) => {
+      socket.emit(SOCKET_EVENT.LEAVE, { room: code });
+    },
+    [socket],
+  );
+
+  const emitDisconnect = useCallback(() => {
+    socket.disconnect();
+  }, [socket]);
+
+  return { emitJoin, emitChallengeStart, emitLeave, emitDisconnect };
 };
 
 export default useSocket;
