@@ -50,7 +50,7 @@ const OtherParticipantTile = () => {
   }, [message, trackRef.participant.identity]);
 
   return (
-    <div className="relative">
+    <div className="relative -scale-x-100">
       <ParticipantTile />
       <canvas className="absolute left-0 top-0" ref={canvasRef} />
     </div>

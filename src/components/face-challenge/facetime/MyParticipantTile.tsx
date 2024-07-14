@@ -8,13 +8,13 @@ import { useEffect, useState } from 'react';
 import useFaceFilterWithModel from '../../../hooks/useFaceFilterWithModel';
 import { useFilterTypeStore } from '../../../store/filterTypeStore';
 import HTML2Canvas from '../HTML2Canvas';
-import ScreenRecorder from '../ScreenRecorder';
 
 const encoder = new TextEncoder();
 
 const MyParticipantTile = () => {
   const trackRef = useTrackRefContext();
   const { filterType } = useFilterTypeStore();
+
   const { send: sendKeypoints } = useDataChannel('filter');
   const isMuted = useIsMuted(trackRef);
   const [videoElement, setVideoElement] = useState<HTMLVideoElement | null>(
@@ -43,16 +43,13 @@ const MyParticipantTile = () => {
   }, [trackRef.publication?.track?.attachedElements]);
 
   return (
-    <div className="relative">
-      <ScreenRecorder
+    <div className="relative -scale-x-100">
+      {/* <ScreenRecorder
         customMediaStream={trackRef.publication?.track?.mediaStream || null}
-      />
+      /> */}
       <HTML2Canvas>
         <ParticipantTile />
-        <canvas
-          className="absolute left-0 top-0 -scale-x-100"
-          ref={canvasRef}
-        />
+        <canvas className="absolute left-0 top-0" ref={canvasRef} />
       </HTML2Canvas>
     </div>
   );
