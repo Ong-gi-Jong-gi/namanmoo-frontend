@@ -6,7 +6,7 @@ import { RecapAppreciationsDTO } from '../dtos/recapDtos';
 
 const getRecapAppreciations = async (luckyId: string) => {
   const { data } = await authorizedApi.get(
-    `${API.RECAP.APPRECIATIONS}/?luckyId=${luckyId}`,
+    `${API.RECAP.APPRECIATIONS}?luckyId=${luckyId}`,
   );
 
   return {
