@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 import CustomParticipantTile from './CustomParticipantTile';
 import FilterSelector from './FilterSelector';
+import HTML2Canvas from './HTML2Canvas';
 
 interface FacetimeContainerProps {
   code: string;
@@ -39,7 +40,10 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
       className="flex h-full w-full flex-col"
       data-lk-theme="default"
     >
-      <MyVideoConference />
+      <HTML2Canvas>
+        <MyVideoConference />
+      </HTML2Canvas>
+
       <RoomAudioRenderer />
       <ControlBar
         controls={{
