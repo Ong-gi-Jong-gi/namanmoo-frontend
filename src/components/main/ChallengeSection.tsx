@@ -1,7 +1,9 @@
 import { useGetTodayChallenge } from '../../apis/challenge/getTodayChallenge';
 import { useGetLucky } from '../../apis/lucky/getLucky';
 import { usePostLuckyBubble } from '../../apis/lucky/postLuckyBubble';
+import balloon from '../../assets/lucky/balloon.svg';
 import { MAX_FAMILY_MEMBER } from '../../constants/family';
+import { getRandomMessage } from '../../utils/luckyMessage';
 import ChallengeButton from './ChallengeButton';
 import Lucky from './Lucky';
 
@@ -50,7 +52,12 @@ const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
       <>
         <div className="flex flex-col items-center">
           {luckyInfo.isBubble && (
-            <div className="h-10 w-10 bg-red" onClick={handleLuckyBubble}></div>
+            <div className="relative right-4" onClick={handleLuckyBubble}>
+              <img src={balloon} alt="balloon" />
+              <p className="absolute left-1/2 top-[47%] w-full -translate-x-1/2 -translate-y-1/2 transform text-center font-ryurue text-ryurue-base">
+                {getRandomMessage()}
+              </p>
+            </div>
           )}
           <Lucky level={luckyInfo.luckyStatus} />
         </div>
