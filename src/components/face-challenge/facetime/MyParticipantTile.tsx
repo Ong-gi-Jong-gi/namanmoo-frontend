@@ -7,7 +7,7 @@ import {
 import { useEffect, useState } from 'react';
 import useFaceFilterWithModel from '../../../hooks/useFaceFilterWithModel';
 import { useFilterTypeStore } from '../../../store/filterTypeStore';
-import HTML2Canvas from '../HTML2Canvas';
+import ScreenRecorder from '../ScreenRecorder';
 
 const encoder = new TextEncoder();
 
@@ -44,13 +44,11 @@ const MyParticipantTile = () => {
 
   return (
     <div className="relative -scale-x-100">
-      {/* <ScreenRecorder
+      <ScreenRecorder
         customMediaStream={trackRef.publication?.track?.mediaStream || null}
-      /> */}
-      <HTML2Canvas>
-        <ParticipantTile />
-        <canvas className="absolute left-0 top-0" ref={canvasRef} />
-      </HTML2Canvas>
+      />
+      <ParticipantTile />
+      <canvas className="absolute left-0 top-0" ref={canvasRef} />
     </div>
   );
 };
