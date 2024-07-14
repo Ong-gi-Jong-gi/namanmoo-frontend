@@ -5,17 +5,17 @@ import {
   useToken,
 } from '@livekit/components-react';
 import '@livekit/components-styles';
-import { useNavigate } from 'react-router-dom';
-import Button from '../../common/Button';
 import FilterSelector from '../FilterSelector';
 import MemoizedCustomVideoConference from './CustomVideoConference';
+import StatusBar from './StatusBar';
 
 interface FacetimeContainerProps {
   code: string;
 }
 
 const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
   const token = useToken(
     `${import.meta.env.VITE_NODE_API_URL}/getToken`,
     code,
@@ -28,35 +28,32 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
   );
 
   return (
-    <LiveKitRoom
-      video={true}
-      audio={true}
-      token={token}
-      serverUrl={import.meta.env.VITE_WEBSOCKET_URL}
-      className="flex h-full w-full flex-col"
-      data-lk-theme="default"
-    >
-      <MemoizedCustomVideoConference />
-      <RoomAudioRenderer />
-      <ControlBar
-        controls={{
-          camera: true,
-          microphone: true,
-          screenShare: false,
-          leave: false,
-          chat: false,
-        }}
-        variation="minimal"
-      />
-      <FilterSelector />
-      <Button
-        onClick={() => {
-          navigate('/main');
-        }}
-        label="나가기"
-        theme="primary"
-      />
-    </LiveKitRoom>
+    <div className="flex h-full w-full flex-col">
+      <StatusBar code={code} />
+      <LiveKitRoom
+        video={true}
+        audio={true}
+        token={token}
+        serverUrl={import.meta.env.VITE_WEBSOCKET_URL}
+        className="flex h-full w-full flex-col bg-black"
+        data-lk-theme="default"
+      >
+        <MemoizedCustomVideoConference />
+        <RoomAudioRenderer />
+        <FilterSelector />
+        <ControlBar
+          controls={{
+            camera: true,
+            microphone: true,
+            screenShare: false,
+            leave: true,
+            chat: false,
+          }}
+          variation="minimal"
+        />
+      </LiveKitRoom>
+    </div>
   );
 };
+
 export default FacetimeContainer;
