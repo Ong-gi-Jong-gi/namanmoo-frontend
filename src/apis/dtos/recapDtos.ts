@@ -4,7 +4,7 @@ export class RecapUnitDTO {
   public readonly luckyId: string;
   public readonly startDate: string;
   public readonly endDate: string;
-  public readonly luckyStatus: 1 | 2 | 3 | 4;
+  public readonly luckyStatus: 0 | 1 | 2 | 3;
 
   constructor(data: RecapUnit) {
     this.luckyId = data.luckyId;
