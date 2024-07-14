@@ -16,11 +16,6 @@ const HTML2Canvas = ({ children }: HTML2CanvasProps) => {
     const handleCapture = () => {
       if (screenRef.current) {
         html2canvas(screenRef.current, { scale: 4 }).then((canvas) => {
-          window.open(
-            canvas
-              .toDataURL('image/png')
-              .replace('image/png', 'image/octet-stream'),
-          );
           canvas.toBlob((blob) => {
             if (!blob) return;
             const imgFile = new File([blob], 'screenshot.png', {
