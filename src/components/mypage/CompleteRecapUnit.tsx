@@ -5,7 +5,12 @@ import { RecapUnit } from '../../types/recap';
 import { formatDate } from '../../utils/formatter';
 import Lucky from '../main/Lucky';
 
-const CompleteRecapUnit = ({ luckyStatus, startDate, endDate }: RecapUnit) => {
+const CompleteRecapUnit = ({
+  luckyId,
+  luckyStatus,
+  startDate,
+  endDate,
+}: RecapUnit) => {
   const navigate = useNavigate();
   const luckySize = clsx(
     'flex h-40 items-center',
@@ -20,7 +25,7 @@ const CompleteRecapUnit = ({ luckyStatus, startDate, endDate }: RecapUnit) => {
   );
 
   const handleClickUnit = () => {
-    navigate(routes.recap);
+    navigate(`${routes.recap}?luckyId=${luckyId}`);
   };
 
   return (
