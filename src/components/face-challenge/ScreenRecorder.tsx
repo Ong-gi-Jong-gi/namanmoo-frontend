@@ -13,7 +13,7 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
       customMediaStream: customMediaStream,
       mediaRecorderOptions: {
         mimeType: 'video/webm',
-        videoBitsPerSecond: 500000,
+        videoBitsPerSecond: 2560000,
       },
     });
 
