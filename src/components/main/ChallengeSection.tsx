@@ -1,4 +1,6 @@
 import { useGetTodayChallenge } from '../../apis/challenge/getTodayChallenge';
+import { useGetLucky } from '../../apis/lucky/getLucky';
+import { usePostLuckyBubble } from '../../apis/lucky/postLuckyBubble';
 import { MAX_FAMILY_MEMBER } from '../../constants/family';
 import ChallengeButton from './ChallengeButton';
 import Lucky from './Lucky';
@@ -8,16 +10,27 @@ interface ChallengeSectionProps {
 }
 
 const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
-  const { challengeInfo, isDone, isLoading } = useGetTodayChallenge({
+  const {
+    challengeInfo,
+    isDone,
+    isLoading: challengeLoading,
+  } = useGetTodayChallenge({
     enabled: currentFamilySize === MAX_FAMILY_MEMBER,
   });
-  if (isLoading) return <div>챌린지 정보 Loading...</div>;
+  const { luckyInfo, isLoading: luckyLoading } = useGetLucky();
+  const { mutate } = usePostLuckyBubble();
+
+  const handleLuckyBubble = () => {
+    mutate();
+  };
+
+  if (challengeLoading || luckyLoading)
+    return <div>메인 화면 정보 Loading...</div>;
 
   const renderContent = () => {
     if (currentFamilySize < MAX_FAMILY_MEMBER)
       return (
         <>
-          <Lucky level={1} />
           <ChallengeButton
             type="disabled"
             text="챌린지 시작"
@@ -35,7 +48,12 @@ const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
       );
     return (
       <>
-        <Lucky level={3} />
+        <div className="flex flex-col items-center">
+          {luckyInfo.isBubble && (
+            <div className="h-10 w-10 bg-red" onClick={handleLuckyBubble}></div>
+          )}
+          <Lucky level={luckyInfo.luckyStatus} />
+        </div>
         <ChallengeButton
           type="ongoing"
           challengeId={challengeInfo.challengeId}
