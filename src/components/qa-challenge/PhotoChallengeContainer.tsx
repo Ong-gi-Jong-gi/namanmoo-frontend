@@ -28,7 +28,7 @@ const PhotoChallengeContainer = () => {
           가로 스크롤을 통해 가족들의 사진을 구경하세요!
         </p>
       </div>
-      <div className="w-full flex-1 overflow-scroll">
+      <div className="w-full flex-1 overflow-scroll scrollbar-hide">
         <div className="flex h-full w-[400%] gap-4 px-2">
           <PhotoAnswerEditor
             role={myAnswer.role}
