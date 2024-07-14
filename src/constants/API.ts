@@ -19,6 +19,7 @@ const CHALLENGE = {
   PHOTO: '/challenges/photo',
   GROUP: '/challenges/group',
   FACE: '/challenges/face',
+  FACE_RESULT: '/challenges/face/result',
 };
 
 const USER = '/users';
