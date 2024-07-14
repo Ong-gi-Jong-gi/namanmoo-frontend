@@ -16,7 +16,7 @@ export const useFacetimeChallengeStore = create<FacetimeChallengeStore>(
   (set) => ({
     status: 'idle',
     setStatus: (status) => set({ status }),
-    remainingTime: 0,
+    remainingTime: 40,
     setRemainingTime: (time) => set({ remainingTime: time }),
     socket: socketInstance,
   }),

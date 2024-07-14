@@ -1,11 +1,14 @@
 import { useCallback, useEffect } from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
+import { useParams } from 'react-router-dom';
+import { usePostFaceChallenge } from '../../apis/challenge/postFaceChallenge';
 import { useFacetimeChallengeStore } from '../../store/facetimeChallengeStore';
 interface ScreenRecorderProps {
   customMediaStream: MediaStream | null;
 }
 
 const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
+  const { challengeId } = useParams();
   const { status: challengeStatus } = useFacetimeChallengeStore();
   const { status, startRecording, stopRecording, mediaBlobUrl } =
     useReactMediaRecorder({
@@ -16,6 +19,7 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
         videoBitsPerSecond: 2560000,
       },
     });
+  const { mutate } = usePostFaceChallenge();
 
   const handleRecording = useCallback(() => {
     if (status === 'idle' && challengeStatus === 'ongoing') {
@@ -27,32 +31,28 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
     }
   }, [status, challengeStatus, startRecording, stopRecording]);
 
-  const uploadAndDownloadVideo = useCallback(async (blobUrl: string) => {
-    try {
-      const response = await fetch(blobUrl);
-      const blob = await response.blob();
+  const uploadRecord = useCallback(
+    async (blobUrl: string) => {
+      try {
+        const response = await fetch(blobUrl);
+        const blob = await response.blob();
+        if (!blob) return;
 
-      // Upload the video to the server
-      const formData = new FormData();
-      formData.append('video', blob, 'recording.webm');
-      await fetch('YOUR_SERVER_UPLOAD_ENDPOINT', {
-        method: 'POST',
-        body: formData,
-      });
+        const videoFile = new File([blob], 'video.webm', {
+          type: blob.type,
+        });
+        if (!challengeId || !videoFile) return;
 
-      // Create a downloadable link for the video
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.download = 'recording.webm';
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(downloadUrl);
-    } catch (error) {
-      console.error('Error uploading or downloading video:', error);
-    }
-  }, []);
+        const formData = new FormData();
+        formData.append('challengeId', challengeId);
+        formData.append('answer', videoFile);
+        mutate(formData);
+      } catch (error) {
+        console.error('Error uploading or downloading video:', error);
+      }
+    },
+    [challengeId, mutate],
+  );
 
   useEffect(() => {
     handleRecording();
@@ -60,9 +60,9 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
 
   useEffect(() => {
     if (mediaBlobUrl) {
-      uploadAndDownloadVideo(mediaBlobUrl);
+      uploadRecord(mediaBlobUrl);
     }
-  }, [mediaBlobUrl, uploadAndDownloadVideo]);
+  }, [mediaBlobUrl, uploadRecord]);
 
   return <></>;
 };
