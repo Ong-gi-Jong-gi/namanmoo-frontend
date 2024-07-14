@@ -7,7 +7,7 @@ import {
 import '@livekit/components-styles';
 import './translate_none.css';
 import { useNavigate } from 'react-router-dom';
-import FilterSelector from '../FilterSelector';
+import FilterSelector from '../utils/FilterSelector';
 import MemoizedCustomVideoConference from './CustomVideoConference';
 import StatusBar from './StatusBar';
 

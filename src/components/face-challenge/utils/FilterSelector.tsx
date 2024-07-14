@@ -2,9 +2,9 @@ import { BsSunglasses } from 'react-icons/bs';
 import { GiRainbowStar } from 'react-icons/gi';
 import { MdOutlinePets } from 'react-icons/md';
 import { VscCircleSlash } from 'react-icons/vsc';
-import { useFilterTypeStore } from '../../store/filterTypeStore';
-import { FilterType } from '../../types/challenge';
-import IconButton from '../common/IconButton';
+import { useFilterTypeStore } from '../../../store/filterTypeStore';
+import { FilterType } from '../../../types/challenge';
+import IconButton from '../../common/IconButton';
 
 const filterIconMap: {
   [key in FilterType]: JSX.Element;

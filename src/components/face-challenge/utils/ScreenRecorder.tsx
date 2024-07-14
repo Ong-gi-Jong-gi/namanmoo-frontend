@@ -1,8 +1,8 @@
 import { useCallback, useEffect } from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
 import { useParams } from 'react-router-dom';
-import { usePostFaceChallenge } from '../../apis/challenge/postFaceChallenge';
-import { useFacetimeChallengeStore } from '../../store/facetimeChallengeStore';
+import { usePostFaceChallenge } from '../../../apis/challenge/postFaceChallenge';
+import { useFacetimeChallengeStore } from '../../../store/facetimeChallengeStore';
 interface ScreenRecorderProps {
   customMediaStream: MediaStream | null;
 }

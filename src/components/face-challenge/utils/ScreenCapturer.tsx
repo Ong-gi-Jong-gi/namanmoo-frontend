@@ -1,12 +1,12 @@
 import html2canvas from 'html2canvas';
 import { PropsWithChildren, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { usePostFaceChallenge } from '../../apis/challenge/postFaceChallenge';
-import { useFacetimeChallengeStore } from '../../store/facetimeChallengeStore';
+import { usePostFaceChallenge } from '../../../apis/challenge/postFaceChallenge';
+import { useFacetimeChallengeStore } from '../../../store/facetimeChallengeStore';
 
-interface HTML2CanvasProps extends PropsWithChildren {}
+interface ScreenCapturerProps extends PropsWithChildren {}
 
-const HTML2Canvas = ({ children }: HTML2CanvasProps) => {
+const ScreenCapturer = ({ children }: ScreenCapturerProps) => {
   const screenRef = useRef<HTMLDivElement>(null);
   const { status, remainingTime } = useFacetimeChallengeStore();
   const { challengeId } = useParams();
@@ -47,4 +47,4 @@ const HTML2Canvas = ({ children }: HTML2CanvasProps) => {
   );
 };
 
-export default HTML2Canvas;
+export default ScreenCapturer;

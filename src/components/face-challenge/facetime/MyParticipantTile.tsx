@@ -7,7 +7,7 @@ import {
 import { useEffect, useState } from 'react';
 import useFaceFilterWithModel from '../../../hooks/useFaceFilterWithModel';
 import { useFilterTypeStore } from '../../../store/filterTypeStore';
-import ScreenRecorder from '../ScreenRecorder';
+import ScreenRecorder from '../utils/ScreenRecorder';
 
 const encoder = new TextEncoder();
 

@@ -3,7 +3,7 @@ import useSocket from '../../../hooks/useSocket';
 import Button from '../../common/Button';
 import Header from '../../common/Header';
 import ChallengeHeader from '../../qa-challenge/ChallengeHeader';
-import FilterSelector from '../FilterSelector';
+import FilterSelector from '../utils/FilterSelector';
 import MemoizedPrejoinCam from './PrejoinCam';
 
 interface PrejoinContainerProps {

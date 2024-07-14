@@ -1,7 +1,7 @@
 import QueryString from 'qs';
 import { Navigate, useLocation } from 'react-router-dom';
 import Header from '../components/common/Header';
-import FaceChallengeResult from '../components/face-challenge/result/FaceChallengeResult';
+import FaceChallengeContainer from '../components/face-challenge/FaceChallengeContainer';
 import GroupChallengeContainer from '../components/qa-challenge/GroupChallengeContainer';
 import NormalChallengeContainer from '../components/qa-challenge/NormalChallengeContainer';
 import PhotoChallengeContainer from '../components/qa-challenge/PhotoChallengeContainer';
@@ -37,7 +37,7 @@ const ChallengDetailPage = () => {
     } else if (queryData.type.includes('GROUP_')) {
       return <GroupChallengeContainer />;
     } else if (queryData.type == 'FACETIME') {
-      return <FaceChallengeResult />;
+      return <FaceChallengeContainer />;
     } else if (queryData.type == 'PHOTO') {
       return <PhotoChallengeContainer />;
     } else if (queryData.type == 'VOICE') {

@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetFaceChallenge } from '../../apis/challenge/getFaceChallenge';
-import FaceLandmark from './FaceLandmark';
 import FacetimeContainer from './facetime/FacetimeContainer';
 import PrejoinContainer from './prejoin/PrejoinContainer';
+import FaceChallengeResult from './result/FaceChallengeResult';
+import FaceLandmark from './utils/FaceLandmark';
 
-const FaceChallenge = () => {
+const FaceChallengeContainer = () => {
   const { challengeId } = useParams();
   const [isJoined, setIsJoined] = useState(false);
   const { data, isLoading } = useGetFaceChallenge({
@@ -18,21 +19,25 @@ const FaceChallenge = () => {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <FaceLandmark>
-        {isJoined ? (
-          <FacetimeContainer code={code} />
-        ) : (
-          <>
-            <PrejoinContainer
-              setIsJoined={(isJoined) => setIsJoined(isJoined)}
-              challengeInfo={challengeInfo}
-              code={code}
-            />
-          </>
-        )}
-      </FaceLandmark>
+      {challengeInfo.isComplete ? (
+        <FaceChallengeResult />
+      ) : (
+        <FaceLandmark>
+          {isJoined ? (
+            <FacetimeContainer code={code} />
+          ) : (
+            <>
+              <PrejoinContainer
+                setIsJoined={(isJoined) => setIsJoined(isJoined)}
+                challengeInfo={challengeInfo}
+                code={code}
+              />
+            </>
+          )}
+        </FaceLandmark>
+      )}
     </div>
   );
 };
 
-export default FaceChallenge;
+export default FaceChallengeContainer;
