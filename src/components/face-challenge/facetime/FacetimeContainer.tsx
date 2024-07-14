@@ -5,6 +5,8 @@ import {
   useToken,
 } from '@livekit/components-react';
 import '@livekit/components-styles';
+import './translate_none.css';
+import { useNavigate } from 'react-router-dom';
 import FilterSelector from '../FilterSelector';
 import MemoizedCustomVideoConference from './CustomVideoConference';
 import StatusBar from './StatusBar';
@@ -14,8 +16,7 @@ interface FacetimeContainerProps {
 }
 
 const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
-  // const navigate = useNavigate();
-
+  const navigate = useNavigate();
   const token = useToken(
     `${import.meta.env.VITE_NODE_API_URL}/getToken`,
     code,
@@ -37,6 +38,9 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
         serverUrl={import.meta.env.VITE_WEBSOCKET_URL}
         className="flex h-full w-full flex-col bg-black"
         data-lk-theme="default"
+        onDisconnected={() => {
+          navigate('/main');
+        }}
       >
         <MemoizedCustomVideoConference />
         <RoomAudioRenderer />
