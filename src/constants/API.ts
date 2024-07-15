@@ -31,6 +31,7 @@ const RECAP = {
 const LUCKY = {
   STATUS: '/lucky',
   BUBBLE: '/lucky/bubble',
+  FACE: 'challenges/face',
 };
 
 export default {

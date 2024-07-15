@@ -1,5 +1,11 @@
+import Frame from './facetime/Frame.tsx';
+
 const RecapFaceTime = () => {
-  return <div>Recap FaceTime</div>
-}
+  return (
+    <div>
+      <Frame />
+    </div>
+  );
+};
 
 export default RecapFaceTime;
