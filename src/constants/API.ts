@@ -27,6 +27,7 @@ const USER = '/users';
 const RECAP = {
   LIST: 'recap/list',
   FACE: 'recap/face',
+  FAMILY_PHOTO: 'recap/photos',
 };
 
 const LUCKY = {
