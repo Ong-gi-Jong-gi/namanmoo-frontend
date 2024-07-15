@@ -1,5 +1,5 @@
 import { useGetFaceRecap } from '../../apis/recap/getFaceRecap.ts';
-import Frame from './facetime/Frame.tsx';
+import FacetimeFrame from './frame/FacetimeFrame.tsx';
 
 const RecapFaceTime = () => {
   const { data, isLoading } = useGetFaceRecap({ luckyId: '1' });
@@ -8,7 +8,7 @@ const RecapFaceTime = () => {
 
   return (
     <>
-      <Frame videos={data.video} />
+      <FacetimeFrame videos={data.video} />
     </>
   );
 };

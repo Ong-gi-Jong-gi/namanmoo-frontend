@@ -51,6 +51,7 @@ export default {
       backgroundImage: {
         paper: "url('/src/assets/images/paper.svg')",
         main: "url('/src/assets/images/main-background.png')",
+        polaroid: "url('/src/assets/images/polaroid.png')",
       },
     },
   },
