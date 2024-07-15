@@ -7,6 +7,7 @@ export class UserInfoDto {
   public readonly nickname: string;
   public readonly role: UserRole;
   public readonly userImg: string;
+  public readonly code: string;
 
   constructor(data: UserInfo) {
     this.userId = data.userId;
@@ -14,5 +15,6 @@ export class UserInfoDto {
     this.nickname = data.nickname;
     this.role = data.role;
     this.userImg = data.userImg;
+    this.code = data.code;
   }
 }
