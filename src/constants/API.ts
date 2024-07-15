@@ -26,11 +26,13 @@ const USER = '/users';
 
 const RECAP = {
   LIST: 'recap/list',
+  FACE: 'recap/face',
 };
 
 const LUCKY = {
   STATUS: '/lucky',
   BUBBLE: '/lucky/bubble',
+  FACE: 'challenges/face',
 };
 
 export default {

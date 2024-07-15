@@ -11,6 +11,7 @@ const ScreenCapturer = ({ children }: ScreenCapturerProps) => {
   const { status, remainingTime } = useFacetimeChallengeStore();
   const { challengeId } = useParams();
   const { mutate } = usePostFaceChallenge();
+  const countRef = useRef(1);
 
   useEffect(() => {
     const handleCapture = () => {
@@ -18,9 +19,14 @@ const ScreenCapturer = ({ children }: ScreenCapturerProps) => {
         html2canvas(screenRef.current, { scale: 4 }).then((canvas) => {
           canvas.toBlob((blob) => {
             if (!blob) return;
-            const imgFile = new File([blob], 'screenshot.png', {
-              type: blob.type,
-            });
+            const imgFile = new File(
+              [blob],
+              `screenshot_${countRef.current}.png`,
+              {
+                type: blob.type,
+              },
+            );
+            countRef.current += 1;
             if (!challengeId || !imgFile) return;
             const formData = new FormData();
             formData.append('challengeId', challengeId);
