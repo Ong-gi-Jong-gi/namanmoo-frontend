@@ -13,7 +13,7 @@ const getFaceRecap = async (luckyId: string) => {
 
 export const useGetFaceRecap = ({ luckyId }: { luckyId: string }) => {
   return useQuery({
-    queryKey: [API.RECAP.FACE],
+    queryKey: [API.RECAP.FACE, luckyId],
     queryFn: () => getFaceRecap(luckyId),
   });
 };

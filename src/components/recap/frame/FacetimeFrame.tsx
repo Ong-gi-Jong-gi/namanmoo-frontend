@@ -1,11 +1,11 @@
-interface FrameProps {
+interface FacetimeFrameProps {
   videos: string[];
 }
 
-const Frame = ({ videos }: FrameProps) => {
+const FacetimeFrame = ({ videos }: FacetimeFrameProps) => {
   return (
     <div className="flex h-full w-full gap-2 bg-black px-4">
-      <div className="relative grid w-full grid-rows-[1fr_1fr_0.25fr] gap-2 py-9">
+      <div className="relative grid h-full w-full grid-rows-[1fr_1fr_0.25fr] gap-2 py-9">
         <div className="bg-paper bg-cover">
           {videos[0] && (
             <img
@@ -66,4 +66,4 @@ const Frame = ({ videos }: FrameProps) => {
   );
 };
 
-export default Frame;
+export default FacetimeFrame;
