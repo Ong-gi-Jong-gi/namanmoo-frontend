@@ -11,21 +11,17 @@ const useSocket = () => {
       room: string;
       challengeStatus: facetimeChallengeStatus;
     }) => {
-      console.log('challengeStatus', msg.challengeStatus);
       setStatus(msg.challengeStatus);
     };
     const handleChallengeStart = () => {
-      console.log('challengeStart');
       setStatus('ongoing');
     };
 
     const handleChallengeEnd = () => {
-      console.log('challengeEnd');
       setStatus('finished');
     };
 
     const handleRemainingTime = (msg: { remainingTime: number }) => {
-      console.log('remainingTime', msg.remainingTime);
       setRemainingTime(msg.remainingTime);
     };
 

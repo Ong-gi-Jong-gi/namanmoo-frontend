@@ -20,7 +20,7 @@ const FaceChallengeContainer = () => {
   return (
     <div className="flex h-full w-full flex-col">
       {challengeInfo.isComplete ? (
-        <FaceChallengeResult />
+        <FaceChallengeResult challengeInfo={challengeInfo} />
       ) : (
         <FaceLandmark>
           {isJoined ? (

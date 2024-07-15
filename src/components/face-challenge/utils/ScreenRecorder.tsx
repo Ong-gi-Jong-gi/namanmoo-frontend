@@ -26,7 +26,6 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
       startRecording();
     }
     if (status === 'recording' && challengeStatus === 'finished') {
-      console.log('stop recording');
       stopRecording();
     }
   }, [status, challengeStatus, startRecording, stopRecording]);
@@ -46,13 +45,11 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
         const videoFile = new File([blob], 'video.webm', {
           type: 'video/webm',
         });
-        console.log('videoFile:', videoFile);
         if (!challengeId || !videoFile) return;
 
         const formData = new FormData();
         formData.append('challengeId', challengeId);
         formData.append('answer', videoFile);
-        console.log('uuuuuu');
         mutate(formData);
       } catch (error) {
         console.error('Error uploading or downloading video:', error);

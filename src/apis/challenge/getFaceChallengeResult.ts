@@ -1,16 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
-import { ChallengeDetailDto } from '../dtos/challengeDtos';
 
 const getFaceChallengeResult = async (challengeId: string) => {
   const { data } = await authorizedApi.get(
     `${API.CHALLENGE.FACE_RESULT}?challengeId=${challengeId}`,
   );
+  const answerList = Object.keys(data?.data).map((key) => {
+    return data?.data[key][0] as string;
+  });
+
   return {
-    challengeInfo: new ChallengeDetailDto(data?.data),
-    answerList: data.data.familyPhotos,
-  } as { challengeInfo: ChallengeDetailDto; answerList: string[] };
+    answerList: answerList,
+  } as { answerList: string[] };
 };
 
 export const useGetFaceChallengeResult = ({

@@ -1,16 +1,21 @@
 import { useParams } from 'react-router-dom';
 import { useGetFaceChallengeResult } from '../../../apis/challenge/getFaceChallengeResult';
+import { ChallengeDetailDto } from '../../../apis/dtos/challengeDtos';
 import { formatDate } from '../../../utils/formatter';
 import ChallengeHeader from '../../qa-challenge/ChallengeHeader';
 import FaceAnswerField from './FaceAnswerField';
 
-const FaceChallengeResult = () => {
+interface FaceChallengeResultProps {
+  challengeInfo: ChallengeDetailDto;
+}
+
+const FaceChallengeResult = ({ challengeInfo }: FaceChallengeResultProps) => {
   const { challengeId } = useParams();
   const { data, isLoading } = useGetFaceChallengeResult({ challengeId });
   if (isLoading) return <div>Loading...</div>;
   if (!data) return <div>No data</div>;
 
-  const { challengeInfo, answerList } = data;
+  const { answerList } = data;
 
   return (
     <div className="flex h-full w-full flex-1 flex-col gap-16">
