@@ -27,10 +27,16 @@ const RECAP = {
   LIST: 'recap/list',
 };
 
+const LUCKY = {
+  STATUS: '/lucky',
+  BUBBLE: '/lucky/bubble',
+};
+
 export default {
   AUTH,
   FAMILY,
   CHALLENGE,
   USER,
   RECAP,
+  LUCKY,
 };
