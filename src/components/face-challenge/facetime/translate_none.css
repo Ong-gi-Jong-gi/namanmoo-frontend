@@ -1,0 +1,9 @@
+/* 좌우 반전 제거를 위해 transform 속성을 초기화 */
+[data-lk-local-participant='true']
+  .lk-participant-media-video[data-lk-local-participant='true'][data-lk-source='camera'] {
+  transform: none;
+}
+
+.lk-participant-name {
+  transform: rotateY(180deg);
+}
