@@ -50,9 +50,8 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
         const formData = new FormData();
         formData.append('challengeId', challengeId);
         formData.append('answer', videoFile);
-        setTimeout(() => {
-          mutate(formData);
-        }, 1000);
+        console.log('formData:', formData);
+        mutate(formData);
       } catch (error) {
         console.error('Error uploading or downloading video:', error);
       }
