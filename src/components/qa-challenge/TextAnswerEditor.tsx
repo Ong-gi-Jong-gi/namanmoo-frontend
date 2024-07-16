@@ -21,7 +21,6 @@ const TextAnswerEditor = ({
 }: TextAnswerEditorProps) => {
   const [value, setValue] = useState<string>(answer || '');
   const [status, setStatus] = useState<'view' | 'edit'>('view');
-  // const { mutate } = usePostNormalChallenge();
 
   const answerClass = clsx('font-ryurue text-ryurue-base', {
     'text-gray-40': !answer,
