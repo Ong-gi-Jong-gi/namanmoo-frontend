@@ -53,6 +53,19 @@ export default {
         main: "url('/src/assets/images/main-background.png')",
         polaroid: "url('/src/assets/images/polaroid.png')",
       },
+      keyframes: {
+        'slide-up': {
+          '0%': { transform: 'translateY(100%) translateX(-50%) ' },
+          '100%': { transform: 'translateY(0) translateX(-50%)' },
+        },
+      },
+      animation: {
+        'slide-up': 'slide-up 0.3s ease-out',
+      },
+      boxShadow: {
+        'shadow-box':
+          '0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05)',
+      },
     },
   },
   plugins: [require('tailwind-scrollbar-hide')],

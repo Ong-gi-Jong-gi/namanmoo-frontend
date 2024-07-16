@@ -15,7 +15,6 @@ const InviteModal = ({ code }: { code: string }) => {
           </button>
         </CopyToClipboard>
       </div>
-      {/* TODO: 초대 링크 확인하기 */}
       <CopyToClipboard text={`https://mooluck.site/main?code=${code}`}>
         <Button label="초대 링크 복사하기" type="full" theme="neutral" />
       </CopyToClipboard>
