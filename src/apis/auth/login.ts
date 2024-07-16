@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { api } from '..';
 import API from '../../constants/API';
 import routes from '../../constants/routes';
@@ -35,12 +35,13 @@ const postLogin = async (loginId: string, password: string) => {
 
 export const usePostLogin = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   return useMutation({
     mutationKey: [API.AUTH.LOGIN],
     mutationFn: ({ userId, password }: LoginValues) =>
       postLogin(userId, password),
     onSuccess: ({ data, authorization }) => {
-      console.log('login', data);
       const expireDate = new Date();
       expireDate.setMinutes(expireDate.getMinutes() + 5);
 
@@ -53,6 +54,8 @@ export const usePostLogin = () => {
       localStorage.setItem('mooluck-nickname', data.nickname);
 
       if (data.familyId == 'null') navigate(routes.family.entry);
+      else if (location.state.code != null)
+        navigate(`${routes.main}?code=${location.state.code}`);
       else navigate(routes.main);
     },
     onError: (error: Error) => {
