@@ -4,7 +4,7 @@ import PolaroidFrame from './frame/PolaroidFrame';
 
 const RecapFamilyPhoto = () => {
   const { data, isLoading } = useGetFamilyPhotoRecap({
-    luckyId: '1',
+    luckyId: '6',
   });
 
   if (isLoading) return <div>loading...</div>;
