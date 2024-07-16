@@ -28,7 +28,10 @@ const FamilyCreatePage = () => {
   };
 
   return (
-    <div className="flex h-full flex-col justify-evenly gap-10">
+    <div className="flex h-full flex-col justify-evenly gap-7">
+      <h1 className="w-full text-center font-ryurue text-ryurue-md">
+        가족 생성
+      </h1>
       <Select
         label="가족 구성원 수"
         description="우리 가족은 _명 입니다."
