@@ -6,7 +6,7 @@ import {
   GetTranscriptionJobCommandInput,
 } from '@aws-sdk/client-transcribe';
 import axios from 'axios';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { AudioVisualizer, LiveAudioVisualizer } from 'react-audio-visualize';
 import { HiMiniStop } from 'react-icons/hi2';
 import { MdFiberManualRecord } from 'react-icons/md';
@@ -40,28 +40,10 @@ const AudioTranscriber: React.FC<Props> = ({
   const [jobStatus, setJobStatus] = useState<string>('');
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [recordFile, setRecordFile] = useState<File | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const [blob, setBlob] = useState<Blob>();
   const audioRef = useRef<HTMLAudioElement>(null);
-
-  useEffect(() => {
-    setIsPlaying(false);
-  }, [recordFile]);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.addEventListener('ended', () => setIsPlaying(false));
-    }
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.removeEventListener('ended', () =>
-          setIsPlaying(false),
-        );
-      }
-    };
-  }, []);
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -172,21 +154,6 @@ const AudioTranscriber: React.FC<Props> = ({
     }
   };
 
-  const handleAudioPlayback = async () => {
-    if (audioRef.current) {
-      try {
-        if (isPlaying) {
-          await audioRef.current.pause();
-        } else {
-          await audioRef.current.play();
-        }
-        setIsPlaying(!isPlaying);
-      } catch (err) {
-        console.error('Error handling audio playback:', err);
-      }
-    }
-  };
-
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col items-center rounded-xl bg-background p-4 font-ryurue text-ryurue-base">
@@ -218,13 +185,6 @@ const AudioTranscriber: React.FC<Props> = ({
                   gap={2}
                   barColor={'#E16262'}
                 />
-                {/* <button onClick={handleAudioPlayback}>
-                  {isPlaying ? (
-                    <HiMiniPause size={24} />
-                  ) : (
-                    <HiMiniPlay size={24} />
-                  )}
-                </button> */}
                 <audio
                   className="w-full"
                   ref={audioRef}
@@ -268,4 +228,3 @@ const AudioTranscriber: React.FC<Props> = ({
 };
 
 export default AudioTranscriber;
-``;
