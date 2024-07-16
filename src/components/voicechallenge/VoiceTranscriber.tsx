@@ -31,7 +31,7 @@ interface Props {
   downTrigger: () => void;
 }
 
-const AudioTranscriber: React.FC<Props> = ({
+const VideoTranscriber: React.FC<Props> = ({
   mutate,
   downTrigger,
   question,
@@ -220,7 +220,7 @@ const AudioTranscriber: React.FC<Props> = ({
         <Button
           label="제출"
           theme="primary"
-          disabled={recordFile == null}
+          disabled={transcription == null || recordFile == null}
           size="small"
           onClick={handleSubmitBtn}
         />
@@ -230,4 +230,4 @@ const AudioTranscriber: React.FC<Props> = ({
   );
 };
 
-export default AudioTranscriber;
+export default VideoTranscriber;
