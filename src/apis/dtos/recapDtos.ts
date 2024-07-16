@@ -6,7 +6,7 @@ import {
   RecapStatistics,
   RecapUnit,
   RecapUser,
-  YouthRecap
+  YouthRecap,
 } from '../../types/recap';
 import { ChallengeInfoDto } from './challengeDtos';
 
@@ -76,7 +76,9 @@ export class RecapStatisticsDTO extends ChallengeInfoDto {
     super(data);
     this.topic = data.topic;
     this.topicResult = data.topicResult;
-    
+  }
+}
+
 export class YouthRecapDTO {
   public readonly photoUrl: string;
   public readonly text: string;
