@@ -26,7 +26,10 @@ const CHALLENGE = {
 const USER = '/users';
 
 const RECAP = {
-  LIST: 'recap/list',
+  LIST: '/recap/list',
+  RANK: '/recap/ranking',
+  STATISTICS: '/recap/statistics',
+  APPRECIATIONS: '/recap/appreciations',
   FACE: 'recap/face',
   FAMILY_PHOTO: 'recap/photos',
   YOUTH: 'recap/youth',

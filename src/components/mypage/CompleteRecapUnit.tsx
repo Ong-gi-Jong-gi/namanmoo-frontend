@@ -1,10 +1,16 @@
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
+import routes from '../../constants/routes';
 import { RecapUnit } from '../../types/recap';
 import { formatDate } from '../../utils/formatter';
 import Lucky from '../main/Lucky';
 
-const CompleteRecapUnit = ({ luckyStatus, startDate, endDate }: RecapUnit) => {
+const CompleteRecapUnit = ({
+  luckyId,
+  luckyStatus,
+  startDate,
+  endDate,
+}: RecapUnit) => {
   const navigate = useNavigate();
   const luckySize = clsx(
     'flex h-40 items-center',
@@ -19,8 +25,8 @@ const CompleteRecapUnit = ({ luckyStatus, startDate, endDate }: RecapUnit) => {
   );
 
   const handleClickUnit = () => {
-    navigate('/recap');
-  }
+    navigate(`${routes.recap}?luckyId=${luckyId}`);
+  };
 
   return (
     <div className={luckyTile} onClick={handleClickUnit}>
