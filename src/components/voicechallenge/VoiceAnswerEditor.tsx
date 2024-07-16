@@ -61,7 +61,7 @@ const VoiceAnswerEditor = ({
         isText
       />
       {status === 'view' && (
-        <span className={answerClass}>
+        <span className={answerClass} onClick={handleClick}>
           {answer ? (
             <>
               <audio className="flex-1" controls src={answer} />
