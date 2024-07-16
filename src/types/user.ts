@@ -6,4 +6,5 @@ export interface UserInfo {
   nickname: string;
   role: UserRole;
   userImg: string;
+  code: string;
 }

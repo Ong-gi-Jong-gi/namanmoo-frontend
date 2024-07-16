@@ -6,6 +6,7 @@ import {
   RecapStatistics,
   RecapUnit,
   RecapUser,
+  YouthRecap
 } from '../../types/recap';
 import { ChallengeInfoDto } from './challengeDtos';
 
@@ -13,7 +14,7 @@ export class RecapUnitDTO {
   public readonly luckyId: string;
   public readonly startDate: string;
   public readonly endDate: string;
-  public readonly luckyStatus: 1 | 2 | 3 | 4;
+  public readonly luckyStatus: 0 | 1 | 2 | 3;
 
   constructor(data: RecapUnit) {
     this.luckyId = data.luckyId;
@@ -75,5 +76,13 @@ export class RecapStatisticsDTO extends ChallengeInfoDto {
     super(data);
     this.topic = data.topic;
     this.topicResult = data.topicResult;
+    
+export class YouthRecapDTO {
+  public readonly photoUrl: string;
+  public readonly text: string;
+
+  constructor(data: YouthRecap) {
+    this.photoUrl = data.photo;
+    this.text = data.text;
   }
 }

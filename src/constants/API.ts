@@ -19,6 +19,8 @@ const CHALLENGE = {
   PHOTO: '/challenges/photo',
   GROUP: '/challenges/group',
   FACE: '/challenges/face',
+  VOICE: '/challenges/voice',
+  FACE_RESULT: '/challenges/face/result',
 };
 
 const USER = '/users';
@@ -28,6 +30,14 @@ const RECAP = {
   RANK: '/recap/ranking',
   STATISTICS: '/recap/statistics',
   APPRECIATIONS: '/recap/appreciations',
+  FACE: 'recap/face',
+  FAMILY_PHOTO: 'recap/photos',
+  YOUTH: 'recap/youth',
+};
+
+const LUCKY = {
+  STATUS: '/lucky',
+  BUBBLE: '/lucky/bubble',
 };
 
 export default {
@@ -36,4 +46,5 @@ export default {
   CHALLENGE,
   USER,
   RECAP,
+  LUCKY,
 };

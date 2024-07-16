@@ -4,21 +4,21 @@ import LuckyLevel3 from '../../assets/lucky/level3.png';
 import LuckyLevel4 from '../../assets/lucky/level4.png';
 
 interface LuckyProps {
-  level: 1 | 2 | 3 | 4;
+  level: 0 | 1 | 2 | 3;
 }
 
 const LuckySize = {
+  0: 'w-60',
   1: 'w-60',
-  2: 'w-60',
-  3: 'w-40',
-  4: 'w-72',
+  2: 'w-40',
+  3: 'w-72',
 };
 
 const luckyImageSrc = {
-  1: LuckyLevel1,
-  2: LuckyLevel2,
-  3: LuckyLevel3,
-  4: LuckyLevel4,
+  0: LuckyLevel1,
+  1: LuckyLevel2,
+  2: LuckyLevel3,
+  3: LuckyLevel4,
 };
 
 const Lucky = ({ level }: LuckyProps) => {

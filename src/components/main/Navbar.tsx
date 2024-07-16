@@ -1,5 +1,5 @@
 import { FaListUl } from 'react-icons/fa';
-import { FaHeadphones, FaQuestion } from 'react-icons/fa6';
+import { FaQuestion } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../constants/routes';
 import IconButton from '../common/IconButton';
@@ -17,7 +17,6 @@ const Navbar = () => {
         label="챌린지"
         onClick={handleChallengeBtn}
       />
-      <IconButton icon={<FaHeadphones size={20} />} label="사서함" />
       <IconButton
         theme="subtle"
         icon={<FaQuestion size={20} />}

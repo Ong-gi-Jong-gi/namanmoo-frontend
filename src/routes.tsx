@@ -11,7 +11,6 @@ import MainPage from './pages/MainPage';
 import MyPage from './pages/MyPage';
 import RecapPage from './pages/RecapPage';
 import SignupPage from './pages/SignupPage';
-import VideoTestPage from './pages/VideoTestPage';
 
 const privateChildren: RouteObject[] = [
   {
@@ -69,10 +68,6 @@ const router = createBrowserRouter([
         // 로그인 페이지
         path: routes.login,
         element: <LoginPage />,
-      },
-      {
-        path: 'face/:challengeId',
-        element: <VideoTestPage />,
       },
       {
         path: '', // 로그인 시에만 접근 가능한 페이지

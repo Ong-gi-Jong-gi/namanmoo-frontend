@@ -1,5 +1,16 @@
+import { useGetFaceRecap } from '../../apis/recap/getFaceRecap.ts';
+import FacetimeFrame from './frame/FacetimeFrame.tsx';
+
 const RecapFaceTime = () => {
-  return <div>Recap FaceTime</div>
-}
+  const { data, isLoading } = useGetFaceRecap({ luckyId: '6' });
+  if (isLoading) return <div>loading...</div>;
+  if (!data) return <div>no data</div>;
+
+  return (
+    <>
+      <FacetimeFrame videos={data.video} />
+    </>
+  );
+};
 
 export default RecapFaceTime;
