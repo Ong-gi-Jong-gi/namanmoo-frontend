@@ -7,5 +7,6 @@ export const SYS_MESSAGE = Object.freeze({
   ANSWER_YET: '아직 답변하지 않았습니다.',
   NO_DATA: '데이터가 존재하지 않습니다.',
   NO_ROLE: '선택된 역할이 없습니다.',
+  NO_CHALLENGE: '아직 챌린지가 없습니다.',
   DEFAULT: '알 수 없는 오류입니다.',
 });

@@ -16,11 +16,17 @@ const ChallengeListPage = () => {
   return (
     <div className="flex h-full flex-col">
       <Header />
-      <div className="flex flex-1 flex-col gap-3 overflow-scroll scrollbar-hide">
-        {challenges.map((challenge) => (
-          <ChallengeListUnit key={challenge.challengeId} {...challenge} />
-        ))}
-      </div>
+      {challenges.length > 0 ? (
+        <div className="flex flex-1 flex-col gap-3 overflow-scroll scrollbar-hide">
+          {challenges.map((challenge) => (
+            <ChallengeListUnit key={challenge.challengeId} {...challenge} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex h-full items-center justify-center font-ryurue text-ryurue-md text-gray-40">
+          {SYS_MESSAGE.NO_CHALLENGE}
+        </div>
+      )}
     </div>
   );
 };
