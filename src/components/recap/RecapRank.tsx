@@ -1,6 +1,6 @@
+import { RecapRankingDTO } from '../../apis/dtos/recapDtos';
 import { useGetRecapRank } from '../../apis/recap/getRecapRank';
 import { SYS_MESSAGE } from '../../constants/message';
-import { RecapRanking } from '../../types/recap';
 import Lucky from '../main/Lucky';
 import RecapRankingUnit from './RecapRankingUnit';
 
@@ -30,7 +30,7 @@ const RecapRank = ({ luckyId }: { luckyId: string }) => {
         사랑을 받은 행운이에요.
       </p>
       <div className="flex w-full flex-1 flex-col justify-between gap-3 first:mb-2">
-        {ranking.map((rank: RecapRanking) => (
+        {ranking.map((rank: RecapRankingDTO) => (
           <RecapRankingUnit
             key={rank.userId}
             {...rank}
