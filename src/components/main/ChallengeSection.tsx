@@ -6,6 +6,7 @@ import { MAX_FAMILY_MEMBER } from '../../constants/family';
 import { getRandomMessage } from '../../utils/luckyMessage';
 import ChallengeButton from './ChallengeButton';
 import Lucky from './Lucky';
+import RiveLucky from './RiveLucky';
 
 interface ChallengeSectionProps {
   currentFamilySize: number;
@@ -59,7 +60,10 @@ const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
               </p>
             </div>
           )}
-          <Lucky level={luckyInfo.luckyStatus} />
+          <RiveLucky
+            level={luckyInfo.luckyStatus}
+            isBubble={luckyInfo.isBubble}
+          />
         </div>
         <ChallengeButton
           type="ongoing"
