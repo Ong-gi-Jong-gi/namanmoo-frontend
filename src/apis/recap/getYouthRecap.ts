@@ -4,8 +4,10 @@ import API from '../../constants/API';
 import { YouthRecap } from '../../types/recap';
 import { YouthRecapDTO } from '../dtos/recapDtos';
 
-const getYouthRecap = async () => {
-  const { data } = await authorizedApi.get(API.RECAP.YOUTH);
+const getYouthRecap = async (luckyId: string) => {
+  const { data } = await authorizedApi.get(
+    `${API.RECAP.YOUTH}?luckyId=${luckyId}`,
+  );
   return data.data.map(
     (recap: YouthRecap) => new YouthRecapDTO(recap),
   ) as YouthRecapDTO[];
@@ -14,6 +16,6 @@ const getYouthRecap = async () => {
 export const useGetYouthRecap = ({ luckyId }: { luckyId: string }) => {
   return useQuery({
     queryKey: [API.RECAP.YOUTH, luckyId],
-    queryFn: getYouthRecap,
+    queryFn: () => getYouthRecap(luckyId),
   });
 };
