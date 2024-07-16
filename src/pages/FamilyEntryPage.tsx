@@ -19,7 +19,7 @@ const FamilyEntryPage = () => {
   const onClickJoinBtn = () => {
     openModal({
       content: <FamilyCodeModal code={''} />,
-      showCloseBtn: false,
+      showCloseBtn: true,
     });
   };
 
@@ -29,7 +29,7 @@ const FamilyEntryPage = () => {
     if (code)
       openModal({
         content: <FamilyCodeModal code={code} />,
-        showCloseBtn: false,
+        showCloseBtn: true,
       });
   }, []);
 
