@@ -45,12 +45,13 @@ export default {
       'pretendard-bold': 700,
     },
     boxShadow: {
-      card: '0px 4px 4px 0px rgba(0,0,0,0.30)',
+      card: '0px 4px 4px 0px rgba(51,51,51,0.25)',
     },
     extend: {
       backgroundImage: {
         paper: "url('/src/assets/images/paper.svg')",
         main: "url('/src/assets/images/main-background.png')",
+        polaroid: "url('/src/assets/images/polaroid.png')",
       },
       keyframes: {
         'slide-up': {

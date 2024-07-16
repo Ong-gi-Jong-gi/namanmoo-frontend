@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import { postCreateChallenge } from '../../apis/challenge/postCreateChallenge';
 import routes from '../../constants/routes';
+import { ChallengeType } from '../../types/challenge';
 
 interface BaseChallengeButtonProps {
   text: string;
@@ -22,6 +23,7 @@ interface OngoingChallengeButtonProps extends BaseChallengeButtonProps {
   type: 'ongoing';
   day: string;
   challengeId: string;
+  theme: ChallengeType;
 }
 
 type ChallengeButtonProps =
@@ -80,7 +82,6 @@ const ChallengeButton = (props: ChallengeButtonProps) => {
       //   state: { type: props.theme },
       // });
       // FIXME: URL 형태 수정 필요
-
       navigate(`${routes.challenge}/${props.challengeId}?type=${props.theme}`);
     }
   };

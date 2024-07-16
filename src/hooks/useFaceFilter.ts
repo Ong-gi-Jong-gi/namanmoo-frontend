@@ -92,6 +92,14 @@ const useFaceFilter = (
     }
   }, [estimateFacesLoop, filterImage, ctx, filterType, video, isFilterActive]);
 
+  useEffect(() => {
+    return () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+    };
+  }, []);
+
   return { canvasRef };
 };
 export default useFaceFilter;

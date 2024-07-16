@@ -5,14 +5,17 @@ import {
   useTrackRefContext,
 } from '@livekit/components-react';
 import { useEffect, useState } from 'react';
-import useFaceFilterWithModel from '../../hooks/useFaceFilterWithModel';
-import { useFilterTypeStore } from '../../store/filterTypeStore';
+import useFaceFilterWithModel from '../../../hooks/useFaceFilterWithModel';
+import { useFilterTypeStore } from '../../../store/filterTypeStore';
+import ScreenCapturer from '../utils/ScreenCapturer';
+import ScreenRecorder from '../utils/ScreenRecorder';
 
 const encoder = new TextEncoder();
 
 const MyParticipantTile = () => {
   const trackRef = useTrackRefContext();
   const { filterType } = useFilterTypeStore();
+
   const { send: sendKeypoints } = useDataChannel('filter');
   const isMuted = useIsMuted(trackRef);
   const [videoElement, setVideoElement] = useState<HTMLVideoElement | null>(
@@ -41,9 +44,14 @@ const MyParticipantTile = () => {
   }, [trackRef.publication?.track?.attachedElements]);
 
   return (
-    <div className="relative">
-      <ParticipantTile />
-      <canvas className="absolute left-0 top-0 -scale-x-100" ref={canvasRef} />
+    <div className="relative -scale-x-100">
+      <ScreenRecorder
+        customMediaStream={trackRef.publication?.track?.mediaStream || null}
+      />
+      <ScreenCapturer>
+        <ParticipantTile />
+        <canvas className="absolute left-0 top-0" ref={canvasRef} />
+      </ScreenCapturer>
     </div>
   );
 };

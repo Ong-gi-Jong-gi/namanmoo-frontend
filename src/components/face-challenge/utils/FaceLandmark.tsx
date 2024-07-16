@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect } from 'react';
-import { useFaceLandmarker } from '../../store/faceLandmarkerStore';
+import { useFaceLandmarker } from '../../../store/faceLandmarkerStore';
 
 interface FaceLandmarkProps extends PropsWithChildren {}
 

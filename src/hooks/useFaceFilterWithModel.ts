@@ -31,7 +31,7 @@ const useFaceFilterWithModel = (
     setActualVideoSize({ width: actualWidth, height: actualHeight });
 
     if (actualWidth === 0 || actualHeight === 0) {
-      console.error('Invalid video dimensions.');
+      console.error('비디오 크기가 0입니다.');
       animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
       return;
     }
@@ -56,7 +56,6 @@ const useFaceFilterWithModel = (
         );
 
         if (!position) {
-          console.warn('Failed to calculate filter position.');
           animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
           return;
         }
@@ -67,7 +66,6 @@ const useFaceFilterWithModel = (
         // 필터 그리기
         ctx.drawImage(filterImage, x, y, width, height);
       } else {
-        console.warn('No face landmarks detected.');
         animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
         return;
       }
@@ -140,6 +138,15 @@ const useFaceFilterWithModel = (
     video,
     isFilterActive,
   ]);
+
+  // 언마운트 시 애니메이션 프레임 정리
+  useEffect(() => {
+    return () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+    };
+  }, []);
 
   return { canvasRef, position, actualVideoSize };
 };
