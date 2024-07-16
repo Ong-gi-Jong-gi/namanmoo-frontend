@@ -7,6 +7,7 @@ import routes from '../../constants/routes';
 import { responseRoot } from '../../types/api';
 import { LoginValues, UserLoginType } from '../../types/auth';
 import { setCookie } from '../../utils/cookie';
+import { getExpireTime } from '../../utils/tokenUtils';
 
 const postLogin = async (loginId: string, password: string) => {
   try {
@@ -42,8 +43,9 @@ export const usePostLogin = () => {
     mutationFn: ({ userId, password }: LoginValues) =>
       postLogin(userId, password),
     onSuccess: ({ data, authorization }) => {
+      const expireTime = getExpireTime(authorization);
       const expireDate = new Date();
-      expireDate.setMinutes(expireDate.getMinutes() + 5);
+      expireDate.setMinutes(expireDate.getMinutes() + expireTime);
 
       setCookie('authorization', authorization, {
         path: '/',
