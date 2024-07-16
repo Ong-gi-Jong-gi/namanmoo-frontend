@@ -1,4 +1,4 @@
-import { RecapUnit } from '../../types/recap';
+import { RecapUnit, YouthRecap } from '../../types/recap';
 
 export class RecapUnitDTO {
   public readonly luckyId: string;
@@ -11,5 +11,15 @@ export class RecapUnitDTO {
     this.startDate = data.startDate;
     this.endDate = data.endDate;
     this.luckyStatus = data.luckyStatus;
+  }
+}
+
+export class YouthRecapDTO {
+  public readonly photoUrl: string;
+  public readonly text: string;
+
+  constructor(data: YouthRecap) {
+    this.photoUrl = data.photo;
+    this.text = data.text;
   }
 }

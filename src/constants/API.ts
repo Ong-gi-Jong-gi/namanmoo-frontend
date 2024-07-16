@@ -28,12 +28,12 @@ const RECAP = {
   LIST: 'recap/list',
   FACE: 'recap/face',
   FAMILY_PHOTO: 'recap/photos',
+  YOUTH: 'recap/youth',
 };
 
 const LUCKY = {
   STATUS: '/lucky',
   BUBBLE: '/lucky/bubble',
-  FACE: 'challenges/face',
 };
 
 export default {

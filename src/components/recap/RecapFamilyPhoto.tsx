@@ -21,14 +21,14 @@ const RecapFamilyPhoto = () => {
           <PolaroidFrame
             key={`polaroid-${index}`}
             imageUrl={url}
-            size={POLROID.IMAGE_POSITION[index].size}
+            type={POLROID.IMAGE_POSITION[index].type}
             x={POLROID.IMAGE_POSITION[index].x}
             y={POLROID.IMAGE_POSITION[index].y}
             rotation={POLROID.IMAGE_POSITION[index].rotation}
           />
         ))}
         <PolaroidFrame
-          size="main"
+          type="main"
           imageUrl={mainPhoto}
           x={50}
           y={50}
