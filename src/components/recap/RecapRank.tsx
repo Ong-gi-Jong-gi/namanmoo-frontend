@@ -5,9 +5,10 @@ import Lucky from '../main/Lucky';
 import RecapRankingUnit from './RecapRankingUnit';
 
 const RecapRank = ({ luckyId }: { luckyId: string }) => {
-  const { hasData, isLoading, ranking, recapDetail } = useGetRecapRank({
-    luckyId,
-  });
+  const { hasData, isLoading, ranking, recapDetail, maxCount } =
+    useGetRecapRank({
+      luckyId,
+    });
 
   if (isLoading) <div>isLoading...</div>;
   if (hasData) <div>{SYS_MESSAGE.NO_DATA}</div>;
@@ -33,8 +34,7 @@ const RecapRank = ({ luckyId }: { luckyId: string }) => {
           <RecapRankingUnit
             key={rank.userId}
             {...rank}
-            // isFirst={rank.count == maxCount}
-            isFirst={true}
+            isFirst={rank.count == maxCount}
           />
         ))}
       </div>

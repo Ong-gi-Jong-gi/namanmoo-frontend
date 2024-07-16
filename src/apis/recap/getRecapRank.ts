@@ -39,10 +39,13 @@ export const useGetRecapRank = ({ luckyId }: { luckyId: string }) => {
 
   const sortedRanking = ranking.sort((a, b) => b.count - a.count);
 
+  const maxCount = sortedRanking[0].count;
+
   return {
     hasData,
     isLoading,
     recapDetail,
     ranking: sortedRanking,
+    maxCount,
   };
 };
