@@ -8,20 +8,12 @@ const FacetimeFrame = ({ videos }: FacetimeFrameProps) => {
       <div className="relative grid h-full w-full grid-rows-[1fr_1fr_0.25fr] gap-2 py-9">
         <div className="bg-paper bg-cover">
           {videos[0] && (
-            <img
-              src={videos[0]}
-              alt=""
-              className="h-full w-full object-contain"
-            />
+            <video src={videos[0]} className="h-full w-full object-contain" />
           )}
         </div>
         <div className="bg-paper bg-cover">
           {videos[1] && (
-            <img
-              src={videos[1]}
-              alt=""
-              className="h-full w-full object-contain"
-            />
+            <video src={videos[1]} className="h-full w-full object-contain" />
           )}
         </div>
         <div>
@@ -45,20 +37,12 @@ const FacetimeFrame = ({ videos }: FacetimeFrameProps) => {
         </div>
         <div className="bg-paper bg-cover">
           {videos[2] && (
-            <img
-              src={videos[2]}
-              alt=""
-              className="h-full w-full object-contain"
-            />
+            <video src={videos[2]} className="h-full w-full object-contain" />
           )}
         </div>
         <div className="bg-paper bg-cover">
           {videos[3] && (
-            <img
-              src={videos[3]}
-              alt=""
-              className="h-full w-full object-contain"
-            />
+            <video src={videos[3]} className="h-full w-full object-contain" />
           )}
         </div>
       </div>
