@@ -16,9 +16,6 @@ const FamilyCodeModal = ({ code }: { code: string }) => {
 
   const handleJoinBtn = () => {
     setEnabled(true);
-    if (hasData) {
-      moveNextModal();
-    }
   };
 
   const moveNextModal = () => {
