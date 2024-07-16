@@ -4,7 +4,6 @@ import { getCookie } from './cookie';
 
 const parseJwtToken: (arg: string) => TokenType = (jwtToken: string) => {
   //jwt토큰 디코딩
-  console.log(jwtToken);
   const payload = jwtToken.substring(
     jwtToken.indexOf('.') + 1,
     jwtToken.lastIndexOf('.'),

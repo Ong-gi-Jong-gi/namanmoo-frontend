@@ -6,7 +6,6 @@ const getFaceRecap = async (luckyId: string) => {
   const { data } = await authorizedApi.get(
     `${API.RECAP.FACE}?luckyId=${luckyId}`,
   );
-  console.log(data);
 
   return data.data as { video: string[] };
 };
