@@ -51,7 +51,7 @@ export class RecapAppreciationsDTO extends RecapUserDTO {
 
 export class RecapDetailDTO {
   public readonly totalCount: number;
-  public readonly luckyStatus: 1 | 2 | 3 | 4;
+  public readonly luckyStatus: 0 | 1 | 2 | 3;
 
   constructor(data: RecapDetail) {
     this.totalCount = data.totalCount;
