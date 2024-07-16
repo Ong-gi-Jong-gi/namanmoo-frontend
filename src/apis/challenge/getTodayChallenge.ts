@@ -42,7 +42,7 @@ export const useGetTodayChallenge = ({
         challengeNumber: '',
         challengeTitle: '',
         challengeType: '',
-      } as ChallengeInfoDto);
+      } as unknown as ChallengeInfoDto);
 
   return {
     challengeInfo,
