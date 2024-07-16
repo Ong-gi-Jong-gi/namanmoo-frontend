@@ -14,7 +14,7 @@ export interface YouthRecap {
   text: string;
 }
 
-export interface RecapUser extends Omit<UserInfo, 'name'> {}
+export interface RecapUser extends Omit<UserInfo, 'name' | 'code'> {}
 
 export interface RecapAppreciationsType extends RecapUser {
   thanks: string;
@@ -23,7 +23,7 @@ export interface RecapAppreciationsType extends RecapUser {
 
 export interface RecapDetail {
   totalCount: number;
-  luckyStatus: 1 | 2 | 3 | 4;
+  luckyStatus: 0 | 1 | 2 | 3;
 }
 
 export interface RecapRanking extends RecapUser {

@@ -14,7 +14,7 @@ const CompleteRecapUnit = ({
   const navigate = useNavigate();
   const luckySize = clsx(
     'flex h-40 items-center',
-    `${luckyStatus == 3 ? 'p-3' : ''}`,
+    `${luckyStatus == 2 ? 'p-3' : ''}`,
   );
 
   const isAlive = new Date().getTime() < parseInt(endDate);
