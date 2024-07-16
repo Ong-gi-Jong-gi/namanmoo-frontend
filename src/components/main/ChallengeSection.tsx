@@ -12,11 +12,7 @@ interface ChallengeSectionProps {
 }
 
 const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
-  const {
-    challengeInfo,
-    isDone,
-    isLoading: challengeLoading,
-  } = useGetTodayChallenge({
+  const { challengeInfo, isLoading: challengeLoading } = useGetTodayChallenge({
     enabled: currentFamilySize === MAX_FAMILY_MEMBER,
   });
   const { luckyInfo, isLoading: luckyLoading } = useGetLucky();
@@ -33,6 +29,7 @@ const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
     if (currentFamilySize < MAX_FAMILY_MEMBER)
       return (
         <>
+          <Lucky level={0} />
           <ChallengeButton
             type="disabled"
             text="챌린지 시작"
@@ -41,10 +38,10 @@ const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
           />
         </>
       );
-    if (!challengeInfo || isDone)
+    if (!challengeInfo)
       return (
         <>
-          <Lucky level={1} />
+          <Lucky level={0} />
           <ChallengeButton type="active" text="챌린지 시작" />
         </>
       );
