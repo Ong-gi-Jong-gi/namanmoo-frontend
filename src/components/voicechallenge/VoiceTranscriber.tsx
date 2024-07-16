@@ -129,7 +129,6 @@ const AudioTranscriber: React.FC<Props> = ({
           if (transcriptUri) {
             const transcriptResponse = await fetchTranscript(transcriptUri);
             if (transcriptResponse) {
-              console.log(transcriptResponse);
               setTranscription(
                 transcriptResponse.results.transcripts[0].transcript,
               );
@@ -152,6 +151,11 @@ const AudioTranscriber: React.FC<Props> = ({
       console.error('Error fetching transcript:', err);
       return null;
     }
+  };
+
+  const handleSubmitBtn = () => {
+    mutate(recordFile);
+    downTrigger();
   };
 
   return (
@@ -190,7 +194,6 @@ const AudioTranscriber: React.FC<Props> = ({
                   ref={audioRef}
                   controls
                   src={URL.createObjectURL(recordFile)}
-                  onEnded={() => setIsPlaying(false)}
                 />
               </div>
             )}
@@ -219,7 +222,7 @@ const AudioTranscriber: React.FC<Props> = ({
           theme="primary"
           disabled={recordFile == null}
           size="small"
-          onClick={() => mutate(recordFile)}
+          onClick={handleSubmitBtn}
         />
       </div>
       <div>Status: {jobStatus}</div>
