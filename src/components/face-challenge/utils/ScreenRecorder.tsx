@@ -15,7 +15,7 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
       video: true,
       customMediaStream: customMediaStream,
       mediaRecorderOptions: {
-        mimeType: 'video/webm',
+        mimeType: 'video/mp4',
         videoBitsPerSecond: 2560000,
       },
     });
@@ -42,8 +42,8 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
         const blob = await response.blob();
         if (!blob) return;
 
-        const videoFile = new File([blob], 'video.webm', {
-          type: 'video/webm',
+        const videoFile = new File([blob], 'video.mp4', {
+          type: 'video/mp4',
         });
         if (!challengeId || !videoFile) return;
 
