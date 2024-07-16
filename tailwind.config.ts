@@ -55,12 +55,17 @@ export default {
       },
       keyframes: {
         'slide-up': {
-          '0%': { transform: 'translateY(100%) translateX(-50%) ' },
+          '0%': { transform: 'translateY(100%) translateX(-50%)' },
           '100%': { transform: 'translateY(0) translateX(-50%)' },
+        },
+        'slide-down': {
+          '0%': { transform: 'translateY(0) translateX(-50%)' },
+          '100%': { transform: 'translateY(100%) translateX(-50%)' },
         },
       },
       animation: {
         'slide-up': 'slide-up 0.3s ease-out',
+        'slide-down': 'slide-down 0.3s ease-in',
       },
       boxShadow: {
         'shadow-box':
