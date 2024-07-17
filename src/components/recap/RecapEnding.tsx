@@ -10,7 +10,7 @@ const RecapEnding = () => {
         <p>마음을 다 표현할 수 없는</p>
         <p className="font-ryurue text-ryurue-lg text-secondary-20">"가족"</p>
       </div>
-      <div className="group-2 animate-fade-in animation-delay-200 opacity-0 drop-shadow-md">
+      <div className="group-2 animate-fade-in animation-delay-100 opacity-0 drop-shadow-md">
         <p>함께한 챌린지들이</p>
         <p>
           색다른
@@ -22,7 +22,7 @@ const RecapEnding = () => {
           좋겠습니다.
         </p>
       </div>
-      <div className="group-3 animate-fade-in animation-delay-400 opacity-0 drop-shadow-md">
+      <div className="group-3 animate-fade-in animation-delay-200 opacity-0 drop-shadow-md">
         <p>
           <span className="text-primary-30">행운이</span>가 드리는
         </p>
