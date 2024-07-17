@@ -9,6 +9,7 @@ import './translate_none.css';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../../constants/routes';
 import FilterSelector from '../utils/FilterSelector';
+import SnapshotEffect from '../utils/SnapshotEffect';
 import MemoizedCustomVideoConference from './CustomVideoConference';
 import StatusBar from './StatusBar';
 
@@ -43,6 +44,7 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
           navigate(routes.main);
         }}
       >
+        <SnapshotEffect />
         <MemoizedCustomVideoConference />
         <RoomAudioRenderer />
         <FilterSelector />
