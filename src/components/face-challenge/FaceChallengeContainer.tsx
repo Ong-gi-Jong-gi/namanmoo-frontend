@@ -18,7 +18,7 @@ const FaceChallengeContainer = () => {
   const { challengeInfo, code } = data;
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <>
       {challengeInfo.isComplete ? (
         <FaceChallengeResult challengeInfo={challengeInfo} />
       ) : (
@@ -36,7 +36,7 @@ const FaceChallengeContainer = () => {
           )}
         </FaceLandmark>
       )}
-    </div>
+    </>
   );
 };
 

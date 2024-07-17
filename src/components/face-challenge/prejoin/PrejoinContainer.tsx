@@ -27,7 +27,7 @@ const PrejoinContainer = ({
 
   return (
     <>
-      <div className="flex h-full flex-col justify-between">
+      <div className="flex h-[calc(100%-80px)] flex-col justify-between">
         <ChallengeHeader
           challengeTitle={challengeTitle}
           challengeNumber={challengeNumber}
