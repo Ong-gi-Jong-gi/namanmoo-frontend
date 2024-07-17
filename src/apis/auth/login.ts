@@ -56,10 +56,13 @@ export const usePostLogin = () => {
 
       localStorage.setItem(FACETIME.LOCAL_STORAGE_KEY, data.nickname);
 
-      if (data.familyId == 'null') navigate(routes.family.entry);
-      else if (location.state.code != null)
-        navigate(`${routes.main}?code=${location.state.code}`);
-      else navigate(routes.main);
+      if (data.familyId == 'null') {
+        if (location.state != null) {
+          navigate(`${routes.family.entry}?code=${location.state.code}`);
+        } else {
+          navigate(routes.family.entry);
+        }
+      } else navigate(routes.main);
     },
     onError: (error: Error) => {
       alert(error.message);

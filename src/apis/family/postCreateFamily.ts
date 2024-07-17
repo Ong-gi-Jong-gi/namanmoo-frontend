@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
+import routes from '../../constants/routes';
 import { UserRole } from '../../types/family';
 import { FamilyCodeDto } from '../dtos/familyDtos';
 
@@ -35,7 +36,7 @@ export const useCreateFamily = () => {
       ownerRole: UserRole | '';
     }) => postCreateFamily(familySize, familyName, ownerRole),
     onSuccess: (data) => {
-      navigate(`/main?code=${data.code}`);
+      navigate(`${routes.main}?code=${data.code}`);
     },
   });
 };

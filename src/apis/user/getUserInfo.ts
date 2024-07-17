@@ -4,11 +4,7 @@ import API from '../../constants/API';
 import { UserInfoDto } from '../dtos/userDtos';
 
 const getUserInfo = async () => {
-  const { data } = await authorizedApi.get(`${API.USER}`, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  const { data } = await authorizedApi.get(`${API.USER}`);
 
   return { userInfo: new UserInfoDto(data.data) } as { userInfo: UserInfoDto };
 };
@@ -19,5 +15,20 @@ export const useGetUserInfo = () => {
     queryFn: () => getUserInfo(),
   });
 
-  return { ...data, isLoading };
+  const hasData = !!data;
+
+  const userInfo = hasData
+    ? data.userInfo
+    : ({
+        userInfo: {
+          userId: '',
+          name: '',
+          nickname: '',
+          role: '아빠',
+          userImg: '',
+          code: '',
+        },
+      } as unknown as UserInfoDto);
+
+  return { userInfo, hasData, isLoading };
 };

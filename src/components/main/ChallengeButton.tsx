@@ -78,11 +78,11 @@ const ChallengeButton = (props: ChallengeButtonProps) => {
       await postCreateChallenge(new Date().getTime());
     }
     if (type === 'ongoing') {
-      // navigate(`${routes.challenge}/${props.challengeId}`, {
-      //   state: { type: props.theme },
-      // });
-      // FIXME: URL 형태 수정 필요
-      navigate(`${routes.challenge}/${props.challengeId}?type=${props.theme}`);
+      navigate(`${routes.challenge}/${props.challengeId}`, {
+        state: {
+          type: props.theme,
+        },
+      });
     }
   };
 

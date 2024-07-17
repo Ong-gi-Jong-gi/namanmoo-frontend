@@ -5,6 +5,7 @@ const routes = {
   login: '/login',
   challenge: '/challenge',
   family: {
+    base: '/family',
     create: '/family/create',
     entry: '/family/entry',
   },

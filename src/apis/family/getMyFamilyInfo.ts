@@ -14,5 +14,16 @@ const getMyFamilyInfo = async () => {
 };
 
 export const useGetMyFamilyInfo = () => {
-  return useQuery({ queryKey: [API.FAMILY.MY], queryFn: getMyFamilyInfo });
+  const { data, isLoading } = useQuery({
+    queryKey: [API.FAMILY.MY],
+    queryFn: getMyFamilyInfo,
+  });
+
+  const hasData = !!data;
+
+  return {
+    hasData,
+    isLoading,
+    data,
+  };
 };

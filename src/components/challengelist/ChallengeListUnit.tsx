@@ -20,7 +20,9 @@ const ChallengeListUnit = ({
   );
 
   const handleUnitClick = () => {
-    navigate(`${routes.challenge}/${challengeId}?type=${challengeType}`);
+    navigate(`${routes.challenge}/${challengeId}`, {
+      state: { type: challengeType },
+    });
   };
 
   return (
