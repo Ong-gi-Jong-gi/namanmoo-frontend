@@ -1,5 +1,6 @@
 import { ChallengeDetailDto } from '../../../apis/dtos/challengeDtos';
 import useSocket from '../../../hooks/useSocket';
+import { formatDate } from '../../../utils/formatter';
 import Button from '../../common/Button';
 import ChallengeHeader from '../../qa-challenge/ChallengeHeader';
 import FilterSelector from '../utils/FilterSelector';
@@ -26,11 +27,11 @@ const PrejoinContainer = ({
 
   return (
     <>
-      <div className="flex h-full flex-col justify-between">
+      <div className="flex h-[calc(100%-80px)] flex-col justify-between">
         <ChallengeHeader
           challengeTitle={challengeTitle}
           challengeNumber={challengeNumber}
-          challengeDate={challengeDate}
+          challengeDate={formatDate(challengeDate)}
         />
         <MemoizedPrejoinCam />
         <FilterSelector />
