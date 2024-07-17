@@ -2,6 +2,7 @@ import html2canvas from 'html2canvas';
 import { PropsWithChildren, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePostFaceChallenge } from '../../../apis/challenge/postFaceChallenge';
+import FACETIME from '../../../constants/FACETIME';
 import { useFacetimeChallengeStore } from '../../../store/facetimeChallengeStore';
 
 interface ScreenCapturerProps extends PropsWithChildren {}
@@ -39,8 +40,8 @@ const ScreenCapturer = ({ children }: ScreenCapturerProps) => {
 
     if (
       status === 'ongoing' &&
-      remainingTime % 10 === 0 &&
-      remainingTime < 40
+      remainingTime % FACETIME.TIMER_UNIT === 0 &&
+      remainingTime < FACETIME.TIMER_UNIT * FACETIME.PHOTO_COUNT
     ) {
       handleCapture();
     }

@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useEffect } from 'react';
+import FACETIME from '../../../constants/FACETIME';
 import useSocket from '../../../hooks/useSocket';
 import { useFacetimeChallengeStore } from '../../../store/facetimeChallengeStore';
 
@@ -20,11 +21,11 @@ const StatusBar = ({ code }: StatusBarProps) => {
   const handleChallengeStart = () => {
     emitChallengeStart(code);
   };
-  const renderTime = remainingTime % 10 || 10;
+  const renderTime = remainingTime % FACETIME.TIMER_UNIT || FACETIME.TIMER_UNIT;
 
   const timerClass = clsx('w-full text-center font-ryurue text-ryurue-md', {
-    'text-white': renderTime > 5,
-    'text-red': renderTime <= 5,
+    'text-white': renderTime > FACETIME.TIMER_UNIT / 2,
+    'text-red': renderTime <= FACETIME.TIMER_UNIT / 2,
   });
 
   return (
@@ -38,7 +39,9 @@ const StatusBar = ({ code }: StatusBarProps) => {
         </button>
       )}
       {status === 'ongoing' && (
-        <p className={timerClass}>{remainingTime % 10 || 10}</p>
+        <p className={timerClass}>
+          {remainingTime % FACETIME.TIMER_UNIT || FACETIME.TIMER_UNIT}
+        </p>
       )}
       {status === 'finished' && (
         <p className="w-full text-center font-ryurue text-ryurue-md text-white">
