@@ -14,6 +14,15 @@ const ScreenCapturer = ({ children }: ScreenCapturerProps) => {
   const { mutate } = usePostFaceChallenge();
   const countRef = useRef(1);
 
+  const handleTestCapture = () => {
+    if (screenRef.current) {
+      html2canvas(screenRef.current, { scale: 4 }).then((canvas) => {
+        // canvas 화면에 띄우기
+        screenRef.current && screenRef.current.appendChild(canvas);
+      });
+    }
+  };
+
   useEffect(() => {
     const handleCapture = () => {
       if (screenRef.current) {
@@ -48,9 +57,12 @@ const ScreenCapturer = ({ children }: ScreenCapturerProps) => {
   }, [status, remainingTime, challengeId, mutate]);
 
   return (
-    <div className="h-full w-full" ref={screenRef}>
-      {children}
-    </div>
+    <>
+      <div className="hi h-full w-full" ref={screenRef}>
+        {children}
+      </div>
+      <button onClick={handleTestCapture}>찰칵</button>
+    </>
   );
 };
 
