@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate, RouteObject } from 'react-router-dom';
 import DefaultLayout from './components/common/layouts/DefaultLayout';
+import FamilyPageLayout from './components/common/layouts/FamilyPageLayout';
 import PrivateLayout from './components/common/layouts/PrivateLayout';
 import routes from './constants/routes';
 import ChallengDetailPage from './pages/ChallengDetailPage';
@@ -19,14 +20,20 @@ const privateChildren: RouteObject[] = [
     element: <MainPage />,
   },
   {
-    // 가족 생성/참여 전 페이지
-    path: routes.family.entry,
-    element: <FamilyEntryPage />,
-  },
-  {
-    // 가족 생성 페이지
-    path: routes.family.create,
-    element: <FamilyCreatePage />,
+    path: routes.family.base,
+    element: <FamilyPageLayout />,
+    children: [
+      {
+        // 가족 생성/참여 전 페이지
+        path: routes.family.entry,
+        element: <FamilyEntryPage />,
+      },
+      {
+        // 가족 생성 페이지
+        path: routes.family.create,
+        element: <FamilyCreatePage />,
+      },
+    ],
   },
   {
     // 챌린지 목록 페이지
