@@ -28,7 +28,10 @@ const FamilyCreatePage = () => {
   };
 
   return (
-    <div className="flex h-full flex-col justify-evenly">
+    <div className="flex h-full flex-col justify-evenly gap-7">
+      <h1 className="w-full text-center font-ryurue text-ryurue-md">
+        가족 생성
+      </h1>
       <Select
         label="가족 구성원 수"
         description="우리 가족은 _명 입니다."
@@ -44,13 +47,19 @@ const FamilyCreatePage = () => {
         value={familyName}
         placeholder="별명"
       />
+      <div className="flex flex-col gap-3">
+        <div>
+          <p className={`font-ryurue text-ryurue-base`}>가족 역할</p>
+          <p className="font-ryurue text-ryurue-sm text-gray-40">
+            나는 우리 가족에서 _입니다.
+          </p>
+        </div>
 
-      <p className={`mb-2 font-ryurue text-ryurue-md`}>가족 역할</p>
-      <p className="mb-3 font-ryurue text-ryurue-base text-gray-40">
-        나는 우리 가족에서 _입니다.
-      </p>
-      <FamilyRole myRole={myRole} changeRole={setMyRole} />
-      <Button label="가족 생성하기" onClick={handleCreateBtn} type="full" />
+        <FamilyRole myRole={myRole} changeRole={setMyRole} />
+      </div>
+      <span className="mt-3">
+        <Button label="가족 생성하기" onClick={handleCreateBtn} type="full" />
+      </span>
     </div>
   );
 };

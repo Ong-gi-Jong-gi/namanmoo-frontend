@@ -3,7 +3,7 @@ import { RecapUnit } from '../../types/recap';
 import CompleteRecapUnit from './CompleteRecapUnit';
 
 const CompleteRecapList = () => {
-  const { recapList, isLoading, hasData } = useGetRecapList();
+  const { recapList, isLoading } = useGetRecapList();
 
   if (isLoading) <div>Loading...</div>;
 
@@ -19,7 +19,7 @@ const CompleteRecapList = () => {
           </div>
         )}
 
-        {(!hasData || !recapList) && (
+        {recapList.length == 0 && (
           <div className="flex h-full items-center justify-center font-ryurue text-ryurue-md text-gray-40">
             <p>추억을 만들어보세요!</p>
           </div>

@@ -35,7 +35,6 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
   }, [handleRecording]);
 
   useEffect(() => {
-    console.log('mediaBlobUrl:', mediaBlobUrl);
     const uploadRecord = async (blobUrl: string) => {
       try {
         const response = await fetch(blobUrl);
@@ -50,7 +49,6 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
         const formData = new FormData();
         formData.append('challengeId', challengeId);
         formData.append('answer', videoFile);
-        console.log('formData:', formData);
         mutate(formData);
       } catch (error) {
         console.error('Error uploading or downloading video:', error);
