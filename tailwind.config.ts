@@ -65,6 +65,7 @@ export default {
         'fade-in': {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
+        },
         flash: {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0.5 },
