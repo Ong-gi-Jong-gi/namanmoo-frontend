@@ -7,3 +7,7 @@
 .lk-participant-name {
   transform: rotateY(180deg);
 }
+
+.lk-participant-metadata {
+  display: none;
+}
