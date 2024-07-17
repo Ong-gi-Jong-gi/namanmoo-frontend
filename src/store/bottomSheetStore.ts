@@ -24,11 +24,7 @@ const useBottomSheetStore = create<BottomSheetState & BottomSheetAction>(
     ...initialState,
     upBottomSheet: (props: UpBottomSheetProps) =>
       set(() => ({ ...props, isOpen: true })),
-    downBottomSheet: () => {
-      setTimeout(() => {
-        set((state) => ({ ...state, isOpen: false }));
-      }, 300);
-    },
+    downBottomSheet: () => set((state) => ({ ...state, isOpen: false })),
   }),
 );
 

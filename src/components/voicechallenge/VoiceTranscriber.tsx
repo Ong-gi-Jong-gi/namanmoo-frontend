@@ -6,7 +6,7 @@ import {
   GetTranscriptionJobCommandInput,
 } from '@aws-sdk/client-transcribe';
 import axios from 'axios';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AudioVisualizer, LiveAudioVisualizer } from 'react-audio-visualize';
 import { HiMiniStop } from 'react-icons/hi2';
 import { MdFiberManualRecord } from 'react-icons/md';
@@ -31,7 +31,7 @@ interface Props {
   downTrigger: () => void;
 }
 
-const VideoTranscriber: React.FC<Props> = ({
+const AudioTranscriber: React.FC<Props> = ({
   mutate,
   downTrigger,
   question,
@@ -40,10 +40,28 @@ const VideoTranscriber: React.FC<Props> = ({
   const [jobStatus, setJobStatus] = useState<string>('');
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [recordFile, setRecordFile] = useState<File | null>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const [blob, setBlob] = useState<Blob>();
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    setIsPlaying(false);
+  }, [recordFile]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener('ended', () => setIsPlaying(false));
+    }
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.removeEventListener('ended', () =>
+          setIsPlaying(false),
+        );
+      }
+    };
+  }, []);
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -129,6 +147,7 @@ const VideoTranscriber: React.FC<Props> = ({
           if (transcriptUri) {
             const transcriptResponse = await fetchTranscript(transcriptUri);
             if (transcriptResponse) {
+              console.log(transcriptResponse);
               setTranscription(
                 transcriptResponse.results.transcripts[0].transcript,
               );
@@ -153,9 +172,19 @@ const VideoTranscriber: React.FC<Props> = ({
     }
   };
 
-  const handleSubmitBtn = () => {
-    mutate(recordFile);
-    downTrigger();
+  const handleAudioPlayback = async () => {
+    if (audioRef.current) {
+      try {
+        if (isPlaying) {
+          await audioRef.current.pause();
+        } else {
+          await audioRef.current.play();
+        }
+        setIsPlaying(!isPlaying);
+      } catch (err) {
+        console.error('Error handling audio playback:', err);
+      }
+    }
   };
 
   return (
@@ -189,11 +218,19 @@ const VideoTranscriber: React.FC<Props> = ({
                   gap={2}
                   barColor={'#E16262'}
                 />
+                {/* <button onClick={handleAudioPlayback}>
+                  {isPlaying ? (
+                    <HiMiniPause size={24} />
+                  ) : (
+                    <HiMiniPlay size={24} />
+                  )}
+                </button> */}
                 <audio
                   className="w-full"
                   ref={audioRef}
                   controls
                   src={URL.createObjectURL(recordFile)}
+                  onEnded={() => setIsPlaying(false)}
                 />
               </div>
             )}
@@ -220,9 +257,9 @@ const VideoTranscriber: React.FC<Props> = ({
         <Button
           label="제출"
           theme="primary"
-          disabled={transcription == null || recordFile == null}
+          disabled={recordFile == null}
           size="small"
-          onClick={handleSubmitBtn}
+          onClick={() => mutate(recordFile)}
         />
       </div>
       <div>Status: {jobStatus}</div>
@@ -230,4 +267,5 @@ const VideoTranscriber: React.FC<Props> = ({
   );
 };
 
-export default VideoTranscriber;
+export default AudioTranscriber;
+``;

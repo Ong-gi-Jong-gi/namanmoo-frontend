@@ -5,7 +5,7 @@ import useBottomSheetStore from '../../store/bottomSheetStore';
 import { UserRole } from '../../types/family';
 import Button from '../common/Button';
 import Profile from '../common/Profile';
-import VideoTranscriber from './VoiceTranscriber';
+import AudioTranscriber from './VoiceTranscriber';
 
 interface VoiceAnswerEditorProps {
   role: UserRole;
@@ -31,8 +31,8 @@ const VoiceAnswerEditor = ({
   });
 
   const downTrigger = () => {
-    setStatus('view');
     downBottomSheet();
+    setStatus('view');
   };
 
   const handleClick = () => {
@@ -40,7 +40,7 @@ const VoiceAnswerEditor = ({
       setStatus('edit');
       upBottomSheet({
         content: (
-          <VideoTranscriber
+          <AudioTranscriber
             mutate={mutate}
             downTrigger={downTrigger}
             question={question}
@@ -61,7 +61,7 @@ const VoiceAnswerEditor = ({
         isText
       />
       {status === 'view' && (
-        <span className={answerClass} onClick={handleClick}>
+        <span className={answerClass}>
           {answer ? (
             <>
               <audio className="flex-1" controls src={answer} />
