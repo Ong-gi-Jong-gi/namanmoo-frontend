@@ -1,10 +1,11 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { SYS_MESSAGE } from '../../constants/message';
 import useBottomSheetStore from '../../store/bottomSheetStore';
 import { UserRole } from '../../types/family';
 import Button from '../common/Button';
 import Profile from '../common/Profile';
+import ListenButton from './ListenButton';
 import VideoTranscriber from './VoiceTranscriber';
 
 interface VoiceAnswerEditorProps {
@@ -25,6 +26,7 @@ const VoiceAnswerEditor = ({
   const { upBottomSheet } = useBottomSheetStore();
   const [status, setStatus] = useState<'view' | 'edit'>('view');
   const { downBottomSheet } = useBottomSheetStore();
+  const audioRef = useRef(null);
 
   const answerClass = clsx('flex gap-3 font-ryurue text-ryurue-base', {
     'text-gray-40': !answer,
@@ -64,7 +66,8 @@ const VoiceAnswerEditor = ({
         <span className={answerClass} onClick={handleClick}>
           {answer ? (
             <>
-              <audio className="flex-1" controls src={answer} />
+              <ListenButton audioRef={audioRef} />
+              <audio ref={audioRef} className="hidden" controls src={answer} />
               <Button
                 label="수정"
                 theme="neutral"

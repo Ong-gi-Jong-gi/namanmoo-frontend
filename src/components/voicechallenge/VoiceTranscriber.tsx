@@ -81,8 +81,11 @@ const VideoTranscriber: React.FC<Props> = ({
 
   const handleAudioPlay = () => {
     if (audioRef.current) {
-      if (audioRef.current.paused) audioRef.current.play();
-      else audioRef.current.pause();
+      if (audioRef.current.paused) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
     }
   };
 
@@ -99,7 +102,12 @@ const VideoTranscriber: React.FC<Props> = ({
         }
       };
 
+      const handleEnded = () => {
+        movingBarRef.current!.style.left = '0%';
+      };
+
       audioElement.addEventListener('timeupdate', handleTimeUpdate);
+      audioElement.addEventListener('ended', handleEnded);
 
       audioElement.onloadedmetadata = () => {
         const duration = audioElement.duration;
@@ -119,12 +127,9 @@ const VideoTranscriber: React.FC<Props> = ({
         movingBarRef.current!.classList.remove('move');
       };
 
-      audioElement.onended = () => {
-        movingBarRef.current!.classList.remove('move');
-      };
-
       return () => {
         audioElement.removeEventListener('timeupdate', handleTimeUpdate);
+        audioElement.removeEventListener('ended', handleEnded);
       };
     }
   }, [blob]);
