@@ -24,10 +24,6 @@ const MyParticipantTile = () => {
   const { canvasRef, position, actualVideoSize } = useFaceFilterWithModel(
     videoElement,
     !isMuted || false,
-    trackRef.publication?.dimensions
-      ? trackRef.publication?.dimensions.width /
-          trackRef.publication?.dimensions.height
-      : 1,
   );
 
   useEffect(() => {
@@ -48,7 +44,7 @@ const MyParticipantTile = () => {
   }, [trackRef.publication?.track?.attachedElements]);
 
   return (
-    <div className="relative h-full -scale-x-100 rounded-lg">
+    <div className="relative -scale-x-100">
       <ScreenRecorder
         customMediaStream={trackRef.publication?.track?.mediaStream || null}
       />

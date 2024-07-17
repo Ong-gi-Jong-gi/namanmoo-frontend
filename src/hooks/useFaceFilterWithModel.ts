@@ -12,7 +12,6 @@ const videoSize = {
 const useFaceFilterWithModel = (
   video: HTMLVideoElement | null,
   isFilterActive: boolean,
-  ratio: number,
 ) => {
   const { filterType } = useFilterTypeStore();
   const { faceLandmarker, isLoaded, loadFaceLandmarker } = useFaceLandmarker();
@@ -28,7 +27,7 @@ const useFaceFilterWithModel = (
     if (!video || !filterImage || !ctx || !faceLandmarker) return;
 
     const actualHeight = video.getBoundingClientRect().height;
-    const actualWidth = actualHeight * ratio;
+    const actualWidth = video.getBoundingClientRect().width;
     setActualVideoSize({ width: actualWidth, height: actualHeight });
     const padding = (actualWidth - video.getBoundingClientRect().width) / 2;
 
@@ -47,7 +46,7 @@ const useFaceFilterWithModel = (
       if (faceLandmarks && faceLandmarks.length > 0) {
         // 캔버스 초기화
         ctx.clearRect(0, 0, actualWidth, actualHeight);
-        canvasRef.current!.width = video.getBoundingClientRect().width;
+        canvasRef.current!.width = actualWidth;
         canvasRef.current!.height = actualHeight;
 
         // 필터 위치 계산
@@ -63,7 +62,7 @@ const useFaceFilterWithModel = (
         }
 
         const { x, y, width, height } = position;
-        setPosition({ x: x - padding, y, width, height, ratio });
+        setPosition({ x, y, width, height });
 
         // 필터 그리기
         ctx.drawImage(filterImage, x - padding, y, width, height);
@@ -88,7 +87,6 @@ const useFaceFilterWithModel = (
     filterType,
     video,
     isFilterActive,
-    ratio,
   ]);
 
   useEffect(() => {
