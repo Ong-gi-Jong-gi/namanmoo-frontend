@@ -7,24 +7,8 @@ const FacetimeFrame = ({ videos, challengeDate }: FacetimeFrameProps) => {
   return (
     <div className="flex h-full w-full gap-2 bg-black px-4">
       <div className="relative grid h-full w-full grid-rows-[1fr_1fr_0.25fr] gap-2 py-9">
-        <div className="bg-paper bg-cover">
-          {videos[0] && (
-            <video
-              src={videos[0]}
-              className="h-full w-full object-contain"
-              autoPlay
-            />
-          )}
-        </div>
-        <div className="bg-paper bg-cover">
-          {videos[1] && (
-            <video
-              src={videos[1]}
-              className="h-full w-full object-contain"
-              autoPlay
-            />
-          )}
-        </div>
+        <VideoTile src={videos[0]} />
+        <VideoTile src={videos[1]} />
         <div>
           <span className="font-pretendard text-pretendard-sm text-white">
             {challengeDate || '20XX.XX.XX'}
@@ -44,25 +28,19 @@ const FacetimeFrame = ({ videos, challengeDate }: FacetimeFrameProps) => {
             className="absolute -bottom-1 left-6 w-28"
           />
         </div>
-        <div className="bg-paper bg-cover">
-          {videos[2] && (
-            <video
-              src={videos[2]}
-              className="h-full w-full object-contain"
-              autoPlay
-            />
-          )}
-        </div>
-        <div className="bg-paper bg-cover">
-          {videos[3] && (
-            <video
-              src={videos[3]}
-              className="h-full w-full object-contain"
-              autoPlay
-            />
-          )}
-        </div>
+        <VideoTile src={videos[2]} />
+        <VideoTile src={videos[3]} />
       </div>
+    </div>
+  );
+};
+
+const VideoTile = ({ src }: { src: string }) => {
+  return (
+    <div className="bg-paper bg-cover">
+      {src && (
+        <video src={src} className="h-full w-full object-cover" autoPlay loop />
+      )}
     </div>
   );
 };
