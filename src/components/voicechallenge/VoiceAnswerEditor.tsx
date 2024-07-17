@@ -12,7 +12,7 @@ interface VoiceAnswerEditorProps {
   answer: string | null;
   userImg?: string;
   question: string;
-  mutate: (fileData: File | null) => void;
+  challengeId: string;
 }
 
 const VoiceAnswerEditor = ({
@@ -20,7 +20,7 @@ const VoiceAnswerEditor = ({
   answer,
   userImg,
   question,
-  mutate,
+  challengeId,
 }: VoiceAnswerEditorProps) => {
   const { upBottomSheet } = useBottomSheetStore();
   const [status, setStatus] = useState<'view' | 'edit'>('view');
@@ -41,7 +41,7 @@ const VoiceAnswerEditor = ({
       upBottomSheet({
         content: (
           <VideoTranscriber
-            mutate={mutate}
+            challengeId={challengeId}
             downTrigger={downTrigger}
             question={question}
           />

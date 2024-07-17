@@ -1,49 +1,42 @@
-import {
-  TranscribeClient,
-  StartTranscriptionJobCommand,
-  GetTranscriptionJobCommand,
-  StartTranscriptionJobCommandInput,
-  GetTranscriptionJobCommandInput,
-} from '@aws-sdk/client-transcribe';
-import axios from 'axios';
 import React, { useState, useRef } from 'react';
 import { AudioVisualizer, LiveAudioVisualizer } from 'react-audio-visualize';
 import { HiMiniStop } from 'react-icons/hi2';
 import { MdFiberManualRecord } from 'react-icons/md';
-import uploadFileS3 from '../../utils/uploadS3';
+import { usePostVoiceChallenge } from '../../apis/challenge/postVoiceChallenge';
 import Button from '../common/Button';
-
-const PULL_BUCKET_NAME = import.meta.env.VITE_PULL_BUCKET_NAME as string;
-const VITE_BUCKET_NAME = import.meta.env.VITE_BUCKET_NAME as string;
-const AWS_REGION = 'ap-northeast-2';
-
-const transcribeClient = new TranscribeClient({
-  region: AWS_REGION,
-  credentials: {
-    accessKeyId: import.meta.env.VITE_AWS_PUBLIC_KEY as string,
-    secretAccessKey: import.meta.env.VITE_AWS_PRIVATE_KEY as string,
-  },
-});
 
 interface Props {
   question: string;
-  mutate: (fileData: File | null) => void;
+  challengeId: string;
   downTrigger: () => void;
 }
 
 const VideoTranscriber: React.FC<Props> = ({
-  mutate,
+  challengeId,
   downTrigger,
   question,
 }) => {
   const [transcription, setTranscription] = useState<string | null>(null);
-  const [jobStatus, setJobStatus] = useState<string>('');
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [recordFile, setRecordFile] = useState<File | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const [blob, setBlob] = useState<Blob>();
   const audioRef = useRef<HTMLAudioElement>(null);
+  const { mutate } = usePostVoiceChallenge();
+
+  const mutateVoiceForm = async (fileData: File | null) => {
+    const formData = new FormData();
+
+    if (challengeId) formData.append('challengeId', challengeId);
+    if (fileData) formData.append('answer', fileData);
+
+    mutate(formData, {
+      onSuccess: (data) => {
+        setTranscription(data.data.answer);
+      },
+    });
+  };
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -66,13 +59,7 @@ const VideoTranscriber: React.FC<Props> = ({
 
       setRecordFile(audioFile);
       setBlob(audioBlob);
-
-      try {
-        await uploadFileS3(audioFile);
-        startTranscriptionJob();
-      } catch (err) {
-        console.error('Error uploading file to S3:', err);
-      }
+      mutateVoiceForm(audioFile);
     };
 
     mediaRecorder.start();
@@ -86,75 +73,7 @@ const VideoTranscriber: React.FC<Props> = ({
     setIsRecording(false);
   };
 
-  const startTranscriptionJob = async () => {
-    const params: StartTranscriptionJobCommandInput = {
-      TranscriptionJobName: `TranscriptionJob-${Date.now()}`,
-      LanguageCode: 'ko-KR',
-      Media: {
-        MediaFileUri: `https://s3.${AWS_REGION}.amazonaws.com/${PULL_BUCKET_NAME}/audio.wav`,
-      },
-      OutputBucketName: VITE_BUCKET_NAME,
-      OutputKey: `result/audio-${Date.now()}.json`,
-    };
-
-    try {
-      const command = new StartTranscriptionJobCommand(params);
-      const response = await transcribeClient.send(command);
-
-      if (response.TranscriptionJob?.TranscriptionJobName) {
-        setJobStatus(response.TranscriptionJob.TranscriptionJobStatus || '');
-        checkTranscriptionJob(response.TranscriptionJob.TranscriptionJobName);
-      }
-    } catch (err) {
-      console.error('Error starting transcription job:', err);
-    }
-  };
-
-  const checkTranscriptionJob = async (jobName: string) => {
-    const params: GetTranscriptionJobCommandInput = {
-      TranscriptionJobName: jobName,
-    };
-
-    try {
-      const command = new GetTranscriptionJobCommand(params);
-      const response = await transcribeClient.send(command);
-
-      if (response.TranscriptionJob) {
-        setJobStatus(response.TranscriptionJob.TranscriptionJobStatus || '');
-
-        if (response.TranscriptionJob.TranscriptionJobStatus === 'COMPLETED') {
-          const transcriptUri =
-            response.TranscriptionJob.Transcript?.TranscriptFileUri;
-
-          if (transcriptUri) {
-            const transcriptResponse = await fetchTranscript(transcriptUri);
-            if (transcriptResponse) {
-              setTranscription(
-                transcriptResponse.results.transcripts[0].transcript,
-              );
-            }
-          }
-        } else {
-          setTimeout(() => checkTranscriptionJob(jobName), 5000);
-        }
-      }
-    } catch (err) {
-      console.error('Error checking transcription job:', err);
-    }
-  };
-
-  const fetchTranscript = async (transcriptUri: string) => {
-    try {
-      const response = await axios.get(transcriptUri);
-      return response.data;
-    } catch (err) {
-      console.error('Error fetching transcript:', err);
-      return null;
-    }
-  };
-
   const handleSubmitBtn = () => {
-    mutate(recordFile);
     downTrigger();
   };
 
@@ -218,14 +137,12 @@ const VideoTranscriber: React.FC<Props> = ({
         </button>
 
         <Button
-          label="제출"
+          label="완료"
           theme="primary"
-          disabled={transcription == null || recordFile == null}
           size="small"
           onClick={handleSubmitBtn}
         />
       </div>
-      <div>Status: {jobStatus}</div>
     </div>
   );
 };
