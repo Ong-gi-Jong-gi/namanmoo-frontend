@@ -1,8 +1,10 @@
 import clsx from 'clsx';
+import { useRef } from 'react';
 import { FaLock } from 'react-icons/fa6';
 import { SYS_MESSAGE } from '../../constants/message';
 import { UserRole } from '../../types/family';
 import Profile from '../common/Profile';
+import ListenButton from './ListenButton';
 
 interface VoiceAnswerFieldProps {
   nickname: string;
@@ -19,6 +21,7 @@ const VoiceAnswerField = ({
   userImg,
   canView,
 }: VoiceAnswerFieldProps) => {
+  const audioRef = useRef<HTMLAudioElement>(null);
   const answerClass = clsx('font-ryurue text-ryurue-base', {
     'text-gray-40': !answer,
     'blur-sm': !canView && answer,
@@ -36,7 +39,15 @@ const VoiceAnswerField = ({
       <div className="relative">
         <span className={answerClass}>
           {answer ? (
-            <audio className="w-full" controls src={answer} />
+            <>
+              <ListenButton audioRef={audioRef} />
+              <audio
+                ref={audioRef}
+                className="hidden w-full"
+                controls
+                src={answer}
+              />
+            </>
           ) : (
             SYS_MESSAGE.ANSWER_YET
           )}

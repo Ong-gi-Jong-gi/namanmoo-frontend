@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { useGetVoiceChallenge } from '../../apis/challenge/getVoiceChallenge';
-import { usePostVoiceChallenge } from '../../apis/challenge/postVoiceChallenge';
 import { SYS_MESSAGE } from '../../constants/message';
 import { formatDate } from '../../utils/formatter';
 import ChallengeHeader from '../qa-challenge/ChallengeHeader';
@@ -13,17 +12,6 @@ const VoiceChallengeContainer = () => {
     useGetVoiceChallenge({
       challengeId,
     });
-
-  const { mutate } = usePostVoiceChallenge();
-
-  const mutateVoiceForm = (fileData: File | null) => {
-    const formData = new FormData();
-
-    if (challengeId) formData.append('challengeId', challengeId);
-    if (fileData) formData.append('answer', fileData);
-
-    mutate(formData);
-  };
 
   if (isLoading) return <div>Loading...</div>;
   if (!hasData || !myAnswer || !challengeInfo)
@@ -44,7 +32,7 @@ const VoiceChallengeContainer = () => {
             userImg={myAnswer.userImg}
             answer={myAnswer.answer}
             question={challengeInfo.challengeTitle}
-            mutate={mutateVoiceForm}
+            challengeId={challengeId ? challengeId : ''}
           />
           {answerList.map((answer) => (
             <VoiceAnswerField

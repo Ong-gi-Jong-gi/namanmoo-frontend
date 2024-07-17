@@ -1,82 +1,75 @@
-import {
-  TranscribeClient,
-  StartTranscriptionJobCommand,
-  GetTranscriptionJobCommand,
-  StartTranscriptionJobCommandInput,
-  GetTranscriptionJobCommandInput,
-} from '@aws-sdk/client-transcribe';
-import axios from 'axios';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AudioVisualizer, LiveAudioVisualizer } from 'react-audio-visualize';
 import { HiMiniStop } from 'react-icons/hi2';
 import { MdFiberManualRecord } from 'react-icons/md';
-import uploadFileS3 from '../../utils/uploadS3';
+import { usePostVoiceChallenge } from '../../apis/challenge/postVoiceChallenge';
 import Button from '../common/Button';
-
-const PULL_BUCKET_NAME = import.meta.env.VITE_PULL_BUCKET_NAME as string;
-const VITE_BUCKET_NAME = import.meta.env.VITE_BUCKET_NAME as string;
-const AWS_REGION = 'ap-northeast-2';
-
-const transcribeClient = new TranscribeClient({
-  region: AWS_REGION,
-  credentials: {
-    accessKeyId: import.meta.env.VITE_AWS_PUBLIC_KEY as string,
-    secretAccessKey: import.meta.env.VITE_AWS_PRIVATE_KEY as string,
-  },
-});
 
 interface Props {
   question: string;
-  mutate: (fileData: File | null) => void;
+  challengeId: string;
   downTrigger: () => void;
 }
 
 const VideoTranscriber: React.FC<Props> = ({
-  mutate,
+  challengeId,
   downTrigger,
   question,
 }) => {
   const [transcription, setTranscription] = useState<string | null>(null);
-  const [jobStatus, setJobStatus] = useState<string>('');
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [recordFile, setRecordFile] = useState<File | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const [blob, setBlob] = useState<Blob>();
   const audioRef = useRef<HTMLAudioElement>(null);
+  const movingBarRef = useRef<HTMLDivElement>(null);
+  const { mutate } = usePostVoiceChallenge();
+
+  const mutateVoiceForm = async (fileData: File | null) => {
+    const formData = new FormData();
+
+    if (challengeId) formData.append('challengeId', challengeId);
+    if (fileData) formData.append('answer', fileData);
+
+    mutate(formData, {
+      onSuccess: (data) => {
+        setTranscription(data.data.answer);
+      },
+    });
+  };
 
   const startRecording = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
-    mediaRecorderRef.current = mediaRecorder;
-    audioChunksRef.current = [];
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
 
-    mediaRecorder.ondataavailable = (event) => {
-      audioChunksRef.current.push(event.data);
-    };
+      mediaRecorder.ondataavailable = (event) => {
+        audioChunksRef.current.push(event.data);
+      };
 
-    mediaRecorder.onstop = async () => {
-      const audioBlob = new Blob(audioChunksRef.current, {
-        type: 'audio/wav',
-      });
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, {
+          type: 'audio/wav',
+        });
 
-      const audioFile = new File([audioBlob], `audio.wav`, {
-        type: audioBlob.type,
-      });
+        const audioFile = new File([audioBlob], `audio.wav`, {
+          type: audioBlob.type,
+        });
 
-      setRecordFile(audioFile);
-      setBlob(audioBlob);
+        setRecordFile(audioFile);
+        setBlob(audioBlob);
+        mutateVoiceForm(audioFile);
+      };
 
-      try {
-        await uploadFileS3(audioFile);
-        startTranscriptionJob();
-      } catch (err) {
-        console.error('Error uploading file to S3:', err);
-      }
-    };
-
-    mediaRecorder.start();
-    setIsRecording(true);
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error('Could not start audio source', error);
+      alert('마이크 접근 권한이 필요합니다. 브라우저 설정을 확인해주세요.');
+    }
   };
 
   const stopRecording = () => {
@@ -86,75 +79,62 @@ const VideoTranscriber: React.FC<Props> = ({
     setIsRecording(false);
   };
 
-  const startTranscriptionJob = async () => {
-    const params: StartTranscriptionJobCommandInput = {
-      TranscriptionJobName: `TranscriptionJob-${Date.now()}`,
-      LanguageCode: 'ko-KR',
-      Media: {
-        MediaFileUri: `https://s3.${AWS_REGION}.amazonaws.com/${PULL_BUCKET_NAME}/audio.wav`,
-      },
-      OutputBucketName: VITE_BUCKET_NAME,
-      OutputKey: `result/audio-${Date.now()}.json`,
-    };
-
-    try {
-      const command = new StartTranscriptionJobCommand(params);
-      const response = await transcribeClient.send(command);
-
-      if (response.TranscriptionJob?.TranscriptionJobName) {
-        setJobStatus(response.TranscriptionJob.TranscriptionJobStatus || '');
-        checkTranscriptionJob(response.TranscriptionJob.TranscriptionJobName);
+  const handleAudioPlay = () => {
+    if (audioRef.current) {
+      if (audioRef.current.paused) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
       }
-    } catch (err) {
-      console.error('Error starting transcription job:', err);
     }
   };
 
-  const checkTranscriptionJob = async (jobName: string) => {
-    const params: GetTranscriptionJobCommandInput = {
-      TranscriptionJobName: jobName,
-    };
+  useEffect(() => {
+    if (audioRef.current && movingBarRef.current) {
+      const audioElement = audioRef.current;
 
-    try {
-      const command = new GetTranscriptionJobCommand(params);
-      const response = await transcribeClient.send(command);
-
-      if (response.TranscriptionJob) {
-        setJobStatus(response.TranscriptionJob.TranscriptionJobStatus || '');
-
-        if (response.TranscriptionJob.TranscriptionJobStatus === 'COMPLETED') {
-          const transcriptUri =
-            response.TranscriptionJob.Transcript?.TranscriptFileUri;
-
-          if (transcriptUri) {
-            const transcriptResponse = await fetchTranscript(transcriptUri);
-            if (transcriptResponse) {
-              setTranscription(
-                transcriptResponse.results.transcripts[0].transcript,
-              );
-            }
-          }
-        } else {
-          setTimeout(() => checkTranscriptionJob(jobName), 5000);
+      const handleTimeUpdate = () => {
+        const currentTime = audioElement.currentTime;
+        const duration = audioElement.duration;
+        if (duration) {
+          const percentage = (currentTime / duration) * 100;
+          movingBarRef.current!.style.left = `${percentage}%`;
         }
-      }
-    } catch (err) {
-      console.error('Error checking transcription job:', err);
-    }
-  };
+      };
 
-  const fetchTranscript = async (transcriptUri: string) => {
-    try {
-      const response = await axios.get(transcriptUri);
-      return response.data;
-    } catch (err) {
-      console.error('Error fetching transcript:', err);
-      return null;
+      const handleEnded = () => {
+        movingBarRef.current!.style.left = '0%';
+      };
+
+      audioElement.addEventListener('timeupdate', handleTimeUpdate);
+      audioElement.addEventListener('ended', handleEnded);
+
+      audioElement.onloadedmetadata = () => {
+        const duration = audioElement.duration;
+        if (duration) {
+          movingBarRef.current!.style.setProperty(
+            '--animation-duration',
+            `${duration}s`,
+          );
+        }
+      };
+
+      audioElement.onplay = () => {
+        movingBarRef.current!.classList.add('move');
+      };
+
+      audioElement.onpause = () => {
+        movingBarRef.current!.classList.remove('move');
+      };
+
+      return () => {
+        audioElement.removeEventListener('timeupdate', handleTimeUpdate);
+        audioElement.removeEventListener('ended', handleEnded);
+      };
     }
-  };
+  }, [blob]);
 
   const handleSubmitBtn = () => {
-    mutate(recordFile);
     downTrigger();
   };
 
@@ -166,7 +146,7 @@ const VideoTranscriber: React.FC<Props> = ({
         <p>[내가 말한 문장]</p>
         <div>{transcription ? <p>{transcription}</p> : ''}</div>
       </div>
-      <div className="flex h-fit w-full items-center justify-center overflow-hidden rounded-xl bg-background p-2">
+      <div className="flex h-fit min-h-[75px] w-full items-center justify-center overflow-hidden rounded-xl bg-background">
         {isRecording
           ? mediaRecorderRef.current && (
               <LiveAudioVisualizer
@@ -180,21 +160,30 @@ const VideoTranscriber: React.FC<Props> = ({
             )
           : recordFile &&
             blob && (
-              <div className="flex flex-col items-center gap-2">
-                <AudioVisualizer
-                  blob={blob}
-                  width={350}
-                  height={75}
-                  barWidth={3}
-                  gap={2}
-                  barColor={'#E16262'}
-                />
+              <div
+                className="relative flex flex-col items-center gap-2"
+                onClick={handleAudioPlay}
+              >
+                <span className="py-4">
+                  <AudioVisualizer
+                    blob={blob}
+                    width={350}
+                    height={75}
+                    barWidth={3}
+                    gap={2}
+                    barColor={'#E16262'}
+                  />
+                </span>
                 <audio
-                  className="w-full"
+                  className="hidden w-full"
                   ref={audioRef}
                   controls
                   src={URL.createObjectURL(recordFile)}
                 />
+                <div
+                  className="moving-bar absolute left-0 top-0 h-full w-1 bg-secondary-20"
+                  ref={movingBarRef}
+                ></div>
               </div>
             )}
       </div>
@@ -218,14 +207,12 @@ const VideoTranscriber: React.FC<Props> = ({
         </button>
 
         <Button
-          label="제출"
+          label="완료"
           theme="primary"
-          disabled={transcription == null || recordFile == null}
           size="small"
           onClick={handleSubmitBtn}
         />
       </div>
-      <div>Status: {jobStatus}</div>
     </div>
   );
 };
