@@ -11,7 +11,9 @@ const RecapStatisticsTopic = ({
 }: RecapStatistics) => {
   const navigate = useNavigate();
   const handleTopiClick = () => {
-    navigate(`${routes.challenge}/${challengeNumber}?type=${challengeType}`);
+    navigate(`${routes.challenge}/${challengeNumber}`, {
+      state: { type: challengeType },
+    });
   };
 
   return (
