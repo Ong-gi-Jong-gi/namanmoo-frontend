@@ -6,6 +6,7 @@ import { MAX_FAMILY_MEMBER } from '../../constants/family';
 import { getRandomMessage } from '../../utils/luckyMessage';
 import ChallengeButton from './ChallengeButton';
 import Lucky from './Lucky';
+import RiveLucky from './RiveLucky';
 
 interface ChallengeSectionProps {
   currentFamilySize: number;
@@ -47,7 +48,7 @@ const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
       );
     return (
       <>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center justify-end">
           {luckyInfo.isBubble && (
             <div className="relative right-4" onClick={handleLuckyBubble}>
               <img src={balloon} alt="balloon" />
@@ -56,7 +57,10 @@ const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
               </p>
             </div>
           )}
-          <Lucky level={luckyInfo.luckyStatus} />
+          <RiveLucky
+            level={luckyInfo.luckyStatus}
+            isBubble={luckyInfo.isBubble}
+          />
         </div>
         <ChallengeButton
           type="ongoing"
