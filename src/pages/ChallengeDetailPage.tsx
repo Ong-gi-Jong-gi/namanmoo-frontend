@@ -30,22 +30,6 @@ const ChallengeDetailPage = () => {
     }
   };
 
-  // const ChallengeContainer = () => {
-  //   if (queryData.type == 'NORMAL') {
-  //     return <NormalChallengeContainer />;
-  //   } else if (queryData.type.includes('GROUP_')) {
-  //     return <GroupChallengeContainer />;
-  //   } else if (queryData.type == 'FACETIME') {
-  //     return <FaceChallengeContainer />;
-  //   } else if (queryData.type == 'PHOTO') {
-  //     return <PhotoChallengeContainer />;
-  //   } else if (queryData.type.includes('VOICE')) {
-  //     return <VoiceChallengeContainer />;
-  //   } else {
-  //     return <Navigate to="/main" replace />;
-  //   }
-  // };
-
   return (
     <div className="h-full w-full">
       <Header />
