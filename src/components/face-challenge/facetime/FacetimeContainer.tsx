@@ -7,6 +7,7 @@ import {
 import '@livekit/components-styles';
 import './translate_none.css';
 import { useNavigate } from 'react-router-dom';
+import FACETIME from '../../../constants/FACETIME';
 import routes from '../../../constants/routes';
 import FilterSelector from '../utils/FilterSelector';
 import SnapshotEffect from '../utils/SnapshotEffect';
@@ -24,8 +25,8 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
     code,
     {
       userInfo: {
-        identity: `${localStorage.getItem('mooluck-nickname')}`,
-        name: `${localStorage.getItem('mooluck-nickname')}`,
+        identity: `${localStorage.getItem(FACETIME.LOCAL_STORAGE_KEY)}`,
+        name: `${localStorage.getItem(FACETIME.LOCAL_STORAGE_KEY)}`,
       },
     },
   );
