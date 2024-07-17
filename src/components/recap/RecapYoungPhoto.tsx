@@ -2,8 +2,12 @@ import { useGetYouthRecap } from '../../apis/recap/getYouthRecap';
 import POLROID from '../../constants/POLROID';
 import PolaroidFrame from './frame/PolaroidFrame';
 
-const RecapYoungPhoto = () => {
-  const { data, isLoading } = useGetYouthRecap({ luckyId: '6' });
+interface RecapYoungPhotoProps {
+  luckyId: string;
+}
+
+const RecapYoungPhoto = ({ luckyId }: RecapYoungPhotoProps) => {
+  const { data, isLoading } = useGetYouthRecap({ luckyId });
   if (isLoading) return <div>Loading...</div>;
   if (!data) return <div>No data</div>;
   return (
