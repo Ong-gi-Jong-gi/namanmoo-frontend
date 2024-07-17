@@ -23,11 +23,11 @@ const RecapPage = () => {
 
   const recapContent = () => {
     if (recapPage == 0) return <RecapRank luckyId={luckyId} />;
-    else if (recapPage == 1) return <RecapFaceTime />;
+    else if (recapPage == 1) return <RecapFaceTime luckyId={luckyId} />;
     else if (recapPage == 2) return <RecapStatistics luckyId={luckyId} />;
-    else if (recapPage == 3) return <RecapYoungPhoto />;
+    else if (recapPage == 3) return <RecapYoungPhoto luckyId={luckyId} />;
     else if (recapPage == 4) return <RecapAppreciations luckyId={luckyId} />;
-    else if (recapPage == 5) return <RecapFamilyPhoto />;
+    else if (recapPage == 5) return <RecapFamilyPhoto luckyId={luckyId} />;
     else if (recapPage == 6) return <RecapEnding />;
     else return <div>NO RECAP</div>;
   };
