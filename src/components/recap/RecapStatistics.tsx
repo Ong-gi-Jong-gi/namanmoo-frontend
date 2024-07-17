@@ -22,7 +22,7 @@ const RecapStatistics = ({ luckyId }: { luckyId: string }) => {
           <RecapStatisticsTopic key={topic.challengeId} {...topic} />
         ))}
       </div>
-      <Lucky level={2} />
+      <Lucky level={1} />
     </div>
   );
 };
