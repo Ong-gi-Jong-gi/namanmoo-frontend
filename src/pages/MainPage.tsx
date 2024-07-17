@@ -18,13 +18,13 @@ const MainPage = () => {
   const { openModal } = useModalStore();
 
   useEffect(() => {
-    if (familyList?.length == 1) {
+    if (!isLoading && familyList?.length === 1) {
       openModal({
         content: <InviteModal code={queryData['code'] as string} />,
         showCloseBtn: true,
       });
     }
-  }, [familyList, openModal]);
+  }, [familyList, isLoading, openModal, queryData]);
 
   if (isLoading) return <div>가족 정보 Loading...</div>;
   if (!familyList) return <Navigate to={routes.family.entry} />;

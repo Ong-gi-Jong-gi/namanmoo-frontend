@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import lucky1 from '../assets/lucky/level1.svg';
 import Button from '../components/common/Button';
 import FamilyCodeModal from '../components/familyentry/FamilyCodeModal';
+import routes from '../constants/routes';
 import { ServiceConstant } from '../constants/service';
 import useModalStore from '../store/modalStore';
 
@@ -13,7 +14,7 @@ const FamilyEntryPage = () => {
   const { openModal } = useModalStore();
 
   const onClickCreateBtn = () => {
-    navigate('/family/create');
+    navigate(routes.family.create);
   };
 
   const onClickJoinBtn = () => {

@@ -1,5 +1,4 @@
 import QueryString from 'qs';
-import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import RecapAppreciations from '../components/recap/RecapAppreciations';
 import RecapBarUnit from '../components/recap/RecapBarUnit';
@@ -15,31 +14,36 @@ import routes from '../constants/routes';
 const RecapPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { luckyId } = QueryString.parse(location.search, {
+  const { luckyId, page = 1 } = QueryString.parse(location.search, {
     ignoreQueryPrefix: true,
-  }) as { luckyId: string };
-
-  const [recapPage, setRecapPage] = useState(0);
+  }) as unknown as { luckyId: string; page?: number };
 
   const recapContent = () => {
-    if (recapPage == 0) return <RecapRank luckyId={luckyId} />;
-    else if (recapPage == 1) return <RecapFaceTime luckyId={luckyId} />;
-    else if (recapPage == 2) return <RecapStatistics luckyId={luckyId} />;
-    else if (recapPage == 3) return <RecapYoungPhoto luckyId={luckyId} />;
-    else if (recapPage == 4) return <RecapAppreciations luckyId={luckyId} />;
-    else if (recapPage == 5) return <RecapFamilyPhoto luckyId={luckyId} />;
-    else if (recapPage == 6) return <RecapEnding />;
+    if (page == 1) return <RecapRank luckyId={luckyId} />;
+    else if (page == 2) return <RecapFaceTime />;
+    else if (page == 3) return <RecapStatistics luckyId={luckyId} />;
+    else if (page == 4) return <RecapYoungPhoto />;
+    else if (page == 5) return <RecapAppreciations luckyId={luckyId} />;
+    else if (page == 6) return <RecapFamilyPhoto />;
+    else if (page == 7) return <RecapEnding />;
     else return <div>NO RECAP</div>;
   };
 
   const handleRecapNextPage = () => {
-    if (recapPage < RECAP_LENGTH - 1) {
-      setRecapPage((pre) => pre + 1);
-    } else navigate(routes.mypage);
+    if (page < RECAP_LENGTH) {
+      console.log(typeof page);
+      const nextPage = parseInt(page.toString()) + 1;
+      navigate(`${routes.recap}?luckyId=${luckyId}&page=${nextPage}`, {
+        replace: true,
+      });
+    } else navigate(-1);
   };
 
   const handleRecapPrePage = () => {
-    if (recapPage > 0) setRecapPage((pre) => pre - 1);
+    if (page > 1)
+      navigate(`${routes.recap}?luckyId=${luckyId}&page=${page - 1}`, {
+        replace: true,
+      });
   };
 
   return (
@@ -48,8 +52,8 @@ const RecapPage = () => {
         {new Array(RECAP_LENGTH).fill(0).map((_, index: number) => (
           <RecapBarUnit
             key={index}
-            isTarget={index == recapPage}
-            isBright={index <= recapPage}
+            isTarget={index == page - 1}
+            isBright={index <= page - 1}
           />
         ))}
       </div>
