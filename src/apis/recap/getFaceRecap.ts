@@ -7,7 +7,7 @@ const getFaceRecap = async (luckyId: string) => {
     `${API.RECAP.FACE}?luckyId=${luckyId}`,
   );
 
-  return data.data as { video: string[] };
+  return data.data as { video: string[]; challengeDate: string };
 };
 
 export const useGetFaceRecap = ({ luckyId }: { luckyId: string }) => {

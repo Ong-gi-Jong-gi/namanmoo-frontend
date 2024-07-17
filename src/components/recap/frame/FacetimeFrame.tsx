@@ -1,8 +1,9 @@
 interface FacetimeFrameProps {
   videos: string[];
+  challengeDate: string;
 }
 
-const FacetimeFrame = ({ videos }: FacetimeFrameProps) => {
+const FacetimeFrame = ({ videos, challengeDate }: FacetimeFrameProps) => {
   return (
     <div className="flex h-full w-full gap-2 bg-black px-4">
       <div className="relative grid h-full w-full grid-rows-[1fr_1fr_0.25fr] gap-2 py-9">
@@ -26,8 +27,7 @@ const FacetimeFrame = ({ videos }: FacetimeFrameProps) => {
         </div>
         <div>
           <span className="font-pretendard text-pretendard-sm text-white">
-            {/** FIXME: 날짜 받기 */}
-            2024.10.24
+            {challengeDate || '20XX.XX.XX'}
           </span>
           <img
             src="src/assets/lucky/recap1.png"

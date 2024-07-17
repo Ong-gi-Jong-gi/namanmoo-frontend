@@ -1,4 +1,5 @@
 import { useGetFaceRecap } from '../../apis/recap/getFaceRecap.ts';
+import { formatDate } from '../../utils/formatter.ts';
 import FacetimeFrame from './frame/FacetimeFrame.tsx';
 
 interface RecapFaceTimeProps {
@@ -12,7 +13,10 @@ const RecapFaceTime = ({ luckyId }: RecapFaceTimeProps) => {
 
   return (
     <>
-      <FacetimeFrame videos={data.video} />
+      <FacetimeFrame
+        videos={data.video}
+        challengeDate={formatDate(data.challengeDate)}
+      />
     </>
   );
 };
