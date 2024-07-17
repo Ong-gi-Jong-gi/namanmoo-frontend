@@ -7,7 +7,14 @@ const PrejoinCam = () => {
   const [videoElement, setVideoElement] = useState<HTMLVideoElement | null>(
     null,
   );
-  const { canvasRef } = useFaceFilterWithModel(videoElement, true);
+  const { canvasRef } = useFaceFilterWithModel(
+    videoElement,
+    true,
+    videoElement
+      ? videoElement.getBoundingClientRect().width /
+          videoElement?.getBoundingClientRect().height
+      : 1,
+  );
 
   useEffect(() => {
     if (webcamRef.current && webcamRef.current.video) {
