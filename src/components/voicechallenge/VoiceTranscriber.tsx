@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AudioVisualizer, LiveAudioVisualizer } from 'react-audio-visualize';
 import { HiMiniStop } from 'react-icons/hi2';
 import { MdFiberManualRecord } from 'react-icons/md';
@@ -23,6 +23,7 @@ const VideoTranscriber: React.FC<Props> = ({
   const audioChunksRef = useRef<Blob[]>([]);
   const [blob, setBlob] = useState<Blob>();
   const audioRef = useRef<HTMLAudioElement>(null);
+  const movingBarRef = useRef<HTMLDivElement>(null);
   const { mutate } = usePostVoiceChallenge();
 
   const mutateVoiceForm = async (fileData: File | null) => {
@@ -39,31 +40,36 @@ const VideoTranscriber: React.FC<Props> = ({
   };
 
   const startRecording = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
-    mediaRecorderRef.current = mediaRecorder;
-    audioChunksRef.current = [];
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
 
-    mediaRecorder.ondataavailable = (event) => {
-      audioChunksRef.current.push(event.data);
-    };
+      mediaRecorder.ondataavailable = (event) => {
+        audioChunksRef.current.push(event.data);
+      };
 
-    mediaRecorder.onstop = async () => {
-      const audioBlob = new Blob(audioChunksRef.current, {
-        type: 'audio/wav',
-      });
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, {
+          type: 'audio/wav',
+        });
 
-      const audioFile = new File([audioBlob], `audio.wav`, {
-        type: audioBlob.type,
-      });
+        const audioFile = new File([audioBlob], `audio.wav`, {
+          type: audioBlob.type,
+        });
 
-      setRecordFile(audioFile);
-      setBlob(audioBlob);
-      mutateVoiceForm(audioFile);
-    };
+        setRecordFile(audioFile);
+        setBlob(audioBlob);
+        mutateVoiceForm(audioFile);
+      };
 
-    mediaRecorder.start();
-    setIsRecording(true);
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error('Could not start audio source', error);
+      alert('마이크 접근 권한이 필요합니다. 브라우저 설정을 확인해주세요.');
+    }
   };
 
   const stopRecording = () => {
@@ -72,6 +78,56 @@ const VideoTranscriber: React.FC<Props> = ({
     }
     setIsRecording(false);
   };
+
+  const handleAudioPlay = () => {
+    if (audioRef.current) {
+      if (audioRef.current.paused) audioRef.current.play();
+      else audioRef.current.pause();
+    }
+  };
+
+  useEffect(() => {
+    if (audioRef.current && movingBarRef.current) {
+      const audioElement = audioRef.current;
+
+      const handleTimeUpdate = () => {
+        const currentTime = audioElement.currentTime;
+        const duration = audioElement.duration;
+        if (duration) {
+          const percentage = (currentTime / duration) * 100;
+          movingBarRef.current!.style.left = `${percentage}%`;
+        }
+      };
+
+      audioElement.addEventListener('timeupdate', handleTimeUpdate);
+
+      audioElement.onloadedmetadata = () => {
+        const duration = audioElement.duration;
+        if (duration) {
+          movingBarRef.current!.style.setProperty(
+            '--animation-duration',
+            `${duration}s`,
+          );
+        }
+      };
+
+      audioElement.onplay = () => {
+        movingBarRef.current!.classList.add('move');
+      };
+
+      audioElement.onpause = () => {
+        movingBarRef.current!.classList.remove('move');
+      };
+
+      audioElement.onended = () => {
+        movingBarRef.current!.classList.remove('move');
+      };
+
+      return () => {
+        audioElement.removeEventListener('timeupdate', handleTimeUpdate);
+      };
+    }
+  }, [blob]);
 
   const handleSubmitBtn = () => {
     downTrigger();
@@ -85,7 +141,7 @@ const VideoTranscriber: React.FC<Props> = ({
         <p>[내가 말한 문장]</p>
         <div>{transcription ? <p>{transcription}</p> : ''}</div>
       </div>
-      <div className="flex h-fit w-full items-center justify-center overflow-hidden rounded-xl bg-background p-2">
+      <div className="flex h-fit min-h-[75px] w-full items-center justify-center overflow-hidden rounded-xl bg-background">
         {isRecording
           ? mediaRecorderRef.current && (
               <LiveAudioVisualizer
@@ -99,21 +155,30 @@ const VideoTranscriber: React.FC<Props> = ({
             )
           : recordFile &&
             blob && (
-              <div className="flex flex-col items-center gap-2">
-                <AudioVisualizer
-                  blob={blob}
-                  width={350}
-                  height={75}
-                  barWidth={3}
-                  gap={2}
-                  barColor={'#E16262'}
-                />
+              <div
+                className="relative flex flex-col items-center gap-2"
+                onClick={handleAudioPlay}
+              >
+                <span className="py-4">
+                  <AudioVisualizer
+                    blob={blob}
+                    width={350}
+                    height={75}
+                    barWidth={3}
+                    gap={2}
+                    barColor={'#E16262'}
+                  />
+                </span>
                 <audio
-                  className="w-full"
+                  className="hidden w-full"
                   ref={audioRef}
                   controls
                   src={URL.createObjectURL(recordFile)}
                 />
+                <div
+                  className="moving-bar absolute left-0 top-0 h-full w-1 bg-secondary-20"
+                  ref={movingBarRef}
+                ></div>
               </div>
             )}
       </div>

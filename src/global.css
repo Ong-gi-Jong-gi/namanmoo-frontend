@@ -83,3 +83,14 @@ body {
     animation-delay: 2s;
   }
 }
+
+.moving-bar {
+  --animation-duration: 0s;
+  transition: transform 0s linear;
+  left: 0;
+}
+
+.moving-bar.move {
+  transition: transform var(--animation-duration) linear;
+  left: 100%;
+}
