@@ -8,10 +8,10 @@ import {
 import { useEffect } from 'react';
 
 const riveMap = {
-  0: 'src/assets/rive/potato.riv', // TODO: Change this to the correct file name
+  0: 'src/assets/rive/soil.riv',
   1: 'src/assets/rive/potato.riv',
   2: 'src/assets/rive/ongsim.riv',
-  3: 'src/assets/rive/ongsim.riv', // TODO: Change this to the correct file name
+  3: 'src/assets/rive/lucky.riv',
 };
 
 interface RiveLuckyProps {

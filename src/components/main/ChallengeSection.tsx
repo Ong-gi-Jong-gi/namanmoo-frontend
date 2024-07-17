@@ -48,7 +48,7 @@ const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
       );
     return (
       <>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center justify-end">
           {luckyInfo.isBubble && (
             <div className="relative right-4" onClick={handleLuckyBubble}>
               <img src={balloon} alt="balloon" />
