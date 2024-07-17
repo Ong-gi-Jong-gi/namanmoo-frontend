@@ -23,10 +23,10 @@ const useFaceFilter = (
     if (filterType === 'none' || !isFilterActive) return;
     if (!video || !filterImage || !ctx || !position) return;
 
-    const actualWidth = video.getBoundingClientRect().width;
     const actualHeight = video.getBoundingClientRect().height;
+    const actualWidth = actualHeight * position.ratio;
     ctx.clearRect(0, 0, actualWidth, actualHeight);
-    canvasRef.current!.width = actualWidth;
+    canvasRef.current!.width = video.getBoundingClientRect().width;
     canvasRef.current!.height = actualHeight;
     const scaleX = actualWidth / otherVideoSize.width;
     const scaleY = actualHeight / otherVideoSize.height;

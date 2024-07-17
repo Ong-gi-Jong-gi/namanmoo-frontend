@@ -50,6 +50,7 @@ export interface FilterPosition {
   y: number;
   width: number;
   height: number;
+  ratio: number;
 }
 export interface VideoSize {
   width: number;
