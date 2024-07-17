@@ -26,6 +26,7 @@ const FacetimeFrame = ({ videos }: FacetimeFrameProps) => {
         </div>
         <div>
           <span className="font-pretendard text-pretendard-sm text-white">
+            {/** FIXME: 날짜 받기 */}
             2024.10.24
           </span>
           <img
