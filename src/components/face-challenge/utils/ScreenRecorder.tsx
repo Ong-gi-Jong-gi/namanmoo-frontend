@@ -15,7 +15,7 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
       video: true,
       customMediaStream: customMediaStream,
       mediaRecorderOptions: {
-        mimeType: 'video/webm',
+        mimeType: 'video/mp4',
         videoBitsPerSecond: 2560000,
       },
     });
@@ -35,22 +35,20 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
   }, [handleRecording]);
 
   useEffect(() => {
-    console.log('mediaBlobUrl:', mediaBlobUrl);
     const uploadRecord = async (blobUrl: string) => {
       try {
         const response = await fetch(blobUrl);
         const blob = await response.blob();
         if (!blob) return;
 
-        const videoFile = new File([blob], 'video.webm', {
-          type: 'video/webm',
+        const videoFile = new File([blob], 'video.mp4', {
+          type: 'video/mp4',
         });
         if (!challengeId || !videoFile) return;
 
         const formData = new FormData();
         formData.append('challengeId', challengeId);
         formData.append('answer', videoFile);
-        console.log('formData:', formData);
         mutate(formData);
       } catch (error) {
         console.error('Error uploading or downloading video:', error);

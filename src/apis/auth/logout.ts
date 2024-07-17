@@ -6,12 +6,15 @@ import routes from '../../constants/routes';
 import { deleteCookie } from '../../utils/cookie';
 
 export const postLogout = async () => {
-  const { data } = await authorizedApi.post(API.AUTH.LOGOUT);
+  const response = await authorizedApi.post(API.AUTH.LOGOUT);
 
-  if (data.data.status == '200') {
+  if (response.status === 302 || response.headers.locat) {
+    const redirectUrl = response.headers.location;
     deleteCookie('authorization');
+    return { redirectUrl };
   }
-  return data.data;
+
+  return response.data;
 };
 
 export const useLogout = () => {
@@ -21,8 +24,12 @@ export const useLogout = () => {
     mutationKey: [API.AUTH.LOGOUT],
     mutationFn: () => postLogout(),
     onSuccess: () => {
-      navigate(routes.main);
       deleteCookie('authorization');
+      navigate(routes.login, { replace: true });
+    },
+
+    onError: (error) => {
+      console.error('Logout mutation failed:', error);
     },
   });
 };

@@ -14,12 +14,10 @@ const parseJwtToken: (arg: string) => TokenType = (jwtToken: string) => {
   return decodingInfoJson;
 };
 
-// FIXME: Token 개선 이후 사용 예정
-export const getExpireTime = () => {
-  const jwtToken = getCookie('authorization');
-  const parsedToken = parseJwtToken(jwtToken);
+export const getExpireTime = (token: string) => {
+  const parsedToken = parseJwtToken(token);
 
-  return (parsedToken.exp - new Date().getTime()) / 60000;
+  return Math.round((parsedToken.exp * 1000 - new Date().getTime()) / 60000);
 };
 
 export const getUserId = () => {

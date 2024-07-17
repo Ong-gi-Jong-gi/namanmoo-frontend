@@ -35,17 +35,8 @@ export const useGetTodayChallenge = ({
     enabled,
   });
 
-  const challengeInfo = data
-    ? data.challengeInfo
-    : ({
-        challengeId: '',
-        challengeNumber: '',
-        challengeTitle: '',
-        challengeType: '',
-      } as ChallengeInfoDto);
-
   return {
-    challengeInfo,
+    challengeInfo: data?.challengeInfo,
     isDone: data && data.isDone,
     isLoading,
   };
