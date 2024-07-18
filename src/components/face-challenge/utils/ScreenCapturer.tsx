@@ -82,7 +82,7 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
       const formData = new FormData();
       formData.append('challengeId', challengeId);
       formData.append('answer', imgFile);
-      // mutate(formData);
+      mutate(formData);
     });
   };
 
