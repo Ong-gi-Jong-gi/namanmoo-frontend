@@ -5,7 +5,7 @@ import routes from '../../../constants/routes';
 const DefaultLayout = () => {
   const { pathname } = useLocation();
   const layoutClass = clsx(
-    'relative m-auto h-full w-full max-w-[450px] bg-background px-4 py-6',
+    'relative m-auto h-full w-full max-w-[450px] px-4 py-6',
     {
       'bg-main bg-cover bg-center': pathname === routes.main,
       'bg-background': pathname !== routes.main,

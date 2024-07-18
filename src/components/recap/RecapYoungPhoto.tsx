@@ -11,11 +11,11 @@ const RecapYoungPhoto = ({ luckyId }: RecapYoungPhotoProps) => {
   if (isLoading) return <div>Loading...</div>;
   if (!data) return <div>No data</div>;
   return (
-    <div className="flex h-full w-full flex-col gap-4 pt-4">
-      <span className="font-pretendard text-pretendard-md font-pretendard-bold">
+    <div className="h-full w-full pt-4">
+      <span className="z-10 font-pretendard text-pretendard-md font-pretendard-bold">
         우리의 어린 시절
       </span>
-      <div className="relative h-full w-full">
+      <div className="relative h-full w-full overflow-y-hidden">
         {data.map((recap, index) => (
           <PolaroidFrame
             key={`polaroid-${index}`}

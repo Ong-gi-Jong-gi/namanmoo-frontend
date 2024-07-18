@@ -58,9 +58,9 @@ const RecapPage = () => {
         ))}
       </div>
       <div className="flex-1">{recapContent()}</div>
-      <div className="absolute left-0 top-0 flex h-full w-full">
-        <div onClick={handleRecapPrePage} className="h-full w-full" />
-        <div onClick={handleRecapNextPage} className="h-full w-full" />
+      <div className="absolute left-0 top-0 flex h-full w-full justify-between">
+        <div onClick={handleRecapPrePage} className="h-full w-1/4" />
+        <div onClick={handleRecapNextPage} className="h-full w-1/4" />
       </div>
     </div>
   );
