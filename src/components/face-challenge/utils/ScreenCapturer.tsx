@@ -33,7 +33,7 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
     const scale = Math.floor(500 / renderHeight);
 
     canvas.height = renderHeight * scale;
-    canvas.width = renderHeight * 0.5 * scale;
+    canvas.width = renderHeight * 0.6 * scale;
     // console.log(canvas);
     const cropX = ((videoWidth - renderWidth) / 2) * 0.85;
 
@@ -41,7 +41,7 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
       videoElement,
       cropX,
       0,
-      videoHeight * 0.5,
+      videoHeight * 0.6,
       videoHeight,
       0,
       0,
@@ -82,7 +82,7 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
       const formData = new FormData();
       formData.append('challengeId', challengeId);
       formData.append('answer', imgFile);
-      mutate(formData);
+      // mutate(formData);
     });
   };
 

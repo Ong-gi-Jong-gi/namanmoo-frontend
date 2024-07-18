@@ -34,6 +34,7 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
   return (
     <div className="flex h-[calc(100%-80px)] w-full flex-col">
       <StatusBar code={code} />
+      <SnapshotEffect />
       <LiveKitRoom
         video={true}
         audio={true}
@@ -45,7 +46,6 @@ const FacetimeContainer = ({ code }: FacetimeContainerProps) => {
           navigate(routes.main);
         }}
       >
-        <SnapshotEffect />
         <MemoizedCustomVideoConference />
         <RoomAudioRenderer />
         <FilterSelector />

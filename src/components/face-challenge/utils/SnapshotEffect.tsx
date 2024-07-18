@@ -15,7 +15,7 @@ const SnapshotEffect = () => {
       setIsSnapshot(true);
       setTimeout(() => {
         setIsSnapshot(false);
-      }, 1000);
+      }, 800);
     }
   }, [status, remainingTime]);
   const snapshotClass = clsx(
