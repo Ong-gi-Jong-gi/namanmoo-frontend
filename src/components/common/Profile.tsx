@@ -54,8 +54,8 @@ const Profile = ({
     layout == 'horizontal' ? 'flex-row' : 'flex-col',
   );
   const profileTextClass = clsx(
-    'flex max-w-16 flex-col',
-    layout == 'horizontal' ? 'items-start' : 'items-center',
+    'flex flex-col',
+    layout == 'horizontal' ? 'max-w-20 items-start' : 'max-w-16 items-center',
   );
 
   return (
