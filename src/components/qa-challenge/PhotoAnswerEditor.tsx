@@ -27,7 +27,7 @@ const PhotoAnswerEditor = ({
   const handleFileInput = (e: MouseEvent<HTMLDivElement>) => {
     // FIXME: confirm 두번 뜨는 현상 확인
     e.stopPropagation(); // 이벤트 버블링 방지
-    if (inputRef.current) confirm(SYS_MESSAGE.EDIT) && inputRef.current.click();
+    if (inputRef.current) inputRef.current.click();
   };
 
   const handlePhotoSave = (e: ChangeEvent<HTMLInputElement>) => {
