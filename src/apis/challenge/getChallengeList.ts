@@ -5,9 +5,11 @@ import { ChallengeListUnitType } from '../../types/challenge';
 import { nextDate } from '../../utils/nextDate';
 import { ChallengeListUnitDto } from '../dtos/challengeDtos';
 
-const getChallengeList = async (challengeDate: number) => {
+const getChallengeList = async () => {
+  const challengeDate = localStorage.getItem('challengeDate');
+
   const { data } = await authorizedApi.get(
-    `${API.CHALLENGE.LIST}?challengeDate=${challengeDate}`,
+    `${API.CHALLENGE.LIST}?challengeDate=${challengeDate ? challengeDate : new Date().getTime()}`,
   );
 
   return {
@@ -19,10 +21,10 @@ const getChallengeList = async (challengeDate: number) => {
   };
 };
 
-export const useGetChallengeList = ({ date }: { date: number }) => {
+export const useGetChallengeList = () => {
   const { data, isLoading } = useQuery({
-    queryKey: [API.CHALLENGE.LIST, date],
-    queryFn: () => getChallengeList(date),
+    queryKey: [API.CHALLENGE.LIST],
+    queryFn: () => getChallengeList(),
     staleTime: nextDate(),
   });
 

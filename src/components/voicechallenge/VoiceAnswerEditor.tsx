@@ -38,18 +38,28 @@ const VoiceAnswerEditor = ({
   };
 
   const handleClick = () => {
-    if (window.confirm(SYS_MESSAGE.EDIT)) {
-      setStatus('edit');
-      upBottomSheet({
-        content: (
-          <VideoTranscriber
-            challengeId={challengeId}
-            downTrigger={downTrigger}
-            question={question}
-          />
-        ),
-      });
-    }
+    // if (window.confirm(SYS_MESSAGE.EDIT)) {
+    //   setStatus('edit');
+    //   upBottomSheet({
+    //     content: (
+    //       <VideoTranscriber
+    //         challengeId={challengeId}
+    //         downTrigger={downTrigger}
+    //         question={question}
+    //       />
+    //     ),
+    //   });
+    // }
+    setStatus('edit');
+    upBottomSheet({
+      content: (
+        <VideoTranscriber
+          challengeId={challengeId}
+          downTrigger={downTrigger}
+          question={question}
+        />
+      ),
+    });
   };
 
   return (
@@ -63,7 +73,7 @@ const VoiceAnswerEditor = ({
         isText
       />
       {status === 'view' && (
-        <span className={answerClass} onClick={handleClick}>
+        <span className={answerClass}>
           {answer ? (
             <>
               <ListenButton audioRef={audioRef} />

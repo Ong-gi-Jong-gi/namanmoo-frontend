@@ -3,8 +3,12 @@ import { authorizedApi } from '..';
 import API from '../../constants/API';
 
 const postLuckyBubble = async () => {
+  const challengeDate = localStorage.getItem('challengeDate');
+
   const { data } = await authorizedApi.post(`${API.LUCKY.BUBBLE}`, {
-    challengeDate: new Date().getTime(),
+    challengeDate: challengeDate
+      ? challengeDate
+      : new Date().getTime().toString(),
   });
 
   return data;
