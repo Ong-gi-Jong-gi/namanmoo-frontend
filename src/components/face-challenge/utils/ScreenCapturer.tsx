@@ -30,7 +30,7 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
     const renderWidth = videoElement.getBoundingClientRect().width; // 화면 너비
     const renderHeight = videoElement.getBoundingClientRect().height; // 화면 높이
 
-    const scale = Math.floor(1000 / renderHeight);
+    const scale = Math.floor(500 / renderHeight);
 
     canvas.height = renderHeight * scale;
     canvas.width = renderHeight * 0.5 * scale;
