@@ -12,6 +12,7 @@ const FAMILY = {
 };
 
 const CHALLENGE = {
+  STARTDATE: '/challenges/startDate',
   CREATE: '/challenges',
   TODAY: '/challenges/today',
   LIST: '/challenges/list',
