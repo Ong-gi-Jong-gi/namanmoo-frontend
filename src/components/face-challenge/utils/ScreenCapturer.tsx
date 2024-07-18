@@ -13,7 +13,6 @@ interface ScreenCapturerProps {
 }
 
 const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
-  const divRef = useRef<HTMLDivElement>(null);
   const { filterType } = useFilterTypeStore();
   const { status, remainingTime } = useFacetimeChallengeStore();
   const { challengeId } = useParams();
@@ -31,11 +30,11 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
     const renderWidth = videoElement.getBoundingClientRect().width; // 화면 너비
     const renderHeight = videoElement.getBoundingClientRect().height; // 화면 높이
 
-    const scale = 4;
+    const scale = Math.floor(1000 / renderHeight);
 
     canvas.height = renderHeight * scale;
     canvas.width = renderHeight * 0.5 * scale;
-    console.log(canvas);
+    // console.log(canvas);
     const cropX = ((videoWidth - renderWidth) / 2) * 0.85;
 
     ctx.drawImage(
@@ -58,13 +57,11 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
       image.onload = () => {
         ctx.drawImage(
           image,
-          (x - cropX * (renderHeight / videoHeight)) * 4,
+          (x - cropX * (renderHeight / videoHeight)) * scale,
           y * scale,
           width * scale,
           height * scale,
         );
-        // 필터 이미지가 캔버스에 그려진 후에 toBlob 호출
-        divRef.current?.appendChild(canvas);
         canvasToBlobAndDownload(canvas);
       };
     } else {
