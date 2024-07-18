@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const navigate = useNavigate();
   return (
-    <div className="sticky top-0 flex w-full max-w-[450px] items-center justify-between bg-background py-6">
+    <div className="sticky top-0 flex w-full max-w-[450px] items-center justify-between bg-background pb-3">
       <div></div>
       <div>
         <FiX size={32} className="text-gray-50" onClick={() => navigate(-1)} />

@@ -11,7 +11,7 @@ const LuckySize = {
   0: 'w-60',
   1: 'w-60',
   2: 'w-40',
-  3: 'w-72',
+  3: 'w-64 xs:w-80',
 };
 
 const luckyImageSrc = {

@@ -2,6 +2,9 @@
 export default {
   content: ['./src/**/*.{html,js,ts,tsx}'],
   theme: {
+    screens: {
+      xs: '400px',
+    },
     colors: {
       blue: '#7DC7CC',
       yellow: '#FFCA60',
