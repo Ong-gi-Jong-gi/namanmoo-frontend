@@ -11,8 +11,7 @@ interface FaceChallengeResultProps {
 
 const FaceChallengeResult = ({ challengeInfo }: FaceChallengeResultProps) => {
   const { challengeId } = useParams();
-  const { data, isLoading } = useGetFaceChallengeResult({ challengeId });
-  if (isLoading) return <div>Loading...</div>;
+  const { data } = useGetFaceChallengeResult({ challengeId });
   if (!data) return <div>No data</div>;
 
   const { answerList } = data;

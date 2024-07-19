@@ -13,18 +13,13 @@ interface ChallengeSectionProps {
 }
 
 const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
-  const { challengeInfo, isLoading: challengeLoading } = useGetTodayChallenge({
-    enabled: currentFamilySize === MAX_FAMILY_MEMBER,
-  });
-  const { luckyInfo, isLoading: luckyLoading } = useGetLucky();
+  const { challengeInfo } = useGetTodayChallenge();
+  const { luckyInfo } = useGetLucky();
   const { mutate } = usePostLuckyBubble();
 
   const handleLuckyBubble = () => {
     mutate();
   };
-
-  if (challengeLoading || luckyLoading)
-    return <div>메인 화면 정보 Loading...</div>;
 
   const renderContent = () => {
     if (currentFamilySize < MAX_FAMILY_MEMBER)

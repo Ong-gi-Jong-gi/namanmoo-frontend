@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { LuckyDto } from '../dtos/luckyDtos';
@@ -14,9 +14,13 @@ const getLucky = async () => {
 };
 
 export const useGetLucky = () => {
-  const { data, isLoading } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: [API.LUCKY.STATUS],
     queryFn: () => getLucky(),
+    initialData: {
+      luckyStatus: 0,
+      isBubble: false,
+    } as LuckyDto,
   });
 
   const hasData = !!data;
@@ -25,5 +29,5 @@ export const useGetLucky = () => {
     ? { ...data, luckyStatus: data.luckyStatus }
     : ({ luckyStatus: 1, isBubble: false } as LuckyDto);
 
-  return { hasData, isLoading, luckyInfo };
+  return { hasData, luckyInfo };
 };

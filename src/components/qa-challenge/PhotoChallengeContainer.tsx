@@ -8,10 +8,9 @@ import PhotoAnswerField from './PhotoAnswerField';
 
 const PhotoChallengeContainer = () => {
   const { challengeId } = useParams();
-  const { isLoading, hasData, myAnswer, answerList, challengeInfo } =
-    useGetPhotoChallenge({ challengeId });
-
-  if (isLoading) return <div>Loading...</div>;
+  const { hasData, myAnswer, answerList, challengeInfo } = useGetPhotoChallenge(
+    { challengeId },
+  );
 
   if (!hasData || !myAnswer || !challengeInfo)
     return <div>{SYS_MESSAGE.NO_DATA}</div>;

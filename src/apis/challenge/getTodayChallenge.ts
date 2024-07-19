@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { responseRoot } from '../../types/api';
@@ -28,20 +28,18 @@ const getTodayChallenge = async () => {
 
   throw new Error(data.message);
 };
-export const useGetTodayChallenge = ({
-  enabled = true,
-}: {
-  enabled?: boolean;
-}) => {
-  const { data, isLoading } = useQuery({
+export const useGetTodayChallenge = () => {
+  const { data } = useSuspenseQuery({
     queryKey: [API.CHALLENGE.TODAY],
     queryFn: () => getTodayChallenge(),
-    enabled,
+    initialData: {
+      challengeInfo: null,
+      isDone: false,
+    },
   });
 
   return {
     challengeInfo: data?.challengeInfo,
     isDone: data && data.isDone,
-    isLoading,
   };
 };

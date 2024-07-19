@@ -1,13 +1,11 @@
 import QueryString from 'qs';
 import { useLocation, useNavigate } from 'react-router-dom';
-import RecapAppreciations from '../components/recap/RecapAppreciations';
 import RecapBarUnit from '../components/recap/RecapBarUnit';
 import RecapEnding from '../components/recap/RecapEnding';
 import RecapFaceTime from '../components/recap/RecapFaceTime';
 import RecapFamilyPhoto from '../components/recap/RecapFamilyPhoto';
 import RecapRank from '../components/recap/RecapRank';
 import RecapStatistics from '../components/recap/RecapStatistics';
-import RecapYoungPhoto from '../components/recap/RecapYoungPhoto';
 import { RECAP_LENGTH } from '../constants/recap';
 import routes from '../constants/routes';
 
@@ -22,16 +20,13 @@ const RecapPage = () => {
     if (page == 1) return <RecapRank luckyId={luckyId} />;
     else if (page == 2) return <RecapFaceTime luckyId={luckyId} />;
     else if (page == 3) return <RecapStatistics luckyId={luckyId} />;
-    else if (page == 4) return <RecapYoungPhoto luckyId={luckyId} />;
-    else if (page == 5) return <RecapAppreciations luckyId={luckyId} />;
-    else if (page == 6) return <RecapFamilyPhoto luckyId={luckyId} />;
-    else if (page == 7) return <RecapEnding />;
+    else if (page == 4) return <RecapFamilyPhoto luckyId={luckyId} />;
+    else if (page == 5) return <RecapEnding />;
     else return <div>NO RECAP</div>;
   };
 
   const handleRecapNextPage = () => {
     if (page < RECAP_LENGTH) {
-      console.log(typeof page);
       const nextPage = parseInt(page.toString()) + 1;
       navigate(`${routes.recap}?luckyId=${luckyId}&page=${nextPage}`, {
         replace: true,
