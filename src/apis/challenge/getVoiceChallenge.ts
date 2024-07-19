@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { ChallengeAnswer } from '../../types/challenge';
@@ -23,7 +23,7 @@ export const useGetVoiceChallenge = ({
 }: {
   challengeId: string | undefined;
 }) => {
-  const { data, isLoading } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: [API.CHALLENGE.VOICE, challengeId],
     queryFn: () => getVoiceChallenge(challengeId || ''),
   });
@@ -42,7 +42,6 @@ export const useGetVoiceChallenge = ({
       } as ChallengeDetailDto);
 
   return {
-    isLoading,
     hasData,
     myAnswer,
     answerList: members,
