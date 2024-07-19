@@ -3,7 +3,6 @@ import { AudioVisualizer, LiveAudioVisualizer } from 'react-audio-visualize';
 import { HiMiniStop } from 'react-icons/hi2';
 import { MdFiberManualRecord } from 'react-icons/md';
 import { usePostVoiceChallenge } from '../../apis/challenge/postVoiceChallenge';
-import { urlToFile } from '../../utils/fileHandler';
 import Button from '../common/Button';
 
 interface Props {
@@ -30,14 +29,6 @@ const VoiceRecoder: React.FC<Props> = ({
   const audioRef = useRef<HTMLAudioElement>(null);
   const movingBarRef = useRef<HTMLDivElement>(null);
   const { mutate } = usePostVoiceChallenge();
-
-  useEffect(() => {
-    if (existedVoice) {
-      const existVoiceFile = urlToFile(existedVoice);
-
-      console.log(existVoiceFile);
-    }
-  }, []);
 
   const mutateVoiceForm = async (fileData: File | null) => {
     const formData = new FormData();
