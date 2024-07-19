@@ -16,14 +16,11 @@ const GroupChallengeContainer = () => {
     firstQuestions,
     secondAnswerList,
     secondQuestions,
-    isLoading,
     hasData,
   } = useGetGroupChallenge({
     challengeId,
   });
   const { mutate } = usePostGroupChallenge({ challengeId: challengeId || '' });
-
-  if (isLoading) return <div>Loading...</div>;
 
   if (
     !hasData ||

@@ -1,6 +1,8 @@
 import QueryString from 'qs';
+import { Suspense } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import Header from '../components/common/Header';
+import Loader from '../components/common/Loader';
 import FaceChallengeContainer from '../components/face-challenge/FaceChallengeContainer';
 import GroupChallengeContainer from '../components/qa-challenge/GroupChallengeContainer';
 import NormalChallengeContainer from '../components/qa-challenge/NormalChallengeContainer';
@@ -31,10 +33,12 @@ const ChallengeDetailPage = () => {
   };
 
   return (
-    <div className="h-full w-full">
-      <Header />
-      <ChallengeContainer />
-    </div>
+    <Suspense fallback={<Loader />}>
+      <div className="h-full w-full">
+        <Header />
+        <ChallengeContainer />
+      </div>
+    </Suspense>
   );
 };
 

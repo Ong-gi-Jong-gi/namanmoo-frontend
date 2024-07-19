@@ -8,12 +8,12 @@ import VoiceAnswerField from './VoiceAnswerField';
 
 const VoiceChallengeContainer = () => {
   const { challengeId } = useParams();
-  const { myAnswer, answerList, challengeInfo, hasData, isLoading } =
-    useGetVoiceChallenge({
+  const { myAnswer, answerList, challengeInfo, hasData } = useGetVoiceChallenge(
+    {
       challengeId,
-    });
+    },
+  );
 
-  if (isLoading) return <div>Loading...</div>;
   if (!hasData || !myAnswer || !challengeInfo)
     return <div>{SYS_MESSAGE.NO_DATA}</div>;
 

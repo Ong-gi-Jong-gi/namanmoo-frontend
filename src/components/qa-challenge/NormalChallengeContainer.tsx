@@ -9,14 +9,13 @@ import TextAnswerField from './TextAnswerField';
 
 const NormalChallengeContainer = () => {
   const { challengeId } = useParams();
-  const { myAnswer, answerList, challengeInfo, hasData, isLoading } =
+  const { myAnswer, answerList, challengeInfo, hasData } =
     useGetNormalChallenge({
       challengeId: challengeId,
     });
   const { mutate } = usePostNormalChallenge({
     challengeId: challengeId || '',
   });
-  if (isLoading) return <div>Loading...</div>;
   if (!hasData || !myAnswer || !challengeInfo)
     return <div>{SYS_MESSAGE.NO_DATA}</div>;
   return (

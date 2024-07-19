@@ -10,11 +10,10 @@ const FaceChallengeContainer = () => {
   const { challengeId } = useParams();
 
   const [isJoined, setIsJoined] = useState(false);
-  const { data, isLoading } = useGetFaceChallenge({
+  const { data } = useGetFaceChallenge({
     challengeId: challengeId || '',
   });
 
-  if (isLoading) return <div>Loading...</div>;
   if (!data) return <div>Challenge not found</div>;
 
   const { challengeInfo, code } = data;
