@@ -37,11 +37,14 @@ const ListenButton = ({
   }, [audioRef]);
 
   return (
-    <div className="flex flex-1 items-center justify-center rounded-full border-2 border-primary-20 bg-primary-10 p-2 text-gray-50">
+    <div
+      className="flex flex-1 items-center justify-center rounded-full border-2 border-primary-20 bg-primary-10 p-2 text-gray-50"
+      onClick={handlePlayToggle}
+    >
       {isPlaying ? (
-        <HiPause size={36} className="text-red" onClick={handlePlayToggle} />
+        <HiPause size={36} className="text-red" />
       ) : (
-        <HiPlay size={36} className="pl-1" onClick={handlePlayToggle} />
+        <HiPlay size={36} className="pl-1" />
       )}
     </div>
   );
