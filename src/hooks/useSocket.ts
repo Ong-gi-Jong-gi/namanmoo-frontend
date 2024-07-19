@@ -7,6 +7,7 @@ const useSocket = () => {
   const { socket, setStatus, setRemainingTime } = useFacetimeChallengeStore();
 
   useEffect(() => {
+    if (!socket) return;
     const handleChallengeStatus = (msg: {
       room: string;
       challengeStatus: facetimeChallengeStatus;
@@ -40,27 +41,27 @@ const useSocket = () => {
 
   const emitJoin = useCallback(
     (code: string) => {
-      socket.emit(SOCKET.EVENT.JOIN, { room: code });
+      socket && socket.emit(SOCKET.EVENT.JOIN, { room: code });
     },
     [socket],
   );
 
   const emitChallengeStart = useCallback(
     (code: string) => {
-      socket.emit(SOCKET.EVENT.CHALLENGE_START, { room: code });
+      socket && socket.emit(SOCKET.EVENT.CHALLENGE_START, { room: code });
     },
     [socket],
   );
 
   const emitLeave = useCallback(
     (code: string) => {
-      socket.emit(SOCKET.EVENT.LEAVE, { room: code });
+      socket && socket.emit(SOCKET.EVENT.LEAVE, { room: code });
     },
     [socket],
   );
 
   const emitDisconnect = useCallback(() => {
-    socket.disconnect();
+    socket && socket.disconnect();
   }, [socket]);
 
   return { emitJoin, emitChallengeStart, emitLeave, emitDisconnect };
