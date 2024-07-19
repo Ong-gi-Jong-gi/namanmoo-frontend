@@ -6,7 +6,7 @@ import { UserRole } from '../../types/family';
 import Button from '../common/Button';
 import Profile from '../common/Profile';
 import ListenButton from './ListenButton';
-import VideoTranscriber from './VoiceTranscriber';
+import VoiceRecoder from './VoiceRecoder';
 
 interface VoiceAnswerEditorProps {
   role: UserRole;
@@ -38,25 +38,14 @@ const VoiceAnswerEditor = ({
   };
 
   const handleClick = () => {
-    // if (window.confirm(SYS_MESSAGE.EDIT)) {
-    //   setStatus('edit');
-    //   upBottomSheet({
-    //     content: (
-    //       <VideoTranscriber
-    //         challengeId={challengeId}
-    //         downTrigger={downTrigger}
-    //         question={question}
-    //       />
-    //     ),
-    //   });
-    // }
     setStatus('edit');
     upBottomSheet({
       content: (
-        <VideoTranscriber
+        <VoiceRecoder
           challengeId={challengeId}
           downTrigger={downTrigger}
           question={question}
+          existedVoice={answer}
         />
       ),
     });
@@ -86,7 +75,7 @@ const VoiceAnswerEditor = ({
               />
             </>
           ) : (
-            SYS_MESSAGE.WRITE
+            <p className="w-full">{SYS_MESSAGE.WRITE}</p>
           )}
         </span>
       )}

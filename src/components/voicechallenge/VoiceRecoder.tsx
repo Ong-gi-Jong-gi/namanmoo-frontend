@@ -3,28 +3,41 @@ import { AudioVisualizer, LiveAudioVisualizer } from 'react-audio-visualize';
 import { HiMiniStop } from 'react-icons/hi2';
 import { MdFiberManualRecord } from 'react-icons/md';
 import { usePostVoiceChallenge } from '../../apis/challenge/postVoiceChallenge';
+import { urlToFile } from '../../utils/fileHandler';
 import Button from '../common/Button';
 
 interface Props {
   question: string;
   challengeId: string;
   downTrigger: () => void;
+  existedVoice: string | null;
 }
 
-const VideoTranscriber: React.FC<Props> = ({
+const VoiceRecoder: React.FC<Props> = ({
   challengeId,
   downTrigger,
   question,
+  existedVoice,
 }) => {
   const [transcription, setTranscription] = useState<string | null>(null);
   const [isRecording, setIsRecording] = useState<boolean>(false);
-  const [recordFile, setRecordFile] = useState<File | null>(null);
+  const [recordFile, setRecordFile] = useState<File | string | null>(
+    existedVoice,
+  );
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
   const [blob, setBlob] = useState<Blob>();
   const audioRef = useRef<HTMLAudioElement>(null);
   const movingBarRef = useRef<HTMLDivElement>(null);
   const { mutate } = usePostVoiceChallenge();
+
+  useEffect(() => {
+    if (existedVoice) {
+      const existVoiceFile = urlToFile(existedVoice);
+
+      console.log(existVoiceFile);
+    }
+  }, []);
 
   const mutateVoiceForm = async (fileData: File | null) => {
     const formData = new FormData();
@@ -178,7 +191,11 @@ const VideoTranscriber: React.FC<Props> = ({
                   className="hidden w-full"
                   ref={audioRef}
                   controls
-                  src={URL.createObjectURL(recordFile)}
+                  src={
+                    typeof recordFile == 'string'
+                      ? recordFile
+                      : URL.createObjectURL(recordFile)
+                  }
                 />
                 <div
                   className="moving-bar absolute left-0 top-0 h-full w-1 bg-secondary-20"
@@ -217,4 +234,4 @@ const VideoTranscriber: React.FC<Props> = ({
   );
 };
 
-export default VideoTranscriber;
+export default VoiceRecoder;
