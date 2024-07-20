@@ -19,8 +19,7 @@ const getTodayChallenge = async () => {
     };
   if (data.status === '404' && data.message === 'Challenge not found') {
     return {
-      challengeInfo: null,
-      isDone: false,
+      ...data.data,
     };
   }
 
