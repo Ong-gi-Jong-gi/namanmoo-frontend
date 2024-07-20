@@ -1,26 +1,16 @@
 import { useGetLucky } from '../../apis/lucky/getLucky';
 import { usePostLuckyBubble } from '../../apis/lucky/postLuckyBubble';
 import balloon from '../../assets/lucky/balloon.svg';
-import { MAX_FAMILY_MEMBER } from '../../constants/family';
 import { getRandomMessage } from '../../utils/luckyMessage';
-import Lucky from './Lucky';
 import RiveLucky from './RiveLucky';
 
-interface LuckySectionProps {
-  currentFamilySize: number;
-}
-
-const LuckySection = ({ currentFamilySize }: LuckySectionProps) => {
-  const isFamilyFull = currentFamilySize === MAX_FAMILY_MEMBER;
-  const { data: luckyInfo, isLoading } = useGetLucky({ enabled: isFamilyFull });
+const LuckySection = () => {
+  const { data: luckyInfo } = useGetLucky();
   const { mutate } = usePostLuckyBubble();
 
   const handleLuckyBubble = () => {
     mutate();
   };
-
-  if (isLoading) return <div>Loading...</div>;
-  if (!luckyInfo) return <Lucky level={0} />;
 
   return (
     <div className="flex flex-col items-center justify-end">

@@ -4,10 +4,9 @@ import { Navigate } from 'react-router-dom';
 import { useGetChallengeStartDate } from '../apis/challenge/getChallengeStartDate';
 import { useGetMyFamilyInfo } from '../apis/family/getMyFamilyInfo';
 import Loader from '../components/common/Loader';
+import ChallengeSection from '../components/main/ChallengeSection';
 import FamilyList from '../components/main/FamilyList';
-import LuckySection from '../components/main/LuckySection';
 import Navbar from '../components/main/Navbar';
-import ChallengeSection from '../components/main/TodayChallengeSection';
 // import InviteModal from '../components/main/InviteModal';
 import routes from '../constants/routes';
 import useModalStore from '../store/modalStore';
@@ -40,7 +39,6 @@ const MainPage = () => {
         <FamilyList familyList={familyList} />
         <Navbar />
         <div className="grid h-full w-full grid-rows-[1fr_36%] items-end pt-32">
-          <LuckySection currentFamilySize={familyList.length} />
           <ChallengeSection currentFamilySize={familyList.length} />
         </div>
       </div>
