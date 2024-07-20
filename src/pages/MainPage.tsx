@@ -6,8 +6,8 @@ import { useGetMyFamilyInfo } from '../apis/family/getMyFamilyInfo';
 import Loader from '../components/common/Loader';
 import ChallengeSection from '../components/main/ChallengeSection';
 import FamilyList from '../components/main/FamilyList';
+import InviteModal from '../components/main/InviteModal';
 import Navbar from '../components/main/Navbar';
-// import InviteModal from '../components/main/InviteModal';
 import routes from '../constants/routes';
 import useModalStore from '../store/modalStore';
 
@@ -19,16 +19,16 @@ const MainPage = () => {
   const { isLoading: startDateLoading } = useGetChallengeStartDate({
     enabled: localStorage.getItem('challengeDate') == null,
   });
-  const { openModal } = useModalStore();
+  const { openModal, isOpen } = useModalStore();
 
   useEffect(() => {
-    // if (!familyLoading && familyList?.length === 1) {
-    //   openModal({
-    //     content: <InviteModal code={queryData['code'] as string} />,
-    //     showCloseBtn: true,
-    //   });
-    // }
-  }, [familyList, familyLoading, openModal, queryData]);
+    if (!isOpen && !familyLoading && familyList?.length === 1) {
+      openModal({
+        content: <InviteModal code={queryData['code'] as string} />,
+        showCloseBtn: true,
+      });
+    }
+  }, [familyLoading, familyList]);
 
   if (familyLoading || startDateLoading) return <div>가족 정보 Loading...</div>;
   if (!familyList) return <Navigate to={routes.family.entry} />;
