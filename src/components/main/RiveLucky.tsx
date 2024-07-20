@@ -16,7 +16,7 @@ const riveMap = {
 
 interface RiveLuckyProps {
   level: 0 | 1 | 2 | 3;
-  isBubble: boolean;
+  isBubble?: boolean;
 }
 
 const RiveLucky = ({ level, isBubble }: RiveLuckyProps) => {
