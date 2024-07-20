@@ -31,7 +31,7 @@ const MainPage = () => {
     // }
   }, [familyList, familyLoading, openModal, queryData]);
 
-  if (familyLoading && startDateLoading) return <div>가족 정보 Loading...</div>;
+  if (familyLoading || startDateLoading) return <div>가족 정보 Loading...</div>;
   if (!familyList) return <Navigate to={routes.family.entry} />;
 
   return (
