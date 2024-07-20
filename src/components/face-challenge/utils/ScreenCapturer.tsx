@@ -30,12 +30,10 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
     const renderWidth = videoElement.getBoundingClientRect().width; // 화면 너비
     const renderHeight = videoElement.getBoundingClientRect().height; // 화면 높이
 
-    const scale = Math.floor(500 / renderHeight);
-
+    const scale = Math.floor(300 / renderHeight);
     canvas.height = renderHeight * scale;
-    canvas.width = renderHeight * 0.6 * scale;
-    // console.log(canvas);
-    const cropX = ((videoWidth - renderWidth) / 2) * 0.85;
+    canvas.width = renderHeight * 0.66 * scale;
+    const cropX = Math.max(0, ((videoWidth - renderWidth) / 2) * 0.85);
 
     ctx.drawImage(
       videoElement,
