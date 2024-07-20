@@ -19,7 +19,6 @@ export const useGetChallengeStartDate = ({ enabled }: { enabled: boolean }) => {
 
   const hasData = !!data;
 
-  // const { challengeStartDate } = hasData ? data : { challengeStartDate: 0 };
   if (hasData) {
     localStorage.setItem('challengeDate', data.challengeStartDate);
   }
