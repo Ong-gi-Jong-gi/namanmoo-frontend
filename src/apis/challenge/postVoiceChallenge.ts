@@ -15,7 +15,7 @@ const postVoiceChallenge = async (formData: FormData) => {
 export const usePostVoiceChallenge = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationKey: [API.CHALLENGE.PHOTO],
+    mutationKey: [API.CHALLENGE.VOICE],
     mutationFn: (formData: FormData) => postVoiceChallenge(formData),
     onMutate: (variables) => ({ ...variables }),
     onSettled: () => {
