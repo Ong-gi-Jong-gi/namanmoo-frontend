@@ -58,6 +58,7 @@ const renderTypeInfo = (props: ChallengeButtonProps) => {
 const ChallengeButton = (props: ChallengeButtonProps) => {
   const { type, text } = props;
   const navigate = useNavigate();
+  const challengeDate = localStorage.getItem('challengeDate');
 
   const layoutClass = clsx(
     'shadow h-32 w-full items-center justify-center gap-2 rounded-md bg-paper bg-contain px-9 py-5 font-ryurue',
@@ -75,7 +76,9 @@ const ChallengeButton = (props: ChallengeButtonProps) => {
 
   const handleClick = async () => {
     if (type === 'active') {
-      await postCreateChallenge(new Date().getTime());
+      await postCreateChallenge(
+        challengeDate ? parseInt(challengeDate) : new Date().getTime(),
+      );
     }
     if (type === 'ongoing') {
       navigate(`${routes.challenge}/${props.challengeId}`, {

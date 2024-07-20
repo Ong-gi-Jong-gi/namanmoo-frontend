@@ -15,12 +15,14 @@ export class RecapUnitDTO {
   public readonly startDate: string;
   public readonly endDate: string;
   public readonly luckyStatus: 0 | 1 | 2 | 3;
+  public readonly running;
 
   constructor(data: RecapUnit) {
     this.luckyId = data.luckyId;
     this.startDate = data.startDate;
     this.endDate = data.endDate;
     this.luckyStatus = data.luckyStatus;
+    this.running = data.running;
   }
 }
 

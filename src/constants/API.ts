@@ -34,6 +34,7 @@ const RECAP = {
   FACE: 'recap/face',
   FAMILY_PHOTO: 'recap/photos',
   YOUTH: 'recap/youth',
+  BACKGROUND_VOICE: '/recap/voice',
 };
 
 const LUCKY = {

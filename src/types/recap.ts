@@ -6,6 +6,7 @@ export interface RecapUnit {
   startDate: string;
   endDate: string;
   luckyStatus: 0 | 1 | 2 | 3;
+  running: boolean;
 }
 
 export interface YouthRecap {

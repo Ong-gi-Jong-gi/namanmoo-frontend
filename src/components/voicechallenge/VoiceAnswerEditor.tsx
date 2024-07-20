@@ -75,7 +75,9 @@ const VoiceAnswerEditor = ({
               />
             </>
           ) : (
-            <p className="w-full">{SYS_MESSAGE.WRITE}</p>
+            <p className="w-full" onClick={handleClick}>
+              {SYS_MESSAGE.WRITE}
+            </p>
           )}
         </span>
       )}
