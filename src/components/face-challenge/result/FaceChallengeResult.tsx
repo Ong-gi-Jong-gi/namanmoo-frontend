@@ -11,14 +11,13 @@ interface FaceChallengeResultProps {
 
 const FaceChallengeResult = ({ challengeInfo }: FaceChallengeResultProps) => {
   const { challengeId } = useParams();
-  const { data, isLoading } = useGetFaceChallengeResult({ challengeId });
-  if (isLoading) return <div>Loading...</div>;
+  const { data } = useGetFaceChallengeResult({ challengeId });
   if (!data) return <div>No data</div>;
 
   const { answerList } = data;
 
   return (
-    <div className="flex h-full w-full flex-1 flex-col gap-16">
+    <div className="flex h-full w-full flex-1 flex-col justify-between">
       <div>
         <ChallengeHeader
           challengeNumber={challengeInfo.challengeNumber}
@@ -30,7 +29,7 @@ const FaceChallengeResult = ({ challengeInfo }: FaceChallengeResultProps) => {
         </p>
       </div>
       <div className="w-full flex-1 overflow-scroll scrollbar-hide">
-        <div className="flex h-full w-[400%] gap-4 px-2">
+        <div className="flex h-full w-[400%] items-center gap-4 px-2">
           {answerList.map((answer) => (
             <FaceAnswerField key={answer} imageUrl={answer} />
           ))}

@@ -48,10 +48,9 @@ const MyParticipantTile = () => {
       <ScreenRecorder
         customMediaStream={trackRef.publication?.track?.mediaStream || null}
       />
-      <ScreenCapturer>
-        <ParticipantTile />
-        <canvas className="absolute left-0 top-0" ref={canvasRef} />
-      </ScreenCapturer>
+      <ParticipantTile />
+      <canvas className="absolute left-0 top-0" ref={canvasRef} />
+      <ScreenCapturer videoElement={videoElement} position={position} />
     </div>
   );
 };

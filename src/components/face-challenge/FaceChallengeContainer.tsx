@@ -8,17 +8,18 @@ import FaceLandmark from './utils/FaceLandmark';
 
 const FaceChallengeContainer = () => {
   const { challengeId } = useParams();
+
   const [isJoined, setIsJoined] = useState(false);
-  const { data, isLoading } = useGetFaceChallenge({
+  const { data } = useGetFaceChallenge({
     challengeId: challengeId || '',
   });
-  if (isLoading) return <div>Loading...</div>;
+
   if (!data) return <div>Challenge not found</div>;
 
   const { challengeInfo, code } = data;
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <>
       {challengeInfo.isComplete ? (
         <FaceChallengeResult challengeInfo={challengeInfo} />
       ) : (
@@ -36,7 +37,7 @@ const FaceChallengeContainer = () => {
           )}
         </FaceLandmark>
       )}
-    </div>
+    </>
   );
 };
 

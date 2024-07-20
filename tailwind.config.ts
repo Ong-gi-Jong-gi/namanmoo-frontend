@@ -2,6 +2,9 @@
 export default {
   content: ['./src/**/*.{html,js,ts,tsx}'],
   theme: {
+    screens: {
+      xs: '400px',
+    },
     colors: {
       blue: '#7DC7CC',
       yellow: '#FFCA60',
@@ -62,10 +65,20 @@ export default {
           '0%': { transform: 'translateY(0) translateX(-50%)' },
           '100%': { transform: 'translateY(100%) translateX(-50%)' },
         },
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        flash: {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0.5 },
+        },
       },
       animation: {
         'slide-up': 'slide-up 0.3s ease-out',
         'slide-down': 'slide-down 0.3s ease-in',
+        'fade-in': 'fade-in 2s ease-out forwards',
+        flash: 'flash 0.3s ease-out',
       },
       boxShadow: {
         'shadow-box':

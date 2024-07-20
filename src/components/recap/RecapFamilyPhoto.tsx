@@ -2,9 +2,13 @@ import { useGetFamilyPhotoRecap } from '../../apis/recap/getFamilyPhotoRecap';
 import POLROID from '../../constants/POLROID';
 import PolaroidFrame from './frame/PolaroidFrame';
 
-const RecapFamilyPhoto = () => {
+interface RecapFamilyPhotoProps {
+  luckyId: string;
+}
+
+const RecapFamilyPhoto = ({ luckyId }: RecapFamilyPhotoProps) => {
   const { data, isLoading } = useGetFamilyPhotoRecap({
-    luckyId: '6',
+    luckyId,
   });
 
   if (isLoading) return <div>loading...</div>;

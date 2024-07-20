@@ -1,6 +1,7 @@
 import { useTracks } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import { useCallback } from 'react';
+import { MAX_FAMILY_MEMBER } from '../constants/family';
 import { useFacetimeChallengeStore } from '../store/facetimeChallengeStore';
 
 const useChallengeLogic = () => {
@@ -11,7 +12,7 @@ const useChallengeLogic = () => {
   );
   const handleStartChallenge = useCallback(() => {
     if (status !== 'idle') return;
-    if (camaraTracks.length < 2) {
+    if (camaraTracks.length < MAX_FAMILY_MEMBER) {
       alert('가족들이 모두 참여해야 합니다.');
       return;
     }

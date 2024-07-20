@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { api } from '..';
 import API from '../../constants/API';
+import FACETIME from '../../constants/FACETIME';
 import routes from '../../constants/routes';
 import { responseRoot } from '../../types/api';
 import { LoginValues, UserLoginType } from '../../types/auth';
@@ -53,12 +54,15 @@ export const usePostLogin = () => {
         expires: expireDate,
       });
 
-      localStorage.setItem('mooluck-nickname', data.nickname);
+      localStorage.setItem(FACETIME.LOCAL_STORAGE_KEY, data.nickname);
 
-      if (data.familyId == 'null') navigate(routes.family.entry);
-      else if (location.state.code != null)
-        navigate(`${routes.main}?code=${location.state.code}`);
-      else navigate(routes.main);
+      if (data.familyId == 'null') {
+        if (location.state != null) {
+          navigate(`${routes.family.entry}?code=${location.state.code}`);
+        } else {
+          navigate(routes.family.entry);
+        }
+      } else navigate(routes.main);
     },
     onError: (error: Error) => {
       alert(error.message);

@@ -71,3 +71,26 @@ body {
   height: 100%;
   width: 100%;
 }
+
+@layer utilities {
+  .animation-delay-0 {
+    animation-delay: 0s;
+  }
+  .animation-delay-100 {
+    animation-delay: 1s;
+  }
+  .animation-delay-200 {
+    animation-delay: 2s;
+  }
+}
+
+.moving-bar {
+  --animation-duration: 0s;
+  transition: transform 0s linear;
+  left: 0;
+}
+
+.moving-bar.move {
+  transition: transform var(--animation-duration) linear;
+  left: 100%;
+}

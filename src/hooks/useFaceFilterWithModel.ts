@@ -26,9 +26,10 @@ const useFaceFilterWithModel = (
     if (filterType === 'none' || !isFilterActive) return;
     if (!video || !filterImage || !ctx || !faceLandmarker) return;
 
-    const actualWidth = video.getBoundingClientRect().width;
     const actualHeight = video.getBoundingClientRect().height;
+    const actualWidth = video.getBoundingClientRect().width;
     setActualVideoSize({ width: actualWidth, height: actualHeight });
+    const padding = (actualWidth - video.getBoundingClientRect().width) / 2;
 
     if (actualWidth === 0 || actualHeight === 0) {
       console.error('비디오 크기가 0입니다.');
@@ -64,7 +65,7 @@ const useFaceFilterWithModel = (
         setPosition({ x, y, width, height });
 
         // 필터 그리기
-        ctx.drawImage(filterImage, x, y, width, height);
+        ctx.drawImage(filterImage, x - padding, y, width, height);
       } else {
         animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
         return;

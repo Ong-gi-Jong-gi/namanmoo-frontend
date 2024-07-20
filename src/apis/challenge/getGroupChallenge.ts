@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { ChallengeAnswer } from '../../types/challenge';
@@ -40,7 +40,7 @@ export const useGetGroupChallenge = ({
 }: {
   challengeId: string | undefined;
 }) => {
-  const { data, isLoading } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: [API.CHALLENGE.GROUP, challengeId],
     queryFn: () => getGroupChallenge(challengeId || ''),
   });
@@ -75,7 +75,6 @@ export const useGetGroupChallenge = ({
     firstQuestions,
     secondQuestions,
     secondAnswerList,
-    isLoading,
     hasData,
   };
 };

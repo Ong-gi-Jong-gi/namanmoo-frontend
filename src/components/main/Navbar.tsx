@@ -1,5 +1,5 @@
 import { FaListUl } from 'react-icons/fa';
-import { FaQuestion } from 'react-icons/fa6';
+import { TbPlayerTrackNextFilled } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 import routes from '../../constants/routes';
 import IconButton from '../common/IconButton';
@@ -8,6 +8,16 @@ const Navbar = () => {
   const navigate = useNavigate();
   const handleChallengeBtn = () => {
     navigate(routes.challenge);
+  };
+
+  const handleDayChange = () => {
+    const challengeDate = localStorage.getItem('challengeDate');
+
+    if (challengeDate) {
+      const newDate = parseInt(challengeDate) + 86400000;
+      localStorage.setItem('challengeDate', `${newDate}`);
+      window.location.reload();
+    }
   };
 
   return (
@@ -19,8 +29,9 @@ const Navbar = () => {
       />
       <IconButton
         theme="subtle"
-        icon={<FaQuestion size={20} />}
-        label="가이드"
+        icon={<TbPlayerTrackNextFilled size={20} />}
+        label="내일로"
+        onClick={handleDayChange}
       />
     </div>
   );

@@ -55,7 +55,7 @@ const Profile = ({
   );
   const profileTextClass = clsx(
     'flex flex-col',
-    layout == 'horizontal' ? 'items-start' : 'items-center',
+    layout == 'horizontal' ? 'max-w-20 items-start' : 'max-w-16 items-center',
   );
 
   return (
@@ -71,7 +71,7 @@ const Profile = ({
       {/* Profile Text Component */}
       {isText && (
         <div className={profileTextClass}>
-          <span className="text-pretendard-base font-pretendard-bold text-black">
+          <span className="w-full truncate text-pretendard-base font-pretendard-bold text-black">
             {userName}
           </span>
           <span className="text-pretendard-sm font-pretendard-normal text-gray-40">

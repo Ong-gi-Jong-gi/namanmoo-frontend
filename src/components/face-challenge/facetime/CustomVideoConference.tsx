@@ -11,7 +11,7 @@ const CustomVideoConference = () => {
 
   return (
     <>
-      <div className="grid h-full min-h-0 w-full min-w-0 grid-cols-2 grid-rows-2 items-center justify-center">
+      <div className="grid h-full min-h-0 w-full min-w-0 grid-cols-2 grid-rows-2 items-center justify-center gap-2 overflow-hidden">
         <TrackLoop tracks={camaraTracks}>
           <CustomParticipantTile />
         </TrackLoop>

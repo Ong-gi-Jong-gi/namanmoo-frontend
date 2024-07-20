@@ -10,6 +10,7 @@ const CompleteRecapUnit = ({
   luckyStatus,
   startDate,
   endDate,
+  running,
 }: RecapUnit) => {
   const navigate = useNavigate();
   const luckySize = clsx(
@@ -17,11 +18,9 @@ const CompleteRecapUnit = ({
     `${luckyStatus == 2 ? 'p-3' : ''}`,
   );
 
-  const isAlive = new Date().getTime() < parseInt(endDate);
-
   const luckyTile = clsx(
     'flex flex-col items-center justify-center rounded-md p-4',
-    isAlive ? 'bg-primary-10' : 'bg-secondary-10',
+    running ? 'bg-primary-10' : 'bg-secondary-10',
   );
 
   const handleClickUnit = () => {
@@ -35,9 +34,9 @@ const CompleteRecapUnit = ({
       </div>
       <div className="font-ryurue text-ryurue-base">
         <p>
-          {formatDate(startDate)} {isAlive && <span>~</span>}
+          {formatDate(startDate)} {running && <span>~</span>}
         </p>
-        {!isAlive ? <p>{`~ ${formatDate(endDate)}`}</p> : null}
+        {!running ? <p>{`~ ${formatDate(endDate)}`}</p> : null}
       </div>
     </div>
   );

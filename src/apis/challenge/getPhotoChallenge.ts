@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { ChallengeAnswer } from '../../types/challenge';
@@ -23,7 +23,7 @@ export const useGetPhotoChallenge = ({
 }: {
   challengeId: string | undefined;
 }) => {
-  const { data, isLoading } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: [API.CHALLENGE.PHOTO, challengeId],
     queryFn: () => getPhotoChallenge(challengeId || ''),
   });
@@ -34,7 +34,6 @@ export const useGetPhotoChallenge = ({
     : { myAnswer: null, members: [] };
 
   return {
-    isLoading,
     hasData,
     myAnswer,
     answerList: members,

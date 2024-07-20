@@ -12,6 +12,7 @@ const FAMILY = {
 };
 
 const CHALLENGE = {
+  STARTDATE: '/challenges/startDate',
   CREATE: '/challenges',
   TODAY: '/challenges/today',
   LIST: '/challenges/list',
@@ -33,6 +34,7 @@ const RECAP = {
   FACE: 'recap/face',
   FAMILY_PHOTO: 'recap/photos',
   YOUTH: 'recap/youth',
+  BACKGROUND_VOICE: '/recap/voice',
 };
 
 const LUCKY = {

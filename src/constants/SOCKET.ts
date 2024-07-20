@@ -1,4 +1,4 @@
-const SOCKET_EVENT = {
+const EVENT = {
   CONNECT: 'connect',
   DISCONNECT: 'disconnect',
   JOIN: 'join',
@@ -9,6 +9,6 @@ const SOCKET_EVENT = {
   CHALLENGE_STATUS: 'challengeStatus',
 } as const;
 
-Object.freeze(SOCKET_EVENT);
+Object.freeze(EVENT);
 
-export default SOCKET_EVENT;
+export default { EVENT };
