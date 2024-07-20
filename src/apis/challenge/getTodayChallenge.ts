@@ -8,8 +8,6 @@ import { ChallengeInfoDto } from '../dtos/challengeDtos';
 const getTodayChallenge = async () => {
   const challengeDate = localStorage.getItem('challengeDate');
 
-  console.log(challengeDate);
-
   const { data } = await authorizedApi.get<responseRoot<ChallengeToday>>(
     `${API.CHALLENGE.TODAY}?challengeDate=${challengeDate ? challengeDate : new Date().getTime().toString()}`,
   );
@@ -19,7 +17,7 @@ const getTodayChallenge = async () => {
       challengeInfo: new ChallengeInfoDto(data.data.challengeInfo),
       isDone: data.data.isDone,
     };
-  if (data.status === '404' && data.message === 'challenge not found') {
+  if (data.status === '404' && data.message === 'Challenge not found') {
     return {
       challengeInfo: null,
       isDone: false,
@@ -29,17 +27,8 @@ const getTodayChallenge = async () => {
   throw new Error(data.message);
 };
 export const useGetTodayChallenge = () => {
-  const { data } = useSuspenseQuery({
+  return useSuspenseQuery({
     queryKey: [API.CHALLENGE.TODAY],
     queryFn: () => getTodayChallenge(),
-    initialData: {
-      challengeInfo: null,
-      isDone: false,
-    },
   });
-
-  return {
-    challengeInfo: data?.challengeInfo,
-    isDone: data && data.isDone,
-  };
 };

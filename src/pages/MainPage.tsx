@@ -6,8 +6,8 @@ import { useGetMyFamilyInfo } from '../apis/family/getMyFamilyInfo';
 import Loader from '../components/common/Loader';
 import ChallengeSection from '../components/main/ChallengeSection';
 import FamilyList from '../components/main/FamilyList';
-// import InviteModal from '../components/main/InviteModal';
 import Navbar from '../components/main/Navbar';
+// import InviteModal from '../components/main/InviteModal';
 import routes from '../constants/routes';
 import useModalStore from '../store/modalStore';
 
@@ -15,7 +15,6 @@ const MainPage = () => {
   const queryData = QueryString.parse(location.search, {
     ignoreQueryPrefix: true,
   });
-
   const { data: familyList, isLoading: familyLoading } = useGetMyFamilyInfo();
   const { isLoading: startDateLoading } = useGetChallengeStartDate({
     enabled: localStorage.getItem('challengeDate') == null,
@@ -39,7 +38,9 @@ const MainPage = () => {
       <div className="h-full w-full">
         <FamilyList familyList={familyList} />
         <Navbar />
-        <ChallengeSection currentFamilySize={familyList.length} />
+        <div className="grid h-full w-full grid-rows-[1fr_36%] items-end pt-32">
+          <ChallengeSection currentFamilySize={familyList.length} />
+        </div>
       </div>
     </Suspense>
   );

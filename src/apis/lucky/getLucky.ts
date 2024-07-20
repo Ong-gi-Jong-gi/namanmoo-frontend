@@ -6,28 +6,26 @@ import { LuckyDto } from '../dtos/luckyDtos';
 const getLucky = async () => {
   const challengeDate = localStorage.getItem('challengeDate');
 
-  const { data } = await authorizedApi.get(
-    `${API.LUCKY.STATUS}?challengeDate=${challengeDate ? challengeDate : new Date().getTime().toString()}`,
-  );
+  try {
+    const { data } = await authorizedApi.get(
+      `${API.LUCKY.STATUS}?challengeDate=${challengeDate ? challengeDate : new Date().getTime().toString()}`,
+    );
 
-  return new LuckyDto(data.data);
+    if (data.data === null)
+      return { luckyStatus: 0, isBubble: false } as LuckyDto;
+    return new LuckyDto(data.data);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      return { luckyStatus: 0, isBubble: false } as LuckyDto;
+    }
+    throw error; // 다른 에러는 그대로 throw
+  }
 };
 
 export const useGetLucky = () => {
-  const { data } = useSuspenseQuery({
+  return useSuspenseQuery({
     queryKey: [API.LUCKY.STATUS],
     queryFn: () => getLucky(),
-    initialData: {
-      luckyStatus: 0,
-      isBubble: false,
-    } as LuckyDto,
   });
-
-  const hasData = !!data;
-
-  const luckyInfo = hasData
-    ? { ...data, luckyStatus: data.luckyStatus }
-    : ({ luckyStatus: 1, isBubble: false } as LuckyDto);
-
-  return { hasData, luckyInfo };
 };

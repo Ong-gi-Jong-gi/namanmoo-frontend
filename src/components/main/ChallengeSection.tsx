@@ -1,77 +1,42 @@
-import { useGetTodayChallenge } from '../../apis/challenge/getTodayChallenge';
-import { useGetLucky } from '../../apis/lucky/getLucky';
-import { usePostLuckyBubble } from '../../apis/lucky/postLuckyBubble';
-import balloon from '../../assets/lucky/balloon.svg';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { MAX_FAMILY_MEMBER } from '../../constants/family';
-import { getRandomMessage } from '../../utils/luckyMessage';
+import Loader from '../common/Loader';
 import ChallengeButton from './ChallengeButton';
 import Lucky from './Lucky';
-import RiveLucky from './RiveLucky';
+import LuckySection from './LuckySection';
+import TodayChallengeSection from './TodayChallengeSection';
 
 interface ChallengeSectionProps {
   currentFamilySize: number;
 }
 
 const ChallengeSection = ({ currentFamilySize }: ChallengeSectionProps) => {
-  const { challengeInfo } = useGetTodayChallenge();
-  const { luckyInfo } = useGetLucky();
-  const { mutate } = usePostLuckyBubble();
+  const isFamilyFull = currentFamilySize === MAX_FAMILY_MEMBER;
 
-  const handleLuckyBubble = () => {
-    mutate();
-  };
-
-  const renderContent = () => {
-    if (currentFamilySize < MAX_FAMILY_MEMBER)
-      return (
-        <>
-          <Lucky level={0} />
-          <ChallengeButton
-            type="disabled"
-            text="챌린지 시작"
-            currentSize={currentFamilySize}
-            familySize={MAX_FAMILY_MEMBER}
-          />
-        </>
-      );
-    if (!challengeInfo)
-      return (
-        <>
-          <Lucky level={0} />
-          <ChallengeButton type="active" text="챌린지 시작" />
-        </>
-      );
+  if (!isFamilyFull)
     return (
       <>
-        <div className="flex flex-col items-center justify-end">
-          {luckyInfo.isBubble && (
-            <div className="relative right-4 top-6" onClick={handleLuckyBubble}>
-              <img src={balloon} alt="balloon" />
-              <p className="absolute left-1/2 top-[47%] w-full -translate-x-1/2 -translate-y-1/2 transform text-center font-ryurue text-ryurue-base">
-                {getRandomMessage()}
-              </p>
-            </div>
-          )}
-          <RiveLucky
-            level={luckyInfo.luckyStatus}
-            isBubble={luckyInfo.isBubble}
-          />
-        </div>
+        <Lucky level={0} />
         <ChallengeButton
-          type="ongoing"
-          challengeId={challengeInfo.challengeId}
-          text={challengeInfo.challengeTitle}
-          day={challengeInfo.challengeNumber}
-          theme={challengeInfo.challengeType}
+          type="disabled"
+          text="챌린지 시작"
+          currentSize={currentFamilySize}
+          familySize={MAX_FAMILY_MEMBER}
         />
       </>
     );
-  };
-
   return (
-    <div className="grid h-full w-full grid-rows-[1fr_36%] items-end pt-32">
-      {renderContent()}
-    </div>
+    <Suspense fallback={<Loader />}>
+      <ErrorBoundary fallback={<Lucky level={0} />}>
+        <LuckySection />
+      </ErrorBoundary>
+      <ErrorBoundary
+        fallback={<ChallengeButton type="active" text="챌린지 시작" />}
+      >
+        <TodayChallengeSection />
+      </ErrorBoundary>
+    </Suspense>
   );
 };
 
