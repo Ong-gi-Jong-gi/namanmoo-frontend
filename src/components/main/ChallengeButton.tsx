@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
-import { postCreateChallenge } from '../../apis/challenge/postCreateChallenge';
+import { useCreateChallenge } from '../../apis/challenge/postCreateChallenge';
 import routes from '../../constants/routes';
 import { ChallengeType } from '../../types/challenge';
 
@@ -58,7 +58,7 @@ const renderTypeInfo = (props: ChallengeButtonProps) => {
 const ChallengeButton = (props: ChallengeButtonProps) => {
   const { type, text } = props;
   const navigate = useNavigate();
-  const challengeDate = localStorage.getItem('challengeDate');
+  const { mutate } = useCreateChallenge();
 
   const layoutClass = clsx(
     'shadow h-32 w-full items-center justify-center gap-2 rounded-md bg-paper bg-contain px-9 py-5 font-ryurue',
@@ -76,9 +76,7 @@ const ChallengeButton = (props: ChallengeButtonProps) => {
 
   const handleClick = async () => {
     if (type === 'active') {
-      await postCreateChallenge(
-        challengeDate ? parseInt(challengeDate) : new Date().getTime(),
-      );
+      mutate();
     }
     if (type === 'ongoing') {
       navigate(`${routes.challenge}/${props.challengeId}`, {
