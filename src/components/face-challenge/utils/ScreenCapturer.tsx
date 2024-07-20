@@ -92,7 +92,6 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
     ) {
       handleCapture();
     }
-    console.log(status, remainingTime, remainingTime % FACETIME.TIMER_UNIT);
   }, [status, remainingTime]);
 
   return null;

@@ -1,4 +1,7 @@
 import { NormalizedLandmark } from '@mediapipe/tasks-vision';
+import Dog from '../assets/filter/doggy.png';
+import Rainbow from '../assets/filter/rainbow.png';
+import Sunglasses from '../assets/filter/sunglasses.png';
 import { FilterTypeWithoutNone } from '../types/challenge';
 import {
   calcDogPosition,
@@ -9,9 +12,9 @@ import {
 const IMAGE: {
   [key in FilterTypeWithoutNone]: string;
 } = {
-  sunglasses: '/src/assets/filter/sunglasses.png',
-  rainbow: '/src/assets/filter/rainbow.png',
-  dog: '/src/assets/filter/doggy.png',
+  sunglasses: Sunglasses,
+  rainbow: Rainbow,
+  dog: Dog,
 } as const;
 
 const CALCULATOR: {
