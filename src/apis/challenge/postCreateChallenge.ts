@@ -23,7 +23,7 @@ export const useCreateChallenge = () => {
     mutationFn: () => postCreateChallenge(challengeDate),
     onSettled: () =>
       queryClient.invalidateQueries({
-        queryKey: [API.CHALLENGE.STARTDATE],
+        queryKey: [API.CHALLENGE.TODAY],
       }),
   });
 };

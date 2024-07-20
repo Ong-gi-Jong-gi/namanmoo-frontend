@@ -22,7 +22,12 @@ const MainPage = () => {
   const { openModal, isOpen } = useModalStore();
 
   useEffect(() => {
-    if (!isOpen && !familyLoading && familyList?.length === 1) {
+    if (
+      !isOpen &&
+      !familyLoading &&
+      familyList?.length === 1 &&
+      queryData['code']
+    ) {
       openModal({
         content: <InviteModal code={queryData['code'] as string} />,
         showCloseBtn: true,
