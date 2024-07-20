@@ -10,8 +10,8 @@ const RecapRank = ({ luckyId }: { luckyId: string }) => {
       luckyId,
     });
 
-  if (isLoading) <div>isLoading...</div>;
-  if (hasData) <div>{SYS_MESSAGE.NO_DATA}</div>;
+  if (isLoading) return <div>isLoading...</div>;
+  if (!hasData) return <div>{SYS_MESSAGE.NO_DATA}</div>;
 
   return (
     <div className="flex h-full flex-col items-center gap-6">
