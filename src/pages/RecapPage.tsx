@@ -21,7 +21,7 @@ const RecapPage = () => {
     else if (page == 2) return <RecapFaceTime luckyId={luckyId} />;
     else if (page == 3) return <RecapStatistics luckyId={luckyId} />;
     else if (page == 4) return <RecapFamilyPhoto luckyId={luckyId} />;
-    else if (page == 5) return <RecapEnding />;
+    else if (page == 5) return <RecapEnding luckyId={luckyId} />;
     else return <div>NO RECAP</div>;
   };
 
