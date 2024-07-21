@@ -7,7 +7,7 @@ import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIRE_BASE_KEY,
+  apiKey: import.meta.env.VITE_FIRE_BASE_ID,
   authDomain: `${import.meta.env.VITE_FIRE_BASE_FCM_DOMAIN}.firebaseapp.com`,
   projectId: import.meta.env.VITE_FIRE_BASE_FCM_DOMAIN,
   storageBucket: `${import.meta.env.VITE_FIRE_BASE_FCM_DOMAIN}.appspot.com`,
