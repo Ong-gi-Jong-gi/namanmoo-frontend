@@ -22,7 +22,7 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
   const handleCapture = () => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    if (!ctx || !videoElement || !position) return;
+    if (!ctx || !videoElement) return;
 
     const videoHeight = videoElement.videoHeight; // 비디오 높이
     const videoWidth = videoElement.videoWidth; // 비디오 너비
@@ -47,9 +47,8 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
       canvas.height,
     );
 
-    const { x, y, width, height } = position;
-
-    if (filterType !== 'none') {
+    if (filterType !== 'none' && position) {
+      const { x, y, width, height } = position;
       const image = new Image();
       image.src = FILTER.IMAGE[filterType];
       image.onload = () => {
@@ -90,15 +89,12 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
       remainingTime % FACETIME.TIMER_UNIT === 0 &&
       remainingTime < FACETIME.TIMER_UNIT * FACETIME.PHOTO_COUNT
     ) {
+      console.log(remainingTime);
       handleCapture();
     }
   }, [status, remainingTime]);
 
-  return (
-    <div className="absolute left-0 top-0 -scale-x-100 bg-white font-pretendard-bold text-red">
-      {countRef.current}
-    </div>
-  );
+  return null;
 };
 
 export default ScreenCapturer;

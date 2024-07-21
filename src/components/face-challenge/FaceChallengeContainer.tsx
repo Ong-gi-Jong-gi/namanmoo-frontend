@@ -23,7 +23,7 @@ const FaceChallengeContainer = () => {
       {challengeInfo.isComplete ? (
         <FaceChallengeResult challengeInfo={challengeInfo} />
       ) : (
-        <FaceLandmark>
+        <FaceLandmark code={code}>
           {isJoined ? (
             <FacetimeContainer code={code} />
           ) : (
