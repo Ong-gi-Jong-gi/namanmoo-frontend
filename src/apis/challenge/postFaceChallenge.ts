@@ -16,11 +16,5 @@ export const usePostFaceChallenge = () => {
   return useMutation({
     mutationKey: [API.CHALLENGE.FACE],
     mutationFn: (formData: FormData) => postFaceChallenge(formData),
-    onSuccess: () => {
-      alert('사진 전송 완료.');
-    },
-    onError: () => {
-      alert('사진 전송 실패.');
-    },
   });
 };
