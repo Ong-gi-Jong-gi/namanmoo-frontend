@@ -64,8 +64,28 @@ const ScreenCapturer = ({
           width * scale,
           height * scale,
         );
-      };
 
+        // 필터가 없는 경우 바로 toBlob 호출
+        canvas.toBlob((blob) => {
+          !blob && alert('캔버스를 이미지로 변환하는데 실패했습니다.');
+          if (!blob) return;
+          const imgFile = new File(
+            [blob],
+            `screenshot_${countRef.current}.png`,
+            {
+              type: 'image/png',
+            },
+          );
+
+          if (!challengeId || !imgFile) return;
+          countRef.current += 1;
+          const formData = new FormData();
+          formData.append('challengeId', challengeId);
+          formData.append('answer', imgFile);
+          mutate(formData);
+        });
+      };
+    } else {
       // 필터가 없는 경우 바로 toBlob 호출
       canvas.toBlob((blob) => {
         !blob && alert('캔버스를 이미지로 변환하는데 실패했습니다.');
