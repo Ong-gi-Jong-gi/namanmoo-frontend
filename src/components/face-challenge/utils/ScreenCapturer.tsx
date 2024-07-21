@@ -75,8 +75,8 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
         type: blob.type,
       });
 
-      countRef.current += 1;
       if (!challengeId || !imgFile) return;
+      countRef.current += 1;
       const formData = new FormData();
       formData.append('challengeId', challengeId);
       formData.append('answer', imgFile);
@@ -94,7 +94,11 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
     }
   }, [status, remainingTime]);
 
-  return null;
+  return (
+    <div className="absolute left-0 top-0 -scale-x-100 bg-white font-pretendard-bold text-red">
+      {countRef.current}
+    </div>
+  );
 };
 
 export default ScreenCapturer;
