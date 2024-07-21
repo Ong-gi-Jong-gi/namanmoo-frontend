@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-// import { usePostFaceChallenge } from '../../../apis/challenge/postFaceChallenge';
+import { usePostFaceChallenge } from '../../../apis/challenge/postFaceChallenge';
 import FACETIME from '../../../constants/FACETIME';
 import FILTER from '../../../constants/FILTER';
 import { useFacetimeChallengeStore } from '../../../store/facetimeChallengeStore';
@@ -21,14 +21,12 @@ const ScreenCapturer = ({
   const { filterType } = useFilterTypeStore();
   const { status, remainingTime } = useFacetimeChallengeStore();
   const { challengeId } = useParams();
-  // const { mutate } = usePostFaceChallenge();
+  const { mutate } = usePostFaceChallenge();
   const countRef = useRef(1);
 
   const handleCapture = () => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    !videoElement && alert('비디오가 없습니다.');
-    !ctx && alert('캔버스를 사용할 수 없습니다.');
     if (!ctx || !videoElement) return;
 
     const videoHeight = videoElement.videoHeight; // 비디오 높이
@@ -76,15 +74,12 @@ const ScreenCapturer = ({
           type: 'image/png',
         });
 
-        !challengeId && alert('챌린지 아이디가 없습니다.');
-        !imgFile && alert('이미지 파일이 없습니다.');
-
         if (!challengeId || !imgFile) return;
         countRef.current += 1;
         const formData = new FormData();
         formData.append('challengeId', challengeId);
         formData.append('answer', imgFile);
-        // mutate(formData);
+        mutate(formData);
       });
     }
   };
