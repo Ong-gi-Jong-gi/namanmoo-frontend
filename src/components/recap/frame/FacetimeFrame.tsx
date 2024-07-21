@@ -1,5 +1,6 @@
 import Lucky1 from '../../../assets/lucky/recap1.png';
 import Lucky2 from '../../../assets/lucky/recap2.png';
+import FACETIME from '../../../constants/FACETIME';
 
 interface FacetimeFrameProps {
   videos: string[];
@@ -39,10 +40,16 @@ const FacetimeFrame = ({ videos, challengeDate }: FacetimeFrameProps) => {
 };
 
 const VideoTile = ({ src }: { src: string }) => {
+  const videoSrc = `${src}#t,${FACETIME.PHOTO_COUNT * FACETIME.TIMER_UNIT}`;
   return (
     <div className="bg-paper bg-cover">
       {src && (
-        <video src={src} className="h-full w-full object-cover" autoPlay loop />
+        <video
+          src={videoSrc}
+          className="h-full w-full object-cover"
+          autoPlay
+          loop
+        />
       )}
     </div>
   );
