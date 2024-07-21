@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
 import { useParams } from 'react-router-dom';
 import { usePostFaceChallenge } from '../../../apis/challenge/postFaceChallenge';
@@ -9,13 +9,10 @@ interface ScreenRecorderProps {
 
 const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
   const { challengeId } = useParams();
-  const clonedMediaStream = customMediaStream
-    ? customMediaStream.clone()
-    : null;
   const { status: challengeStatus } = useFacetimeChallengeStore();
   const { status, startRecording, stopRecording } = useReactMediaRecorder({
     video: true,
-    customMediaStream: clonedMediaStream,
+    customMediaStream: customMediaStream,
     onStop: async (blobUrl: string) => {
       await uploadRecord(blobUrl);
     },
@@ -26,18 +23,19 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
   });
   const { mutate } = usePostFaceChallenge();
 
-  const handleRecording = useCallback(() => {
+  useEffect(() => {
     if (status === 'idle' && challengeStatus === 'ongoing') {
       startRecording();
     }
-    if (status === 'recording' && challengeStatus === 'finished') {
-      stopRecording();
-    }
-  }, [status, challengeStatus, startRecording, stopRecording]);
+  }, [status, challengeStatus, startRecording]);
 
   useEffect(() => {
-    handleRecording();
-  }, [handleRecording]);
+    return () => {
+      if (challengeStatus === 'finished') {
+        stopRecording();
+      }
+    };
+  }, []);
 
   const uploadRecord = async (blobUrl: string) => {
     try {
