@@ -1,8 +1,8 @@
-import { useTracks } from '@livekit/components-react';
+// import { useTracks } from '@livekit/components-react';
 import clsx from 'clsx';
-import { Track } from 'livekit-client';
+// import { Track } from 'livekit-client';
 import FACETIME from '../../../constants/FACETIME';
-import { MAX_FAMILY_MEMBER } from '../../../constants/family';
+// import { MAX_FAMILY_MEMBER } from '../../../constants/family';
 import useSocket from '../../../hooks/useSocket';
 import { useFacetimeChallengeStore } from '../../../store/facetimeChallengeStore';
 
@@ -11,18 +11,18 @@ interface StatusBarProps {
 }
 
 const StatusBar = ({ code }: StatusBarProps) => {
-  const camaraTracks = useTracks(
-    [{ source: Track.Source.Camera, withPlaceholder: true }],
-    { onlySubscribed: false },
-  );
+  // const camaraTracks = useTracks(
+  //   [{ source: Track.Source.Camera, withPlaceholder: true }],
+  //   { onlySubscribed: false },
+  // );
   const { status, remainingTime } = useFacetimeChallengeStore();
   const { emitChallengeStart } = useSocket();
 
   const handleClickStart = () => {
-    if (camaraTracks.length < MAX_FAMILY_MEMBER) {
-      alert('가족들이 모두 참여해야 합니다.');
-      return;
-    }
+    // if (camaraTracks.length < MAX_FAMILY_MEMBER) {
+    //   alert('가족들이 모두 참여해야 합니다.');
+    //   return;
+    // }
     emitChallengeStart(code);
   };
   const renderTime = remainingTime % FACETIME.TIMER_UNIT || FACETIME.TIMER_UNIT;
