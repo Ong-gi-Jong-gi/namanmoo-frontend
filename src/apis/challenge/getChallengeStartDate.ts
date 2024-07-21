@@ -10,16 +10,15 @@ const getChallengeStartDate = async () => {
   };
 };
 
-export const useGetChallengeStartDate = ({ enabled }: { enabled: boolean }) => {
+export const useGetChallengeStartDate = () => {
   const { data, isLoading } = useQuery({
     queryKey: [API.CHALLENGE.STARTDATE],
     queryFn: () => getChallengeStartDate(),
-    enabled,
+    enabled: !localStorage.getItem('challengeStartDate'),
   });
 
-  const hasData = !!data;
-
-  if (hasData) {
+  if (data) {
+    localStorage.setItem('challengeStartDate', data.challengeStartDate);
     localStorage.setItem('challengeDate', data.challengeStartDate);
   }
 
