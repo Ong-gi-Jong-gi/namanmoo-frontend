@@ -37,7 +37,7 @@ const ScreenCapturer = ({
     const renderWidth = videoElement.getBoundingClientRect().width; // 화면 너비
     const renderHeight = videoElement.getBoundingClientRect().height; // 화면 높이
 
-    const scale = Math.floor(300 / renderHeight);
+    const scale = 300 / renderHeight;
     canvas.height = renderHeight * scale;
     canvas.width = renderHeight * 0.66 * scale;
     const cropX = Math.max(0, ((videoWidth - renderWidth) / 2) * 0.85);
@@ -66,32 +66,27 @@ const ScreenCapturer = ({
           width * scale,
           height * scale,
         );
-        canvasToBlobAndDownload(canvas);
       };
-    } else {
+
       // 필터가 없는 경우 바로 toBlob 호출
-      canvasToBlobAndDownload(canvas);
-    }
-  };
+      canvas.toBlob((blob) => {
+        !blob && alert('캔버스를 이미지로 변환하는데 실패했습니다.');
+        if (!blob) return;
+        const imgFile = new File([blob], `screenshot_${countRef.current}.png`, {
+          type: 'image/png',
+        });
 
-  const canvasToBlobAndDownload = (canvas: HTMLCanvasElement) => {
-    canvas.toBlob((blob) => {
-      !blob && alert('캔버스를 이미지로 변환하는데 실패했습니다.');
-      if (!blob) return;
-      const imgFile = new File([blob], `screenshot_${countRef.current}.png`, {
-        type: blob.type,
+        !challengeId && alert('챌린지 아이디가 없습니다.');
+        !imgFile && alert('이미지 파일이 없습니다.');
+
+        if (!challengeId || !imgFile) return;
+        countRef.current += 1;
+        const formData = new FormData();
+        formData.append('challengeId', challengeId);
+        formData.append('answer', imgFile);
+        // mutate(formData);
       });
-
-      !challengeId && alert('챌린지 아이디가 없습니다.');
-      !imgFile && alert('이미지 파일이 없습니다.');
-
-      if (!challengeId || !imgFile) return;
-      countRef.current += 1;
-      const formData = new FormData();
-      formData.append('challengeId', challengeId);
-      formData.append('answer', imgFile);
-      // mutate(formData);
-    });
+    }
   };
 
   useEffect(() => {
