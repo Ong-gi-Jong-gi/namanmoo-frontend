@@ -1,16 +1,20 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HiPlay, HiPause } from 'react-icons/hi2';
+import useAudioStore from '../../store/audioStore';
 
-const ListenButton = ({
-  audioRef,
-}: {
+interface ListenButtonProps {
   audioRef: React.RefObject<HTMLAudioElement>;
-}) => {
+}
+
+const ListenButton: React.FC<ListenButtonProps> = ({ audioRef }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const { audioRef: globalAudioRef, playAudio, setAudioRef } = useAudioStore();
 
   const handlePlayToggle = () => {
     if (audioRef.current) {
       if (audioRef.current.paused) {
+        playAudio(audioRef.current);
+        setAudioRef(audioRef.current);
         audioRef.current.play();
         setIsPlaying(true);
       } else {
@@ -35,6 +39,12 @@ const ListenButton = ({
       };
     }
   }, [audioRef]);
+
+  useEffect(() => {
+    if (globalAudioRef && globalAudioRef !== audioRef.current) {
+      setIsPlaying(false);
+    }
+  }, [globalAudioRef, audioRef]);
 
   return (
     <div

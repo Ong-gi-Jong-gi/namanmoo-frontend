@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { FaLock } from 'react-icons/fa6';
 import { SYS_MESSAGE } from '../../constants/message';
 import { UserRole } from '../../types/family';
@@ -14,13 +14,13 @@ interface VoiceAnswerFieldProps {
   canView?: boolean;
 }
 
-const VoiceAnswerField = ({
+const VoiceAnswerField: React.FC<VoiceAnswerFieldProps> = ({
   nickname,
   role,
   answer,
   userImg,
   canView,
-}: VoiceAnswerFieldProps) => {
+}) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const answerClass = clsx('font-ryurue text-ryurue-base', {
     'text-gray-40': !answer,

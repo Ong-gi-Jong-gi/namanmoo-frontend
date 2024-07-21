@@ -25,6 +25,7 @@ const VoiceRecoder: React.FC<Props> = ({
   );
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const streamRef = useRef<MediaStream | null>(null); // Stream reference
   const [blob, setBlob] = useState<Blob>();
   const audioRef = useRef<HTMLAudioElement>(null);
   const movingBarRef = useRef<HTMLDivElement>(null);
@@ -46,6 +47,7 @@ const VoiceRecoder: React.FC<Props> = ({
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
@@ -59,13 +61,22 @@ const VoiceRecoder: React.FC<Props> = ({
           type: 'audio/wav',
         });
 
-        const audioFile = new File([audioBlob], `audio.wav`, {
-          type: audioBlob.type,
-        });
+        const audioFile = new File(
+          [audioBlob],
+          `${challengeId}_${new Date().getTime()}.wav`,
+          {
+            type: audioBlob.type,
+          },
+        );
 
         setRecordFile(audioFile);
         setBlob(audioBlob);
         mutateVoiceForm(audioFile);
+
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach((track) => track.stop());
+          streamRef.current = null;
+        }
       };
 
       mediaRecorder.start();
