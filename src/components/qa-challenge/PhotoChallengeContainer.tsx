@@ -28,7 +28,13 @@ const PhotoChallengeContainer = () => {
         </p>
       </div>
       <div className="w-full flex-1 overflow-scroll scrollbar-hide">
-        <div className="flex h-full w-[400%] gap-4 px-2">
+        <div
+          className="grid h-full gap-4 px-2"
+          style={{
+            width: `${(answerList.length + 1) * 100}%`,
+            gridTemplateColumns: `repeat(${answerList.length + 1}, 1fr)`,
+          }}
+        >
           <PhotoAnswerEditor
             role={myAnswer.role}
             answer={myAnswer.answer}

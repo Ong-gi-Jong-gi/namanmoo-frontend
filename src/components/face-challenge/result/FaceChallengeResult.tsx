@@ -29,7 +29,13 @@ const FaceChallengeResult = ({ challengeInfo }: FaceChallengeResultProps) => {
         </p>
       </div>
       <div className="w-full flex-1 overflow-scroll scrollbar-hide">
-        <div className="flex h-full w-[400%] items-center gap-4 px-2">
+        <div
+          className="grid h-full items-center gap-4 px-2"
+          style={{
+            width: `${answerList.length * 100}%`,
+            gridTemplateColumns: `repeat(${answerList.length}, 1fr)`,
+          }}
+        >
           {answerList.map((answer) => (
             <FaceAnswerField key={answer} imageUrl={answer} />
           ))}
