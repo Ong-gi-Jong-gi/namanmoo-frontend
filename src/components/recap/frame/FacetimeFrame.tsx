@@ -1,3 +1,6 @@
+import Lucky1 from '../../../assets/lucky/recap1.png';
+import Lucky2 from '../../../assets/lucky/recap2.png';
+
 interface FacetimeFrameProps {
   videos: string[];
   challengeDate: string;
@@ -14,7 +17,7 @@ const FacetimeFrame = ({ videos, challengeDate }: FacetimeFrameProps) => {
             {challengeDate || '20XX.XX.XX'}
           </span>
           <img
-            src="src/assets/lucky/recap1.png"
+            src={Lucky1}
             alt="리캡 행운이1"
             className="absolute bottom-0 right-0 w-24"
           />
@@ -23,7 +26,7 @@ const FacetimeFrame = ({ videos, challengeDate }: FacetimeFrameProps) => {
       <div className="grid w-full grid-rows-[0.25fr_1fr_1fr] gap-2 py-9">
         <div className="relative">
           <img
-            src="src/assets/lucky/recap2.png"
+            src={Lucky2}
             alt="리캡 행운이2"
             className="absolute -bottom-1 left-6 w-28"
           />
