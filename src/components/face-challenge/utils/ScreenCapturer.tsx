@@ -32,19 +32,19 @@ const ScreenCapturer = ({
     const videoHeight = videoElement.videoHeight; // 비디오 높이
     const videoWidth = videoElement.videoWidth; // 비디오 너비
 
-    const renderWidth = videoElement.getBoundingClientRect().width; // 화면 너비
+    const calcWidth = videoHeight * 0.66;
     const renderHeight = videoElement.getBoundingClientRect().height; // 화면 높이
 
     const scale = 300 / renderHeight;
     canvas.height = renderHeight * scale;
     canvas.width = renderHeight * 0.66 * scale;
-    const cropX = Math.max(0, ((videoWidth - renderWidth) / 2) * 0.85);
+    const cropX = Math.max(0, ((videoWidth - calcWidth) / 2) * 0.85);
 
     ctx.drawImage(
       videoElement,
       cropX,
       0,
-      videoHeight * 0.6,
+      calcWidth,
       videoHeight,
       0,
       0,
