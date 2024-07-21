@@ -13,18 +13,17 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
     ? customMediaStream.clone()
     : null;
   const { status: challengeStatus } = useFacetimeChallengeStore();
-  const { status, startRecording, stopRecording, mediaBlobUrl } =
-    useReactMediaRecorder({
-      video: true,
-      customMediaStream: clonedMediaStream,
-      onStop: async (blobUrl: string) => {
-        await uploadRecord(blobUrl);
-      },
-      mediaRecorderOptions: {
-        mimeType: 'video/mp4',
-        videoBitsPerSecond: 2560000,
-      },
-    });
+  const { status, startRecording, stopRecording } = useReactMediaRecorder({
+    video: true,
+    customMediaStream: clonedMediaStream,
+    onStop: async (blobUrl: string) => {
+      await uploadRecord(blobUrl);
+    },
+    mediaRecorderOptions: {
+      mimeType: 'video/mp4',
+      videoBitsPerSecond: 2560000,
+    },
+  });
   const { mutate } = usePostFaceChallenge();
 
   const handleRecording = useCallback(() => {
