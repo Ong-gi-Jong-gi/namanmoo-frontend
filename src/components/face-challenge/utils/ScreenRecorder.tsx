@@ -9,11 +9,17 @@ interface ScreenRecorderProps {
 
 const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
   const { challengeId } = useParams();
+  const clonedMediaStream = customMediaStream
+    ? customMediaStream.clone()
+    : null;
   const { status: challengeStatus } = useFacetimeChallengeStore();
   const { status, startRecording, stopRecording, mediaBlobUrl } =
     useReactMediaRecorder({
       video: true,
-      customMediaStream: customMediaStream,
+      customMediaStream: clonedMediaStream,
+      onStop: async (blobUrl: string) => {
+        await uploadRecord(blobUrl);
+      },
       mediaRecorderOptions: {
         mimeType: 'video/mp4',
         videoBitsPerSecond: 2560000,
@@ -34,30 +40,25 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
     handleRecording();
   }, [handleRecording]);
 
-  useEffect(() => {
-    const uploadRecord = async (blobUrl: string) => {
-      try {
-        const response = await fetch(blobUrl);
-        const blob = await response.blob();
-        if (!blob) return;
+  const uploadRecord = async (blobUrl: string) => {
+    try {
+      const response = await fetch(blobUrl);
+      const blob = await response.blob();
+      if (!blob) return;
 
-        const videoFile = new File([blob], 'video.mp4', {
-          type: 'video/mp4',
-        });
-        if (!challengeId || !videoFile) return;
+      const videoFile = new File([blob], 'video.mp4', {
+        type: 'video/mp4',
+      });
+      if (!challengeId || !videoFile) return;
 
-        const formData = new FormData();
-        formData.append('challengeId', challengeId);
-        formData.append('answer', videoFile);
-        mutate(formData);
-      } catch (error) {
-        console.error('Error uploading or downloading video:', error);
-      }
-    };
-    if (mediaBlobUrl) {
-      uploadRecord(mediaBlobUrl);
+      const formData = new FormData();
+      formData.append('challengeId', challengeId);
+      formData.append('answer', videoFile);
+      mutate(formData);
+    } catch (error) {
+      console.error('Error uploading or downloading video:', error);
     }
-  }, [mediaBlobUrl, challengeId, mutate]);
+  };
 
   return null;
 };
