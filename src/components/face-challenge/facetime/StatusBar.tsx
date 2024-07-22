@@ -23,7 +23,8 @@ const StatusBar = ({ code }: StatusBarProps) => {
       alert('가족들이 모두 참여해야 합니다.');
       return;
     }
-    emitChallengeStart(code);
+
+    confirm('챌린지를 시작하시겠습니까?') && emitChallengeStart(code);
   };
   const renderTime = remainingTime % FACETIME.TIMER_UNIT || FACETIME.TIMER_UNIT;
 
