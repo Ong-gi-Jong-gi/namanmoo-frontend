@@ -41,6 +41,10 @@ const PolaroidFrame = ({
     themeMap[theme],
   );
 
+  if (imageUrl === '' || imageUrl === null) {
+    return null;
+  }
+
   return (
     <div
       className={polaroidClass}
@@ -50,7 +54,7 @@ const PolaroidFrame = ({
         transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
       }}
     >
-      <div className="bg-polaroid h-full w-full overflow-hidden">
+      <div className="h-full w-full overflow-hidden bg-polaroid">
         <img
           src={imageUrl}
           alt="가족 사진"
