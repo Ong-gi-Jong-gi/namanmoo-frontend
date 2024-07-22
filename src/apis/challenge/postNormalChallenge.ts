@@ -25,9 +25,13 @@ export const usePostNormalChallenge = ({
     mutationFn: ({ answerContent }: { answerContent: string }) =>
       postNormalChallenge(challengeId, answerContent),
     onMutate: (variables) => ({ challengeId, ...variables }),
-    onSettled: () =>
+    onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: [API.CHALLENGE.NORMAL, challengeId],
+        queryKey: [API.CHALLENGE.LIST],
       }),
+        queryClient.invalidateQueries({
+          queryKey: [API.CHALLENGE.NORMAL, challengeId],
+        });
+    },
   });
 };
