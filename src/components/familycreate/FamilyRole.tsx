@@ -22,14 +22,14 @@ const FamilyRole = ({ myRole, changeRole }: FamilyRoleProps) => {
     <div className="grid grid-cols-2 gap-6">
       {FAMILY_ROLE.map((role: UserRole, index: number) => {
         return (
-          <div
-            className={`flex flex-col items-center justify-center gap-3 rounded-3xl border border-primary-30 px-5 py-7 font-ryurue text-ryurue-base sm:flex-row ${myRole == role ? 'bg-primary-30' : 'bg-primary-10'}`}
+          <button
+            className={`sm:flex-row flex flex-col items-center justify-center gap-3 rounded-3xl border border-primary-30 px-5 py-7 font-ryurue text-ryurue-base ${myRole == role ? 'bg-primary-30' : 'bg-primary-10'}`}
             key={index}
             onClick={() => changeRole(role)}
           >
             <img src={RoleIcon[role as UserRole]} alt={`${role}-icon`} />
             <div>{role}</div>
-          </div>
+          </button>
         );
       })}
     </div>
