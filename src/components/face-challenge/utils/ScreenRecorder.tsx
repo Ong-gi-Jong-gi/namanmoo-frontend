@@ -13,10 +13,7 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
   const { status, startRecording, stopRecording } = useReactMediaRecorder({
     video: true,
     customMediaStream: customMediaStream,
-    onStop: (blobUrl) => {
-      console.log('blobUrl:', blobUrl);
-      uploadRecord(blobUrl);
-    },
+    onStop: (blobUrl) => handleUploadRecord(blobUrl),
     stopStreamsOnStop: false,
     mediaRecorderOptions: {
       mimeType: 'video/mp4',
@@ -38,7 +35,7 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
     handleRecording();
   }, [handleRecording]);
 
-  const uploadRecord = async (blobUrl: string) => {
+  const handleUploadRecord = async (blobUrl: string) => {
     try {
       const response = await fetch(blobUrl);
       const blob = await response.blob();
