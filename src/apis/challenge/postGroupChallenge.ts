@@ -26,9 +26,13 @@ export const usePostGroupChallenge = ({
     mutationFn: ({ answerContent }: { answerContent: string }) =>
       postGroupChallenge(challengeId, answerContent),
     onMutate: (variables) => ({ challengeId, ...variables }),
-    onSettled: () =>
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: [API.CHALLENGE.LIST],
+      });
       queryClient.invalidateQueries({
         queryKey: [API.CHALLENGE.GROUP, challengeId],
-      }),
+      });
+    },
   });
 };
