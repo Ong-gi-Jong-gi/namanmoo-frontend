@@ -158,8 +158,14 @@ const VoiceRecoder: React.FC<Props> = ({
       <div className="flex flex-col items-center rounded-xl bg-background p-4 font-ryurue text-ryurue-base">
         <p>[질문]</p>
         <p>{question}</p>
-        <p>[내가 말한 문장]</p>
-        <div>{transcription ? <p>{transcription}</p> : ''}</div>
+        {transcription ? (
+          <>
+            <p>[내가 말한 문장]</p>
+            <p>{transcription}</p>
+          </>
+        ) : (
+          ''
+        )}
       </div>
       <div className="flex h-fit min-h-[75px] w-full items-center justify-center overflow-hidden rounded-xl bg-background">
         {isRecording

@@ -58,6 +58,7 @@ const TextAnswerEditor = ({
       )}
       {status === 'edit' && (
         <div className="flex flex-col gap-2">
+          <Textarea value={value} onChange={(e) => setValue(e.target.value)} />
           <div className="ml-auto flex gap-2">
             <FaXmark
               onClick={handleCancel}
@@ -70,7 +71,6 @@ const TextAnswerEditor = ({
               className="cursor-pointer text-gray-40 transition-colors duration-200 hover:text-primary-30"
             />
           </div>
-          <Textarea value={value} onChange={(e) => setValue(e.target.value)} />
         </div>
       )}
     </div>

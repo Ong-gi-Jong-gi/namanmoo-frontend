@@ -44,7 +44,7 @@ const PhotoAnswerEditor = ({
   };
 
   return (
-    <div className="flex h-4/5 w-full flex-col gap-4 rounded-2xl bg-white p-4 shadow-card">
+    <div className="flex h-full w-full flex-col gap-4 rounded-2xl bg-white p-4 shadow-card xs:h-4/5">
       <Profile
         type={userImg ? 'image' : 'default'}
         layout="horizontal"
@@ -72,7 +72,9 @@ const PhotoAnswerEditor = ({
         {!imageFile && (
           <>
             <TbPhoto size={48} className="text-gray-40" />
-            <p className="font-ryurue text-gray-40">{SYS_MESSAGE.WRITE}</p>
+            <p className="font-ryurue text-ryurue-sm text-gray-40">
+              {SYS_MESSAGE.WRITE}
+            </p>
           </>
         )}
         <input

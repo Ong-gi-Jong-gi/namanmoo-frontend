@@ -34,7 +34,7 @@ const ChallengeDetailPage = () => {
 
   return (
     <Suspense fallback={<Loader />}>
-      <div className="h-full w-full">
+      <div className="flex h-full w-full flex-col">
         <Header />
         <ChallengeContainer />
       </div>

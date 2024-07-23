@@ -20,6 +20,9 @@ export const usePostVoiceChallenge = () => {
     onMutate: (variables) => ({ ...variables }),
     onSettled: () => {
       queryClient.invalidateQueries({
+        queryKey: [API.CHALLENGE.LIST],
+      });
+      queryClient.invalidateQueries({
         queryKey: [API.CHALLENGE.VOICE],
       });
     },
