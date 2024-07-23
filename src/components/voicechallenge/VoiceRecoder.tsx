@@ -6,7 +6,8 @@ import { usePostVoiceChallenge } from '../../apis/challenge/postVoiceChallenge';
 import Button from '../common/Button';
 
 interface Props {
-  question: string;
+  musicLyric: string;
+  musicInfo: string;
   challengeId: string;
   downTrigger: () => void;
   existedVoice: string | null;
@@ -15,7 +16,8 @@ interface Props {
 const VoiceRecoder: React.FC<Props> = ({
   challengeId,
   downTrigger,
-  question,
+  musicLyric,
+  musicInfo,
   existedVoice,
 }) => {
   const [transcription, setTranscription] = useState<string | null>(null);
@@ -157,7 +159,8 @@ const VoiceRecoder: React.FC<Props> = ({
     <div className="flex flex-col gap-4">
       <div className="flex flex-col items-center rounded-xl bg-background p-4 font-ryurue text-ryurue-base">
         <p>[질문]</p>
-        <p>{question}</p>
+        <p>{musicInfo}</p>
+        <p>{musicLyric}</p>
         {transcription ? (
           <>
             <p>[내가 말한 문장]</p>

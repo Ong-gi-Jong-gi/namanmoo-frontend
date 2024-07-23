@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { SYS_MESSAGE } from '../../constants/message';
 import useBottomSheetStore from '../../store/bottomSheetStore';
 import { UserRole } from '../../types/family';
@@ -27,6 +27,10 @@ const VoiceAnswerEditor: React.FC<VoiceAnswerEditorProps> = ({
   const [status, setStatus] = useState<'view' | 'edit'>('view');
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const challengeTitleInfo = useMemo(() => {
+    return question.split('/');
+  }, [question]);
+
   const answerClass = clsx('flex gap-3 font-ryurue text-ryurue-base', {
     'text-gray-40': !answer,
   });
@@ -43,7 +47,8 @@ const VoiceAnswerEditor: React.FC<VoiceAnswerEditorProps> = ({
         <VoiceRecoder
           challengeId={challengeId}
           downTrigger={downTrigger}
-          question={question}
+          musicLyric={challengeTitleInfo[1]}
+          musicInfo={challengeTitleInfo[2]}
           existedVoice={answer}
         />
       ),
