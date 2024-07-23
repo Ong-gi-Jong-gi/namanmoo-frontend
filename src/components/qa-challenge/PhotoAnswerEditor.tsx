@@ -44,7 +44,7 @@ const PhotoAnswerEditor = ({
   };
 
   return (
-    <div className="flex h-full w-full flex-col gap-4 rounded-2xl bg-white p-4 shadow-card xs:h-4/5">
+    <div className="sm:h-4/5 flex h-full w-full flex-col gap-4 rounded-2xl bg-white p-4 shadow-card">
       <Profile
         type={userImg ? 'image' : 'default'}
         layout="horizontal"
