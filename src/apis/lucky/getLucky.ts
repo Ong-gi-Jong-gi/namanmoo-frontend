@@ -3,12 +3,10 @@ import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { LuckyDto } from '../dtos/luckyDtos';
 
-const getLucky = async () => {
-  const challengeDate = localStorage.getItem('challengeDate');
-
+const getLucky = async (challengeDate: string) => {
   try {
     const { data } = await authorizedApi.get(
-      `${API.LUCKY.STATUS}?challengeDate=${challengeDate ? challengeDate : new Date().getTime().toString()}`,
+      `${API.LUCKY.STATUS}?challengeDate=${challengeDate}`,
     );
 
     if (data.data === null)
@@ -24,9 +22,14 @@ const getLucky = async () => {
 };
 
 export const useGetLucky = () => {
+  const storageDate = localStorage.getItem('challengeDate');
+  const challengeDate = storageDate
+    ? storageDate
+    : new Date().getTime().toString();
+
   const { data } = useSuspenseQuery({
-    queryKey: [API.LUCKY.STATUS],
-    queryFn: () => getLucky(),
+    queryKey: [API.LUCKY.STATUS, challengeDate],
+    queryFn: () => getLucky(challengeDate),
   });
 
   return { data };
