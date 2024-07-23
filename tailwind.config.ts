@@ -79,7 +79,7 @@ export default {
         'slide-up': 'slide-up 0.3s ease-out',
         'slide-down': 'slide-down 0.3s ease-in',
         'fade-in': 'fade-in 2s ease-out forwards',
-        flash: 'flash 0.3s ease-out',
+        flash: 'flash 0.5s ease-out',
       },
       boxShadow: {
         'shadow-box':
