@@ -15,8 +15,6 @@ const ChallengeListUnit = ({
 
   const listUnitClassName = clsx(
     `border-gray-3 relative flex flex-col justify-between gap-1 rounded-lg border border-gray-30 bg-gray-10 px-4 py-2 font-ryurue`,
-    {},
-    {},
   );
 
   const handleUnitClick = () => {
@@ -30,7 +28,9 @@ const ChallengeListUnit = ({
       <p className="text-ryurue-base text-secondary-20">{`#${parseInt(challengeNumber) > 9 ? challengeNumber : '0' + challengeNumber}`}</p>
 
       <p className="h-full truncate text-ellipsis text-ryurue-sm">
-        {`${challengeTitle}`}
+        {challengeType.includes('VOICE')
+          ? challengeTitle.split('/')[0]
+          : challengeTitle}
       </p>
       {isComplete && (
         <div className="absolute right-1 top-1/2 flex h-full -translate-y-1/2 transform items-center">
