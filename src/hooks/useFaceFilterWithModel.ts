@@ -22,7 +22,7 @@ const useFaceFilterWithModel = (
   const [actualVideoSize, setActualVideoSize] = useState<VideoSize>(videoSize);
   const animationFrameId = useRef<number | null>(null);
   const lastProcessedTimeRef = useRef<number>(0);
-  const processInterval = 128; // 128ms 간격으로 얼굴 필터 업데이트
+  const processInterval = 100; // 100ms 간격으로 얼굴 필터 업데이트
 
   const estimateFacesLoop = useCallback(() => {
     const now = performance.now();
