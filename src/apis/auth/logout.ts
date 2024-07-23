@@ -18,6 +18,8 @@ export const useLogout = () => {
     mutationFn: () => postLogout(),
     onSettled: () => {
       deleteCookie('authorization');
+      localStorage.removeItem('challengeDate');
+      localStorage.removeItem('challengeStartDate');
       navigate(routes.login, { replace: true });
     },
     onError: (error) => {

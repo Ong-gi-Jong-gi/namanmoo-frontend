@@ -12,7 +12,7 @@ const RecapEnding = ({ luckyId }: { luckyId: string }) => {
     if (backgroundVoice != null && !isLoading)
       setTimeout(() => {
         if (audioRef.current) audioRef.current.play();
-      }, 200);
+      }, 500);
   }, [backgroundVoice, isLoading]);
 
   if (!isLoading) <div>Loading</div>;
@@ -20,17 +20,16 @@ const RecapEnding = ({ luckyId }: { luckyId: string }) => {
 
   return (
     <div className="flex h-full flex-col items-center justify-evenly break-keep rounded-2xl p-6 text-center font-ryurue text-ryurue-base">
-      <div className="group-1 animation-delay-0 animate-fade-in opacity-0 drop-shadow-md">
-        <p>늘 곁에 있어서 무심하게만 대했던,</p>
-        <p>
-          <span className="text-red">사랑해</span>,
-          <span className="ml-2 text-red">고마워</span>라는 말로는
-        </p>
-        <p>마음을 다 표현할 수 없는</p>
-        <p className="font-ryurue text-ryurue-lg text-secondary-20">"가족"</p>
-      </div>
       <div className="group-2 animation-delay-100 animate-fade-in opacity-0 drop-shadow-md">
-        <p>함께한 챌린지들이</p>
+        <p>
+          <span className="text-red">사랑</span>하는
+        </p>
+        <p>
+          <span className="mr-2 font-ryurue text-ryurue-lg text-secondary-20">
+            "가족"
+          </span>
+          과 함께한 챌린지들이
+        </p>
         <p>
           색다른
           <span className="text-red"> 추억 </span>
@@ -43,7 +42,7 @@ const RecapEnding = ({ luckyId }: { luckyId: string }) => {
       </div>
       <div className="group-3 animation-delay-200 animate-fade-in opacity-0 drop-shadow-md">
         <p>
-          <span className="text-primary-30">행운이</span>가 드리는
+          <span className="text-[#6aac4b]">행운이</span>가 드리는
         </p>
         <p className="mt-3">
           [ Day <span className="text-red">31</span> - 특별 챌린지 ]

@@ -29,7 +29,7 @@ const PhotoChallengeContainer = () => {
       </div>
       <div className="w-full flex-1 overflow-scroll p-1 scrollbar-hide">
         <div
-          className="grid h-full gap-4 px-2"
+          className="grid gap-4 px-2"
           style={{
             width: `${(answerList.length + 1) * 100}%`,
             gridTemplateColumns: `repeat(${answerList.length + 1}, 1fr)`,
