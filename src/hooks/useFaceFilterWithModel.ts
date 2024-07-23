@@ -106,12 +106,16 @@ const useFaceFilterWithModel = (
     image.onload = () => {
       setFilterImage(image);
     };
-  }, [filterType, isFilterActive]);
+  }, [filterType]);
 
   useEffect(() => {
     if (
-      (filterImage && ctx && isLoaded && video && filterType !== 'none') ||
-      !isFilterActive
+      isFilterActive &&
+      filterImage &&
+      ctx &&
+      isLoaded &&
+      video &&
+      filterType !== 'none'
     ) {
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
@@ -119,13 +123,15 @@ const useFaceFilterWithModel = (
       animationFrameId.current = requestAnimationFrame(() =>
         estimateFacesLoop(),
       );
-    } else if ((!isFilterActive || filterType === 'none') && ctx) {
-      ctx.clearRect(
-        0,
-        0,
-        canvasRef.current?.width || videoSize.width,
-        canvasRef.current?.height || videoSize.height,
-      );
+    } else if (!isFilterActive || filterType === 'none') {
+      if (ctx) {
+        ctx.clearRect(
+          0,
+          0,
+          canvasRef.current?.width || videoSize.width,
+          canvasRef.current?.height || videoSize.height,
+        );
+      }
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
@@ -151,4 +157,5 @@ const useFaceFilterWithModel = (
 
   return { canvasRef, position, actualVideoSize };
 };
+
 export default useFaceFilterWithModel;

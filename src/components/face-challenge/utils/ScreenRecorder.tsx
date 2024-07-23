@@ -26,7 +26,7 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
     if (status === 'idle' && challengeStatus === 'ongoing') {
       startRecording();
     }
-    if (status === 'recording' && challengeStatus === 'finished') {
+    if (challengeStatus === 'finished') {
       stopRecording();
     }
   }, [status, challengeStatus, startRecording, stopRecording]);
