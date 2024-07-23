@@ -17,7 +17,7 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
     stopStreamsOnStop: false,
     mediaRecorderOptions: {
       mimeType: 'video/mp4',
-      videoBitsPerSecond: 2000000,
+      videoBitsPerSecond: 1280000,
     },
   });
   const { mutate } = usePostFaceChallenge();

@@ -12,12 +12,7 @@ interface ScreenCapturerProps extends PropsWithChildren {
   position: FilterPosition | null;
 }
 
-const ScreenCapturer = ({
-  videoElement,
-  position,
-  children,
-}: ScreenCapturerProps) => {
-  const captureRef = useRef<HTMLDivElement | null>(null);
+const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
   const { filterType } = useFilterTypeStore();
   const { status, remainingTime } = useFacetimeChallengeStore();
   const { challengeId } = useParams();
@@ -103,7 +98,7 @@ const ScreenCapturer = ({
     }
   }, [status, remainingTime]);
 
-  return <div ref={captureRef}>{children}</div>;
+  return null;
 };
 
 export default ScreenCapturer;
