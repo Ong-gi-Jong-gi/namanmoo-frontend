@@ -24,11 +24,9 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
 
   useEffect(() => {
     if (status === 'idle' && challengeStatus === 'ongoing') {
-      alert('녹화 시작');
       startRecording();
     }
     if (status === 'recording' && challengeStatus === 'finished') {
-      alert('녹화 종료');
       stopRecording();
     }
   }, [status, challengeStatus]);

@@ -40,7 +40,7 @@ const StatusBar = ({ code }: StatusBarProps) => {
           className="w-full text-center font-ryurue text-ryurue-md text-white"
           onClick={handleClickStart}
         >
-          챌린지 시작
+          인생네컷 시작
         </button>
       )}
       {status === 'ongoing' && (
@@ -50,7 +50,7 @@ const StatusBar = ({ code }: StatusBarProps) => {
       )}
       {status === 'finished' && (
         <p className="w-full text-center font-ryurue text-ryurue-md text-white">
-          챌린지 종료
+          인생네컷 종료
         </p>
       )}
     </div>
