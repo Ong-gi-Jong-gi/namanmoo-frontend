@@ -42,7 +42,10 @@ const RecapStatisticsTopic = ({
         <div className="flex flex-col gap-2 rounded-lg bg-white p-3 font-ryurue text-ryurue-base">
           <div className="flex justify-between">
             <p className="text-secondary-20">{`#${parseInt(challengeNumber) > 10 ? challengeNumber : '0' + challengeNumber}`}</p>
-            <p className="text-e text-gray-40" onClick={handleTopiClick}>
+            <p
+              className="text-e relative z-50 text-gray-40"
+              onClick={handleTopiClick}
+            >
               바로가기 &gt;&gt;
             </p>
           </div>

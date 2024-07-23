@@ -14,7 +14,7 @@ const FamilyList = ({ familyList }: FamilyListProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="absolute left-0 inline-flex h-32 w-full items-center gap-5 overflow-x-scroll px-6 scrollbar-hide">
+    <div className="absolute left-0 z-10 inline-flex h-32 w-full items-center gap-5 overflow-x-scroll px-6 scrollbar-hide">
       {/* My Profile */}
       <span onClick={() => navigate('/mypage')}>
         <Profile
