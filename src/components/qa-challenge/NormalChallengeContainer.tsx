@@ -19,7 +19,7 @@ const NormalChallengeContainer = () => {
   if (!hasData || !myAnswer || !challengeInfo)
     return <div>{SYS_MESSAGE.NO_DATA}</div>;
   return (
-    <div className="flex h-full w-full flex-col gap-16">
+    <div className="flex w-full flex-1 flex-col gap-16">
       <ChallengeHeader
         challengeNumber={challengeInfo.challengeNumber}
         challengeDate={formatDate(challengeInfo.challengeDate)}

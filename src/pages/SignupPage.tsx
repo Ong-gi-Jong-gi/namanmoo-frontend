@@ -9,8 +9,10 @@ const SignupPage = () => {
   if (token) return <Navigate to={routes.main} replace />;
 
   return (
-    <div className="flex h-full items-center">
-      <SignupForm />
+    <div className="flex h-full flex-col">
+      <div className="m-auto my-auto w-full max-w-[360px]">
+        <SignupForm />
+      </div>
     </div>
   );
 };

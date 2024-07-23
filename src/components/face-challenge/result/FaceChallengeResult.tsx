@@ -24,7 +24,7 @@ const FaceChallengeResult = ({ challengeInfo }: FaceChallengeResultProps) => {
           challengeDate={formatDate(challengeInfo.challengeDate)}
           challengeTitle={challengeInfo.challengeTitle}
         />
-        <p className="text-md text-gray-0 font-ryurue">
+        <p className="text-gray-0 text-ryurue-xs font-ryurue">
           가로 스크롤을 통해 가족들의 사진을 구경하세요!
         </p>
       </div>

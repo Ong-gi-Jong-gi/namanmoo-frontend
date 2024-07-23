@@ -16,11 +16,11 @@ const LuckySection = () => {
   const message = useMemo(() => getRandomMessage(), []);
 
   return (
-    <div className="flex flex-col items-center justify-end">
+    <div className="relative flex flex-col items-center justify-end">
       {luckyInfo.isBubble && (
-        <div className="relative right-4 top-6" onClick={handleLuckyBubble}>
+        <div className="absolute -top-[45%] z-10" onClick={handleLuckyBubble}>
           <img src={balloon} alt="balloon" />
-          <p className="absolute left-1/2 top-[47%] w-full -translate-x-1/2 -translate-y-1/2 transform text-center font-ryurue text-ryurue-base">
+          <p className="absolute left-1/2 top-[47%] w-full -translate-x-1/2 -translate-y-1/2 transform text-center font-ryurue text-ryurue-sm">
             {message}
           </p>
         </div>

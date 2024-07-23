@@ -16,20 +16,20 @@ const PhotoChallengeContainer = () => {
     return <div>{SYS_MESSAGE.NO_DATA}</div>;
 
   return (
-    <div className="flex h-full w-full flex-1 flex-col gap-16">
+    <div className="flex w-full flex-1 flex-col gap-16">
       <div>
         <ChallengeHeader
           challengeNumber={challengeInfo.challengeNumber}
           challengeDate={formatDate(challengeInfo.challengeDate)}
           challengeTitle={challengeInfo.challengeTitle}
         />
-        <p className="text-md text-gray-0 font-ryurue">
+        <p className="text-gray-0 text-ryurue-xs font-ryurue">
           가로 스크롤을 통해 가족들의 사진을 구경하세요!
         </p>
       </div>
-      <div className="w-full flex-1 overflow-scroll scrollbar-hide">
+      <div className="w-full flex-1 overflow-scroll p-1 scrollbar-hide">
         <div
-          className="grid h-full gap-4 px-2"
+          className="grid gap-4 px-2"
           style={{
             width: `${(answerList.length + 1) * 100}%`,
             gridTemplateColumns: `repeat(${answerList.length + 1}, 1fr)`,

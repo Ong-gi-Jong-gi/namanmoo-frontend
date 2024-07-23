@@ -27,9 +27,9 @@ const ChallengeListUnit = ({
 
   return (
     <div className={listUnitClassName} onClick={handleUnitClick}>
-      <p className="text-pretendard-md text-secondary-20">{`#${parseInt(challengeNumber) > 10 ? challengeNumber : '0' + challengeNumber}`}</p>
+      <p className="text-ryurue-base text-secondary-20">{`#${parseInt(challengeNumber) > 9 ? challengeNumber : '0' + challengeNumber}`}</p>
 
-      <p className="h-full truncate text-ellipsis text-ryurue-base">
+      <p className="h-full truncate text-ellipsis text-ryurue-sm">
         {`${challengeTitle}`}
       </p>
       {isComplete && (
