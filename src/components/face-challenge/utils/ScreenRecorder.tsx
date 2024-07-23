@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
 import { useParams } from 'react-router-dom';
 import { usePostFaceChallenge } from '../../../apis/challenge/postFaceChallenge';
@@ -17,23 +17,21 @@ const ScreenRecorder = ({ customMediaStream }: ScreenRecorderProps) => {
     stopStreamsOnStop: false,
     mediaRecorderOptions: {
       mimeType: 'video/mp4',
-      videoBitsPerSecond: 2560000,
+      videoBitsPerSecond: 2000000,
     },
   });
   const { mutate } = usePostFaceChallenge();
 
-  const handleRecording = useCallback(() => {
+  useEffect(() => {
     if (status === 'idle' && challengeStatus === 'ongoing') {
+      alert('녹화 시작');
       startRecording();
     }
-    if (challengeStatus === 'finished') {
+    if (status === 'recording' && challengeStatus === 'finished') {
+      alert('녹화 종료');
       stopRecording();
     }
-  }, [status, challengeStatus, startRecording, stopRecording]);
-
-  useEffect(() => {
-    handleRecording();
-  }, [handleRecording]);
+  }, [status, challengeStatus]);
 
   const handleUploadRecord = async (blobUrl: string) => {
     try {
