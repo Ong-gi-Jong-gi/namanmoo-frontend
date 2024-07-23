@@ -18,13 +18,22 @@ const useFaceFilter = (
   const [filterImage, setFilterImage] = useState<HTMLImageElement | null>(null);
   const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>(null);
   const animationFrameId = useRef<number | null>(null);
+  const lastProcessedTimeRef = useRef<number>(0);
+  const processInterval = 100; // 100ms 간격으로 얼굴 필터 업데이트
 
   const estimateFacesLoop = useCallback(() => {
+    const now = performance.now();
+    if (now - lastProcessedTimeRef.current < processInterval) {
+      animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
+      return;
+    }
+    lastProcessedTimeRef.current = now;
     if (filterType === 'none' || !isFilterActive) return;
     if (!video || !filterImage || !ctx || !position) return;
 
     const actualHeight = video.getBoundingClientRect().height;
-    const actualWidth = video.getBoundingClientRect().width;
+    const actualWidth = actualHeight * (video.videoWidth / video.videoHeight);
+    const padding = (actualWidth - video.getBoundingClientRect().width) / 2;
     ctx.clearRect(0, 0, actualWidth, actualHeight);
     canvasRef.current!.width = actualWidth;
     canvasRef.current!.height = actualHeight;
@@ -34,7 +43,7 @@ const useFaceFilter = (
     const { x, y, width, height } = position;
     ctx.drawImage(
       filterImage,
-      x * scaleX,
+      x * scaleX - padding,
       y * scaleY,
       width * scaleX,
       height * scaleY,
