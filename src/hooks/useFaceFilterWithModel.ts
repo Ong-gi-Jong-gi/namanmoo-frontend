@@ -27,7 +27,7 @@ const useFaceFilterWithModel = (
     if (!video || !filterImage || !ctx || !faceLandmarker) return;
 
     const actualHeight = video.getBoundingClientRect().height;
-    const actualWidth = video.getBoundingClientRect().width;
+    const actualWidth = actualHeight * (video.videoWidth / video.videoHeight);
     setActualVideoSize({ width: actualWidth, height: actualHeight });
     const padding = (actualWidth - video.getBoundingClientRect().width) / 2;
 
