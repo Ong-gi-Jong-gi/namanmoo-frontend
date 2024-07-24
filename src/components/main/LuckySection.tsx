@@ -24,13 +24,13 @@ const LuckySection = () => {
         return null;
       case 1:
         return (
-          <div className="absolute -left-4 top-48">
+          <div className="absolute -left-4 top-1/4">
             <img src={Cloud1} width={280} />
           </div>
         );
       case 2:
         return (
-          <div className="absolute -left-8 top-28 w-52">
+          <div className="absolute -left-8 top-1/4 w-52">
             <img src={Cloud2} width={180} />
           </div>
         );
