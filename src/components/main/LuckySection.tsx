@@ -19,8 +19,8 @@ const LuckySection = () => {
     <div className="relative flex flex-col items-center justify-end">
       {luckyInfo.isBubble && (
         <div className="absolute -top-[45%] z-10" onClick={handleLuckyBubble}>
-          <img src={balloon} alt="balloon" />
-          <p className="absolute left-1/2 top-[47%] w-full -translate-x-1/2 -translate-y-1/2 transform text-center font-ryurue text-ryurue-sm">
+          <img src={balloon} alt="balloon" className="scale-125" />
+          <p className="absolute left-1/2 top-[47%] w-full -translate-x-1/2 -translate-y-1/2 transform text-center font-ryurue text-ryurue-base">
             {message}
           </p>
         </div>

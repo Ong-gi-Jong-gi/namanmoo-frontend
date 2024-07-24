@@ -17,7 +17,7 @@ const ChallengeHeader = ({
           <span>{challengeDate}</span>
         </div>
       )}
-      <span className="break-keep text-pretendard-md font-pretendard-bold">
+      <span className="break-keep text-pretendard-lg font-pretendard-bold">
         {challengeTitle}
       </span>
     </div>
