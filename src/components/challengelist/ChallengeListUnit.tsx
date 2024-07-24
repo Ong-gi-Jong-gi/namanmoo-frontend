@@ -25,9 +25,8 @@ const ChallengeListUnit = ({
 
   return (
     <div className={listUnitClassName} onClick={handleUnitClick}>
-      <p className="text-ryurue-base text-secondary-20">{`#${parseInt(challengeNumber) > 9 ? challengeNumber : '0' + challengeNumber}`}</p>
-
-      <p className="h-full truncate text-ellipsis text-ryurue-base">
+      <p className="text-ryurue-sm text-secondary-20">{`#${parseInt(challengeNumber) > 9 ? challengeNumber : '0' + challengeNumber}`}</p>
+      <p className="h-full truncate text-ellipsis text-ryurue-base text-black">
         {challengeType.includes('VOICE')
           ? challengeTitle.split('/')[0]
           : challengeTitle}

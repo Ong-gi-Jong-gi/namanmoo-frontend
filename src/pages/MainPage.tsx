@@ -37,10 +37,10 @@ const MainPage = () => {
 
   return (
     <Suspense fallback={<Loader />}>
-      <div className="h-full w-full">
+      <div className="relative h-full w-full">
         <FamilyList familyList={familyList} />
         <Navbar />
-        <div className="grid h-full w-full grid-rows-[1fr_36%] items-end overflow-scroll pt-32 scrollbar-hide">
+        <div className="grid h-full w-full grid-rows-[1fr_30%] items-end overflow-scroll pt-32 scrollbar-hide">
           <ChallengeSection currentFamilySize={familyList.length} />
         </div>
       </div>

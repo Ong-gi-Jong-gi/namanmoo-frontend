@@ -15,18 +15,13 @@ const postLuckyBubble = async () => {
 };
 
 export const usePostLuckyBubble = () => {
-  const storageDate = localStorage.getItem('challengeDate');
-  const challengeDate = storageDate
-    ? storageDate
-    : new Date().getTime().toString();
-
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: [API.LUCKY.BUBBLE],
     mutationFn: () => postLuckyBubble(),
     onSuccess: () =>
       queryClient.invalidateQueries({
-        queryKey: [API.LUCKY.STATUS, challengeDate],
+        queryKey: [API.LUCKY.STATUS],
       }),
   });
 };

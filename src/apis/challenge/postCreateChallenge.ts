@@ -26,7 +26,7 @@ export const useCreateChallenge = () => {
         queryKey: [API.CHALLENGE.TODAY],
       });
       queryClient.invalidateQueries({
-        queryKey: [API.LUCKY.STATUS, challengeDate],
+        queryKey: [API.LUCKY.STATUS],
       });
     },
   });
