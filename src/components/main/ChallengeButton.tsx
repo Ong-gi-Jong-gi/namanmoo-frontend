@@ -33,8 +33,8 @@ type ChallengeButtonProps =
 
 const adjustFontSize = (text: string) => {
   return text.length > 10
-    ? 'xs:text-ryurue-base text-ryurue-sm'
-    : ' xs:text-ryurue-md text-ryurue-base';
+    ? 'xs:text-ryurue-md text-ryurue-base'
+    : ' xs:text-ryurue-lg text-ryurue-md';
 };
 
 const renderTypeInfo = (props: ChallengeButtonProps) => {
@@ -63,7 +63,7 @@ const ChallengeButton = (props: ChallengeButtonProps) => {
   const { mutate } = useCreateChallenge();
 
   const layoutClass = clsx(
-    'shadow h-32 w-full items-center justify-center gap-6 rounded-md bg-paper bg-contain px-9 py-5 font-ryurue',
+    'shadow h-36 w-full items-center justify-center gap-8 rounded-md bg-paper bg-contain px-9 py-5 font-ryurue',
     {
       flex: type === 'active',
       'grid grid-rows-[24px_1fr]': type !== 'active',

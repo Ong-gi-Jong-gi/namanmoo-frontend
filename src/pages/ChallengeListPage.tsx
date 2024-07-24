@@ -14,7 +14,7 @@ const ChallengeListPage = () => {
       <Header />
       <p className="text-center font-ryurue text-ryurue-md">챌린지</p>
       {challenges.length > 0 ? (
-        <div className="flex flex-1 flex-col gap-3 overflow-scroll scrollbar-hide">
+        <div className="flex flex-1 flex-col gap-4 overflow-scroll scrollbar-hide">
           {challenges.map((challenge) => (
             <ChallengeListUnit key={challenge.challengeId} {...challenge} />
           ))}

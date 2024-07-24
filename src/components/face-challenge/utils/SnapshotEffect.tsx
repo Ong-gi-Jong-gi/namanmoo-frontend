@@ -11,17 +11,21 @@ const SnapshotEffect = () => {
   useEffect(() => {
     if (
       status === 'ongoing' &&
-      remainingTime !== FACETIME.TIMER_UNIT * FACETIME.PHOTO_COUNT &&
-      remainingTime % FACETIME.TIMER_UNIT === 0
+      remainingTime !== FACETIME.TIMER_UNIT * FACETIME.PHOTO_COUNT
     ) {
-      setIsSnapshot(true);
-      soundEffect.play();
+      if (remainingTime % FACETIME.TIMER_UNIT === 0) {
+        setIsSnapshot(true);
+        setTimeout(() => {
+          setIsSnapshot(false);
+        }, 1000);
+      }
 
-      setTimeout(() => {
-        setIsSnapshot(false);
-      }, 1000);
+      if (remainingTime % FACETIME.TIMER_UNIT === 3) {
+        soundEffect.play();
+      }
     }
   }, [status, remainingTime]);
+
   const snapshotClass = clsx(
     'absolute left-0 top-0 z-50 h-full w-full bg-white',
     { 'pointer-events-none opacity-0': !isSnapshot },
