@@ -63,7 +63,7 @@ body {
   width: 100vw;
   height: 100%;
   overflow: hidden;
-  @apply bg-gray-40;
+  @apply bg-gray-50;
 }
 
 #root {
