@@ -74,12 +74,25 @@ export default {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0.5 },
         },
+        'scale-up': {
+          '0%': { fontSize: '12px', opacity: '0', color: '' },
+          '100%': { fontSize: '45px', opacity: '1', color: '' },
+        },
+        shake: {
+          '0%, 100%': { transform: 'rotate(10deg)' },
+          '40%, 80%': { transform: 'rotate(-10deg)' },
+          '20%, 60%': { transform: 'rotate(10deg)' },
+        },
       },
       animation: {
         'slide-up': 'slide-up 0.3s ease-out',
         'slide-down': 'slide-down 0.3s ease-in',
         'fade-in': 'fade-in 2s ease-out forwards',
         flash: 'flash 0.5s ease-out',
+        'scale-up': 'scale-up 0.5s linear forwards',
+        shake: 'shake 0.5s linear infinite',
+        'scale-up-with-shake':
+          'scale-up 0.5s linear forwards, shake 0.5s linear',
       },
       boxShadow: {
         'shadow-box':

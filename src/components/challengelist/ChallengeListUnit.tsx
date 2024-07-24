@@ -1,8 +1,11 @@
 import clsx from 'clsx';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChallengeListUnitDto } from '../../apis/dtos/challengeDtos';
 import complete from '../../assets/images/complete.svg';
+import { CHALLENGE_COLOR } from '../../constants/CHALLENGE';
 import routes from '../../constants/routes';
+import Badge from '../common/Badge';
 
 const ChallengeListUnit = ({
   challengeId,
@@ -23,10 +26,19 @@ const ChallengeListUnit = ({
     });
   };
 
+  const formattedType = useMemo(() => {
+    if (challengeType.includes('GROUP_')) return 'GROUP';
+    else if (challengeType.includes('VOICE')) return 'VOICE';
+    else return challengeType;
+  }, [challengeType]);
+
   return (
     <div className={listUnitClassName} onClick={handleUnitClick}>
-      <p className="text-ryurue-sm text-secondary-20">{`#${parseInt(challengeNumber) > 9 ? challengeNumber : '0' + challengeNumber}`}</p>
-      <p className="h-full truncate text-ellipsis text-ryurue-base text-black">
+      <div className="flex items-center gap-4">
+        <p className="text-ryurue-sm text-secondary-20">{`#${parseInt(challengeNumber) > 9 ? challengeNumber : '0' + challengeNumber}`}</p>
+        <Badge text={formattedType} color={CHALLENGE_COLOR[formattedType]} />
+      </div>
+      <p className="h-full truncate text-ellipsis text-ryurue-base">
         {challengeType.includes('VOICE')
           ? challengeTitle.split('/')[0]
           : challengeTitle}
