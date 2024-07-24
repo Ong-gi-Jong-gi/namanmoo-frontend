@@ -1,13 +1,6 @@
 import { ChallengeAnswerDto } from '../apis/dtos/challengeDtos';
+import { ChallengeType } from '../constants/CHALLENGE';
 import { UserInfo } from './user';
-
-export type ChallengeType =
-  | 'NORMAL'
-  | 'GROUP_CHILD'
-  | 'GROUP_PARENT'
-  | 'FACETIME'
-  | 'PHOTO'
-  | 'VOICE';
 
 export interface ChallengeInfo {
   challengeId: string;
