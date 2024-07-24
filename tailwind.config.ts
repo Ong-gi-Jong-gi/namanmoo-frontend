@@ -54,7 +54,10 @@ export default {
     extend: {
       backgroundImage: {
         paper: "url('/src/assets/images/paper.svg')",
-        main: "url('/src/assets/images/main-background.png')",
+        main: "url('/src/assets/images/main-default.png')",
+        main2: "url('/src/assets/images/main-level1.png')",
+        main3: "url('/src/assets/images/main-level2.png')",
+        main4: "url('/src/assets/images/main-level3.png')",
         polaroid: "url('/src/assets/images/polaroid.png')",
       },
       keyframes: {
