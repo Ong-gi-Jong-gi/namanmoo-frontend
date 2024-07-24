@@ -1,6 +1,5 @@
 import { useGetRecapStatistics } from '../../apis/recap/getRecapStatistics';
 import { SYS_MESSAGE } from '../../constants/message';
-import Lucky from '../main/Lucky';
 import RecapStatisticsTopic from './RecapStatisticsTopic';
 
 const RecapStatistics = ({ luckyId }: { luckyId: string }) => {
@@ -22,7 +21,6 @@ const RecapStatistics = ({ luckyId }: { luckyId: string }) => {
           <RecapStatisticsTopic key={topic.challengeId} {...topic} />
         ))}
       </div>
-      <Lucky level={1} />
     </div>
   );
 };

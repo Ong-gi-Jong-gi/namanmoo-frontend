@@ -27,10 +27,8 @@ export const useGetLucky = () => {
     ? storageDate
     : new Date().getTime().toString();
 
-  const { data } = useSuspenseQuery({
+  return useSuspenseQuery({
     queryKey: [API.LUCKY.STATUS, challengeDate],
     queryFn: () => getLucky(challengeDate),
   });
-
-  return { data };
 };

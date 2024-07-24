@@ -63,7 +63,7 @@ const ChallengeButton = (props: ChallengeButtonProps) => {
   const { mutate } = useCreateChallenge();
 
   const layoutClass = clsx(
-    'shadow h-32 w-full items-center justify-center gap-6 rounded-md bg-paper bg-contain px-9 py-5 font-ryurue',
+    'shadow h-32 w-full items-center justify-center gap-4 rounded-md bg-paper bg-contain px-9 py-5 font-ryurue',
     {
       flex: type === 'active',
       'grid grid-rows-[24px_1fr]': type !== 'active',
@@ -71,7 +71,7 @@ const ChallengeButton = (props: ChallengeButtonProps) => {
     },
   );
   const textClass = clsx(
-    'line-clamp-2 text-pretty break-keep',
+    'line-clamp-1 text-pretty break-keep',
     adjustFontSize(text),
     { 'text-gray-40': type === 'disabled' },
   );

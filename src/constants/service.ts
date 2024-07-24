@@ -4,10 +4,10 @@ export const ServiceConstant = Object.freeze({
 });
 
 export const LUCKY_MESSAGE: Record<number, string> = Object.freeze({
-  1: '기부니가 조크든요~',
-  2: '오늘도 고마워요!',
+  1: '기분 좋아~',
+  2: '고마워요!',
   3: '헤헤',
-  4: '내일도 잘 부탁해!',
+  4: '🍀🍀',
   5: '행복해~',
   6: '😝',
   7: '🥰',

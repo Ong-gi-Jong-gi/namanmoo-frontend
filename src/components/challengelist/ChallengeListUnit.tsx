@@ -17,7 +17,7 @@ const ChallengeListUnit = ({
   const navigate = useNavigate();
 
   const listUnitClassName = clsx(
-    `border-gray-3 relative flex flex-col justify-between gap-1 rounded-lg border border-gray-30 bg-gray-10 px-4 py-2 font-ryurue`,
+    `relative flex flex-col justify-between gap-1 rounded-lg border border-secondary-20 bg-secondary-10 px-4 py-2 font-ryurue`,
   );
 
   const handleUnitClick = () => {
@@ -35,11 +35,10 @@ const ChallengeListUnit = ({
   return (
     <div className={listUnitClassName} onClick={handleUnitClick}>
       <div className="flex items-center gap-4">
-        <p className="text-ryurue-base text-secondary-20">{`#${parseInt(challengeNumber) > 9 ? challengeNumber : '0' + challengeNumber}`}</p>
+        <p className="text-ryurue-sm text-secondary-20">{`#${parseInt(challengeNumber) > 9 ? challengeNumber : '0' + challengeNumber}`}</p>
         <Badge text={formattedType} color={CHALLENGE_COLOR[formattedType]} />
       </div>
-
-      <p className="h-full truncate text-ellipsis text-ryurue-sm">
+      <p className="h-full truncate text-ellipsis text-ryurue-base">
         {challengeType.includes('VOICE')
           ? challengeTitle.split('/')[0]
           : challengeTitle}

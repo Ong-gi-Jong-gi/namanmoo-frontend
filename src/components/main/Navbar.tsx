@@ -50,7 +50,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="absolute right-6 top-[200px] z-10 flex flex-col gap-2">
+    <div className="absolute right-6 top-1/4 z-10 flex flex-col gap-2">
       <IconButton
         icon={<FaListUl size={20} />}
         label="챌린지"
