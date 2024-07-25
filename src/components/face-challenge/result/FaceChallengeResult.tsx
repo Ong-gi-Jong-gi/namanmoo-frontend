@@ -17,17 +17,12 @@ const FaceChallengeResult = ({ challengeInfo }: FaceChallengeResultProps) => {
   const { answerList } = data;
 
   return (
-    <div className="flex h-full w-full flex-1 flex-col justify-between gap-12">
-      <div>
-        <ChallengeHeader
-          challengeNumber={challengeInfo.challengeNumber}
-          challengeDate={formatDate(challengeInfo.challengeDate)}
-          challengeTitle={challengeInfo.challengeTitle}
-        />
-        <p className="text-gray-0 text-ryurue-xs font-ryurue">
-          가로 스크롤을 통해 가족들의 사진을 구경하세요!
-        </p>
-      </div>
+    <div className="flex h-full w-full flex-1 flex-col justify-between">
+      <ChallengeHeader
+        challengeNumber={challengeInfo.challengeNumber}
+        challengeDate={formatDate(challengeInfo.challengeDate)}
+        challengeTitle={challengeInfo.challengeTitle}
+      />
       <div className="w-full flex-1 overflow-scroll py-2 scrollbar-hide">
         <div
           className="grid h-full items-center gap-4 px-2"
