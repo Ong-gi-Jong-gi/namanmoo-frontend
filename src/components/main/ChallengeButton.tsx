@@ -33,8 +33,8 @@ type ChallengeButtonProps =
 
 const adjustFontSize = (text: string) => {
   return text.length > 10
-    ? 'xs:text-ryurue-base text-ryurue-sm'
-    : ' xs:text-ryurue-md text-ryurue-base';
+    ? 'xs:text-ryurue-md text-ryurue-base'
+    : ' xs:text-ryurue-lg text-ryurue-md';
 };
 
 const renderTypeInfo = (props: ChallengeButtonProps) => {

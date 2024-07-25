@@ -13,21 +13,21 @@ const RecapEnding = ({ luckyId }: { luckyId: string }) => {
 
   return (
     <div className="flex h-full flex-col items-center justify-evenly break-keep rounded-2xl p-6 text-center font-ryurue text-ryurue-base">
-      <div className="flex flex-col gap-5">
-        <p className="lyric-1 animate-scale-up-with-shake h-10 opacity-0">
+      <div className="flex flex-col">
+        <p className="lyric-1 h-20 animate-scale-up-with-shake opacity-0">
           우리
         </p>
-        <p className="lyric-2 animate-scale-up-with-shake h-10 opacity-0">
+        <p className="lyric-2 h-20 animate-scale-up-with-shake opacity-0">
           행복하자
         </p>
-        <p className="lyric-3 animate-scale-up-with-shake h-10 opacity-0">
+        <p className="lyric-3 h-20 animate-scale-up-with-shake opacity-0">
           많이
         </p>
-        <p className="lyric-4 animate-scale-up-with-shake h-10 opacity-0">
+        <p className="lyric-4 h-20 animate-scale-up-with-shake text-red opacity-0">
           사랑해
         </p>
       </div>
-      <div className="group-3 animation-delay-500 animate-fade-in opacity-0 drop-shadow-md">
+      <div className="group-3 animation-delay-500 animate-fade-in text-ryurue-md opacity-0 drop-shadow-md">
         <p>
           <span className="text-[#6aac4b]">행운이</span>가 드리는
         </p>

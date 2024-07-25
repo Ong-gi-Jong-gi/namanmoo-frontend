@@ -11,9 +11,7 @@ const RecapStatistics = ({ luckyId }: { luckyId: string }) => {
   return (
     <div className="flex h-full flex-col items-center justify-between">
       <p className="w-full whitespace-pre-line py-4 text-pretendard-md font-pretendard-bold">
-        가족들과
-        <br />
-        무언가를 함께한다는 건<br />
+        가족들과 함께한다는 건<br />
         정말 행복한 일이죠.
       </p>
       <div className="w-full">
