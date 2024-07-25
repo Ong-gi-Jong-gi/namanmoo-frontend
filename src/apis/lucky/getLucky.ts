@@ -28,7 +28,7 @@ export const useGetLucky = () => {
     : new Date().getTime().toString();
 
   return useSuspenseQuery({
-    queryKey: [API.LUCKY.STATUS, challengeDate],
+    queryKey: [API.LUCKY.STATUS],
     queryFn: () => getLucky(challengeDate),
   });
 };
