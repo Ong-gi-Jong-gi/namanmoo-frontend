@@ -75,8 +75,8 @@ export default {
           '50%': { opacity: 0.5 },
         },
         'scale-up': {
-          '0%': { fontSize: '12px', opacity: '0', color: '' },
-          '100%': { fontSize: '45px', opacity: '1', color: '' },
+          '0%': { fontSize: '12px', opacity: '0' },
+          '100%': { fontSize: '40px', opacity: '1' },
         },
         shake: {
           '0%, 100%': { transform: 'rotate(10deg)' },
