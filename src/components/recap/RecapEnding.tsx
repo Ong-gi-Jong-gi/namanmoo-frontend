@@ -28,9 +28,9 @@ const RecapEnding = ({ luckyId }: { luckyId: string }) => {
         </p>
       </div>
       <div className="group-3 animation-delay-500 animate-fade-in text-ryurue-md opacity-0 drop-shadow-md">
-        <p>
+        {/* <p>
           <span className="text-[#6aac4b]">행운이</span>가 드리는
-        </p>
+        </p> */}
         <p className="mt-3">
           [ Day <span className="text-red">31</span> - 특별 챌린지 ]
         </p>
