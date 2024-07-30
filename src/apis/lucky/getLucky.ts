@@ -3,11 +3,9 @@ import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { LuckyDto } from '../dtos/luckyDtos';
 
-const getLucky = async (challengeDate: string) => {
+const getLucky = async () => {
   try {
-    const { data } = await authorizedApi.get(
-      `${API.LUCKY.STATUS}?challengeDate=${challengeDate}`,
-    );
+    const { data } = await authorizedApi.get(API.LUCKY.STATUS);
 
     if (data.data === null)
       return { luckyStatus: 0, isBubble: false } as LuckyDto;
@@ -22,13 +20,8 @@ const getLucky = async (challengeDate: string) => {
 };
 
 export const useGetLucky = () => {
-  const storageDate = localStorage.getItem('challengeDate');
-  const challengeDate = storageDate
-    ? storageDate
-    : new Date().getTime().toString();
-
   return useSuspenseQuery({
     queryKey: [API.LUCKY.STATUS],
-    queryFn: () => getLucky(challengeDate),
+    queryFn: () => getLucky(),
   });
 };

@@ -6,10 +6,8 @@ import { ChallengeToday } from '../../types/challenge';
 import { ChallengeInfoDto } from '../dtos/challengeDtos';
 
 const getTodayChallenge = async () => {
-  const challengeDate = localStorage.getItem('challengeDate');
-
   const { data } = await authorizedApi.get<responseRoot<ChallengeToday>>(
-    `${API.CHALLENGE.TODAY}?challengeDate=${challengeDate ? challengeDate : new Date().getTime().toString()}`,
+    API.CHALLENGE.TODAY,
   );
 
   if (data.status === '200')
