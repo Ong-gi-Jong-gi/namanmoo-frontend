@@ -1,14 +1,12 @@
-import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
 import { LuckyDto } from '../dtos/luckyDtos';
 
-const getLucky = async () => {
-  const challengeDate = localStorage.getItem('challengeDate');
-
+const getLucky = async (challengeDate: string) => {
   try {
     const { data } = await authorizedApi.get(
-      `${API.LUCKY.STATUS}?challengeDate=${challengeDate ? challengeDate : new Date().getTime().toString()}`,
+      `${API.LUCKY.STATUS}?challengeDate=${challengeDate}`,
     );
 
     if (data.data === null)
@@ -24,20 +22,13 @@ const getLucky = async () => {
 };
 
 export const useGetLucky = () => {
-  const queryClient = useQueryClient();
-  const { data } = useSuspenseQuery({
+  const storageDate = localStorage.getItem('challengeDate');
+  const challengeDate = storageDate
+    ? storageDate
+    : new Date().getTime().toString();
+
+  return useSuspenseQuery({
     queryKey: [API.LUCKY.STATUS],
-    queryFn: () => getLucky(),
+    queryFn: () => getLucky(challengeDate),
   });
-
-  if (data) {
-    if (localStorage.getItem('existluckyId') != data.luckyId) {
-      queryClient.invalidateQueries({
-        queryKey: [API.CHALLENGE.STARTDATE],
-      });
-      localStorage.setItem('existluckyId', data.luckyId);
-    }
-  }
-
-  return { data };
 };

@@ -44,7 +44,7 @@ const MyParticipantTile = () => {
   }, [trackRef.publication?.track?.attachedElements]);
 
   return (
-    <div className="relative -scale-x-100">
+    <div className="relative mx-auto h-full w-full -scale-x-100">
       <ScreenRecorder
         customMediaStream={trackRef.publication?.track?.mediaStream || null}
       />

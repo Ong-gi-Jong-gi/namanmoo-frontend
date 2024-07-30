@@ -19,7 +19,7 @@ const PhotoAnswerField = ({
   canView,
 }: PhotoAnswerFieldProps) => {
   return (
-    <div className="flex h-4/5 w-[90%] flex-col gap-4 rounded-2xl bg-white p-4 shadow-card">
+    <div className="sm:h-4/5 flex w-full flex-col gap-4 rounded-2xl bg-white p-4 shadow-card">
       <Profile
         type={userImg ? 'image' : 'default'}
         layout="horizontal"

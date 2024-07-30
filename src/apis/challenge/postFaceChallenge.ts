@@ -16,6 +16,5 @@ export const usePostFaceChallenge = () => {
   return useMutation({
     mutationKey: [API.CHALLENGE.FACE],
     mutationFn: (formData: FormData) => postFaceChallenge(formData),
-    onMutate: (variables) => ({ ...variables }),
   });
 };

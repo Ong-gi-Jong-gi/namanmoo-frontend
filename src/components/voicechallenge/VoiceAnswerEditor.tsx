@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { SYS_MESSAGE } from '../../constants/message';
 import useBottomSheetStore from '../../store/bottomSheetStore';
 import { UserRole } from '../../types/family';
@@ -16,17 +16,20 @@ interface VoiceAnswerEditorProps {
   challengeId: string;
 }
 
-const VoiceAnswerEditor = ({
+const VoiceAnswerEditor: React.FC<VoiceAnswerEditorProps> = ({
   role,
   answer,
   userImg,
   question,
   challengeId,
-}: VoiceAnswerEditorProps) => {
-  const { upBottomSheet } = useBottomSheetStore();
+}) => {
+  const { upBottomSheet, downBottomSheet } = useBottomSheetStore();
   const [status, setStatus] = useState<'view' | 'edit'>('view');
-  const { downBottomSheet } = useBottomSheetStore();
-  const audioRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const challengeTitleInfo = useMemo(() => {
+    return question.split('/');
+  }, [question]);
 
   const answerClass = clsx('flex gap-3 font-ryurue text-ryurue-base', {
     'text-gray-40': !answer,
@@ -44,7 +47,8 @@ const VoiceAnswerEditor = ({
         <VoiceRecoder
           challengeId={challengeId}
           downTrigger={downTrigger}
-          question={question}
+          musicLyric={challengeTitleInfo[1]}
+          musicInfo={challengeTitleInfo[2]}
           existedVoice={answer}
         />
       ),

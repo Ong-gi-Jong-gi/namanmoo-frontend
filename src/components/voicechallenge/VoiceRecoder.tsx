@@ -6,7 +6,8 @@ import { usePostVoiceChallenge } from '../../apis/challenge/postVoiceChallenge';
 import Button from '../common/Button';
 
 interface Props {
-  question: string;
+  musicLyric: string;
+  musicInfo: string;
   challengeId: string;
   downTrigger: () => void;
   existedVoice: string | null;
@@ -15,7 +16,8 @@ interface Props {
 const VoiceRecoder: React.FC<Props> = ({
   challengeId,
   downTrigger,
-  question,
+  musicLyric,
+  musicInfo,
   existedVoice,
 }) => {
   const [transcription, setTranscription] = useState<string | null>(null);
@@ -25,6 +27,7 @@ const VoiceRecoder: React.FC<Props> = ({
   );
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const streamRef = useRef<MediaStream | null>(null); // Stream reference
   const [blob, setBlob] = useState<Blob>();
   const audioRef = useRef<HTMLAudioElement>(null);
   const movingBarRef = useRef<HTMLDivElement>(null);
@@ -46,6 +49,7 @@ const VoiceRecoder: React.FC<Props> = ({
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
@@ -59,13 +63,22 @@ const VoiceRecoder: React.FC<Props> = ({
           type: 'audio/wav',
         });
 
-        const audioFile = new File([audioBlob], `audio.wav`, {
-          type: audioBlob.type,
-        });
+        const audioFile = new File(
+          [audioBlob],
+          `${challengeId}_${new Date().getTime()}.wav`,
+          {
+            type: audioBlob.type,
+          },
+        );
 
         setRecordFile(audioFile);
         setBlob(audioBlob);
         mutateVoiceForm(audioFile);
+
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach((track) => track.stop());
+          streamRef.current = null;
+        }
       };
 
       mediaRecorder.start();
@@ -146,9 +159,16 @@ const VoiceRecoder: React.FC<Props> = ({
     <div className="flex flex-col gap-4">
       <div className="flex flex-col items-center rounded-xl bg-background p-4 font-ryurue text-ryurue-base">
         <p>[질문]</p>
-        <p>{question}</p>
-        <p>[내가 말한 문장]</p>
-        <div>{transcription ? <p>{transcription}</p> : ''}</div>
+        <p>{musicInfo}</p>
+        <p>{musicLyric}</p>
+        {transcription ? (
+          <>
+            <p>[내가 말한 문장]</p>
+            <p>{transcription}</p>
+          </>
+        ) : (
+          ''
+        )}
       </div>
       <div className="flex h-fit min-h-[75px] w-full items-center justify-center overflow-hidden rounded-xl bg-background">
         {isRecording

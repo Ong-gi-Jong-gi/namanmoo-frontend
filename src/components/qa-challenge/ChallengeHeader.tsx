@@ -13,11 +13,11 @@ const ChallengeHeader = ({
     <div className="flex w-full flex-col gap-4 font-pretendard">
       {challengeNumber && challengeDate && (
         <div className="space-x-6 text-pretendard-base font-pretendard-normal text-gray-40">
-          <span>#{challengeNumber}번째 질문</span>
+          <span># {challengeNumber}번째 질문</span>
           <span>{challengeDate}</span>
         </div>
       )}
-      <span className="text-pretendard-md font-pretendard-bold">
+      <span className="break-keep text-pretendard-lg font-pretendard-bold">
         {challengeTitle}
       </span>
     </div>

@@ -8,7 +8,7 @@ const LoginPage = () => {
 
   if (token) return <Navigate to={routes.main} replace />;
   return (
-    <div className="flex h-full items-center">
+    <div className="m-auto flex h-full max-w-[360px] items-center">
       <LoginForm />
     </div>
   );

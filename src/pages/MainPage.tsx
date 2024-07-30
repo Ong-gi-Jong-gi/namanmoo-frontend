@@ -10,15 +10,12 @@ import InviteModal from '../components/main/InviteModal';
 import Navbar from '../components/main/Navbar';
 import routes from '../constants/routes';
 import useModalStore from '../store/modalStore';
-
 const MainPage = () => {
   const queryData = QueryString.parse(location.search, {
     ignoreQueryPrefix: true,
   });
   const { data: familyList, isLoading: familyLoading } = useGetMyFamilyInfo();
-  const { isLoading: startDateLoading } = useGetChallengeStartDate({
-    enabled: localStorage.getItem('challengeDate') == null,
-  });
+  const { isLoading: startDateLoading } = useGetChallengeStartDate();
   const { openModal, isOpen } = useModalStore();
 
   useEffect(() => {
@@ -40,10 +37,10 @@ const MainPage = () => {
 
   return (
     <Suspense fallback={<Loader />}>
-      <div className="h-full w-full">
+      <div className="relative h-full w-full">
         <FamilyList familyList={familyList} />
         <Navbar />
-        <div className="grid h-full w-full grid-rows-[1fr_36%] items-end pt-32">
+        <div className="grid h-full w-full grid-rows-[1fr_30%] items-end overflow-scroll pt-32 scrollbar-hide">
           <ChallengeSection currentFamilySize={familyList.length} />
         </div>
       </div>

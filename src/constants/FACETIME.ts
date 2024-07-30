@@ -1,4 +1,4 @@
-const TIMER_UNIT = 3;
+const TIMER_UNIT = 5;
 const PHOTO_COUNT = 4;
 const LOCAL_STORAGE_KEY = 'mooluck-nickname';
 

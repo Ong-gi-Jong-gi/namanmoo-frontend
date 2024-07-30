@@ -7,13 +7,6 @@ import { deleteCookie } from '../../utils/cookie';
 
 export const postLogout = async () => {
   const response = await authorizedApi.post(API.AUTH.LOGOUT);
-
-  if (response.status === 302 || response.headers.locat) {
-    const redirectUrl = response.headers.location;
-    deleteCookie('authorization');
-    return { redirectUrl };
-  }
-
   return response.data;
 };
 
@@ -23,11 +16,12 @@ export const useLogout = () => {
   return useMutation({
     mutationKey: [API.AUTH.LOGOUT],
     mutationFn: () => postLogout(),
-    onSuccess: () => {
+    onSettled: () => {
       deleteCookie('authorization');
+      localStorage.removeItem('challengeDate');
+      localStorage.removeItem('challengeStartDate');
       navigate(routes.login, { replace: true });
     },
-
     onError: (error) => {
       console.error('Logout mutation failed:', error);
     },

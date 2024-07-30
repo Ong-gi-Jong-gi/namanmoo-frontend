@@ -23,7 +23,7 @@ const VoiceChallengeContainer = () => {
         <ChallengeHeader
           challengeNumber={challengeInfo.challengeNumber}
           challengeDate={formatDate(challengeInfo.challengeDate)}
-          challengeTitle={challengeInfo.challengeTitle}
+          challengeTitle={challengeInfo.challengeTitle.split('/')[0]}
         />
         <div className="flex flex-col gap-12">
           <VoiceAnswerEditor

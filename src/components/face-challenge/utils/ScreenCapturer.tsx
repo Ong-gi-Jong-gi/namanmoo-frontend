@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { PropsWithChildren, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePostFaceChallenge } from '../../../apis/challenge/postFaceChallenge';
 import FACETIME from '../../../constants/FACETIME';
@@ -7,7 +7,7 @@ import { useFacetimeChallengeStore } from '../../../store/facetimeChallengeStore
 import { useFilterTypeStore } from '../../../store/filterTypeStore';
 import { FilterPosition } from '../../../types/challenge';
 
-interface ScreenCapturerProps {
+interface ScreenCapturerProps extends PropsWithChildren {
   videoElement: HTMLVideoElement | null;
   position: FilterPosition | null;
 }
@@ -22,24 +22,24 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
   const handleCapture = () => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    if (!ctx || !videoElement || !position) return;
+    if (!ctx || !videoElement) return;
 
     const videoHeight = videoElement.videoHeight; // 비디오 높이
     const videoWidth = videoElement.videoWidth; // 비디오 너비
 
-    const renderWidth = videoElement.getBoundingClientRect().width; // 화면 너비
+    const calcWidth = videoHeight * 0.6;
     const renderHeight = videoElement.getBoundingClientRect().height; // 화면 높이
 
-    const scale = Math.floor(300 / renderHeight);
+    const scale = 300 / renderHeight;
     canvas.height = renderHeight * scale;
-    canvas.width = renderHeight * 0.66 * scale;
-    const cropX = Math.max(0, ((videoWidth - renderWidth) / 2) * 0.85);
+    canvas.width = renderHeight * 0.6 * scale;
+    const cropX = Math.max(0, ((videoWidth - calcWidth) / 2) * 0.85);
 
     ctx.drawImage(
       videoElement,
       cropX,
       0,
-      videoHeight * 0.6,
+      calcWidth,
       videoHeight,
       0,
       0,
@@ -47,9 +47,8 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
       canvas.height,
     );
 
-    const { x, y, width, height } = position;
-
-    if (filterType !== 'none') {
+    if (filterType !== 'none' && position) {
+      const { x, y, width, height } = position;
       const image = new Image();
       image.src = FILTER.IMAGE[filterType];
       image.onload = () => {
@@ -60,23 +59,28 @@ const ScreenCapturer = ({ videoElement, position }: ScreenCapturerProps) => {
           width * scale,
           height * scale,
         );
-        canvasToBlobAndDownload(canvas);
+        handleUploadImage(canvas);
+      };
+      image.onerror = () => {
+        console.log('필터 이미지를 불러오는데 실패했습니다.');
+        handleUploadImage(canvas);
       };
     } else {
       // 필터가 없는 경우 바로 toBlob 호출
-      canvasToBlobAndDownload(canvas);
+      handleUploadImage(canvas);
     }
   };
 
-  const canvasToBlobAndDownload = (canvas: HTMLCanvasElement) => {
+  const handleUploadImage = (canvas: HTMLCanvasElement) => {
     canvas.toBlob((blob) => {
+      !blob && alert('캔버스를 이미지로 변환하는데 실패했습니다.');
       if (!blob) return;
       const imgFile = new File([blob], `screenshot_${countRef.current}.png`, {
-        type: blob.type,
+        type: 'image/png',
       });
 
-      countRef.current += 1;
       if (!challengeId || !imgFile) return;
+      countRef.current += 1;
       const formData = new FormData();
       formData.append('challengeId', challengeId);
       formData.append('answer', imgFile);

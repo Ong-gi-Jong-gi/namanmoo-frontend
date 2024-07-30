@@ -21,13 +21,21 @@ const useFaceFilterWithModel = (
   const [position, setPosition] = useState<FilterPosition | null>(null);
   const [actualVideoSize, setActualVideoSize] = useState<VideoSize>(videoSize);
   const animationFrameId = useRef<number | null>(null);
+  const lastProcessedTimeRef = useRef<number>(0);
+  const processInterval = 100; // 100ms 간격으로 얼굴 필터 업데이트
 
   const estimateFacesLoop = useCallback(() => {
+    const now = performance.now();
+    if (now - lastProcessedTimeRef.current < processInterval) {
+      animationFrameId.current = requestAnimationFrame(estimateFacesLoop);
+      return;
+    }
+    lastProcessedTimeRef.current = now;
     if (filterType === 'none' || !isFilterActive) return;
     if (!video || !filterImage || !ctx || !faceLandmarker) return;
 
     const actualHeight = video.getBoundingClientRect().height;
-    const actualWidth = video.getBoundingClientRect().width;
+    const actualWidth = actualHeight * (video.videoWidth / video.videoHeight);
     setActualVideoSize({ width: actualWidth, height: actualHeight });
     const padding = (actualWidth - video.getBoundingClientRect().width) / 2;
 
@@ -106,12 +114,16 @@ const useFaceFilterWithModel = (
     image.onload = () => {
       setFilterImage(image);
     };
-  }, [filterType, isFilterActive]);
+  }, [filterType]);
 
   useEffect(() => {
     if (
-      (filterImage && ctx && isLoaded && video && filterType !== 'none') ||
-      !isFilterActive
+      isFilterActive &&
+      filterImage &&
+      ctx &&
+      isLoaded &&
+      video &&
+      filterType !== 'none'
     ) {
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
@@ -119,13 +131,15 @@ const useFaceFilterWithModel = (
       animationFrameId.current = requestAnimationFrame(() =>
         estimateFacesLoop(),
       );
-    } else if ((!isFilterActive || filterType === 'none') && ctx) {
-      ctx.clearRect(
-        0,
-        0,
-        canvasRef.current?.width || videoSize.width,
-        canvasRef.current?.height || videoSize.height,
-      );
+    } else if (!isFilterActive || filterType === 'none') {
+      if (ctx) {
+        ctx.clearRect(
+          0,
+          0,
+          canvasRef.current?.width || videoSize.width,
+          canvasRef.current?.height || videoSize.height,
+        );
+      }
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
@@ -151,4 +165,5 @@ const useFaceFilterWithModel = (
 
   return { canvasRef, position, actualVideoSize };
 };
+
 export default useFaceFilterWithModel;

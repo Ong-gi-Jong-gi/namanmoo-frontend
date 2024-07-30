@@ -14,12 +14,12 @@ const CompleteRecapUnit = ({
 }: RecapUnit) => {
   const navigate = useNavigate();
   const luckySize = clsx(
-    'flex h-40 items-center',
-    `${luckyStatus == 2 ? 'p-3' : ''}`,
+    'flex h-52 items-center',
+    `${luckyStatus == 2 ? 'p-5' : ''}`,
   );
 
   const luckyTile = clsx(
-    'flex flex-col items-center justify-center rounded-md p-4',
+    'flex flex-col items-center justify-center gap-3 rounded-md p-4',
     running ? 'bg-primary-10' : 'bg-secondary-10',
   );
 
@@ -32,7 +32,7 @@ const CompleteRecapUnit = ({
       <div className={luckySize}>
         <Lucky level={luckyStatus} />
       </div>
-      <div className="font-ryurue text-ryurue-base">
+      <div className="font-ryurue text-ryurue-sm">
         <p>
           {formatDate(startDate)} {running && <span>~</span>}
         </p>

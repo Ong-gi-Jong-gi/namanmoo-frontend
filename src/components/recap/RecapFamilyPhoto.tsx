@@ -12,7 +12,7 @@ const RecapFamilyPhoto = ({ luckyId }: RecapFamilyPhotoProps) => {
   });
 
   if (isLoading) return <div>loading...</div>;
-  if (!data || !data.mainPhoto || !data.otherPhotos) return <div>no data</div>;
+  if (!data) return <div>no data</div>;
   const { mainPhoto, otherPhotos } = data;
 
   return (

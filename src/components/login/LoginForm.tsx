@@ -44,12 +44,13 @@ const LoginForm = () => {
         <Button onClick={handleSubmit} label="로그인" type="full" />
         <span className="font-pretendard text-pretendard-base">
           아직 회원이 아니신가요?
-          <span
+          <button
+            type="button"
             onClick={() => navigate(routes.signup)}
             className="ml-2 cursor-pointer font-pretendard-bold text-primary-30 underline"
           >
             회원가입
-          </span>
+          </button>
         </span>
       </div>
     </form>

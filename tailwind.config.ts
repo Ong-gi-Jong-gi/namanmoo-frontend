@@ -34,14 +34,15 @@ export default {
       ryurue: ['Ownglyph_ryurue-Rg', 'sans-serif'],
     },
     fontSize: {
-      'pretendard-sm': '12px',
-      'pretendard-base': '16px',
-      'pretendard-md': '24px',
-      'pretendard-lg': '32px',
-      'ryurue-sm': '16px',
-      'ryurue-base': '22px',
-      'ryurue-md': '32px',
-      'ryurue-lg': '40px',
+      'pretendard-sm': '14px',
+      'pretendard-base': '18px',
+      'pretendard-md': '26px',
+      'pretendard-lg': '34px',
+      'ryurue-xs': '18px',
+      'ryurue-sm': '22px',
+      'ryurue-base': '28px',
+      'ryurue-md': '34px',
+      'ryurue-lg': '42px',
     },
     fontWeight: {
       'pretendard-normal': 400,
@@ -53,7 +54,7 @@ export default {
     extend: {
       backgroundImage: {
         paper: "url('/src/assets/images/paper.svg')",
-        main: "url('/src/assets/images/main-background.png')",
+        main: "url('/src/assets/images/main-default.png')",
         polaroid: "url('/src/assets/images/polaroid.png')",
       },
       keyframes: {
@@ -73,12 +74,25 @@ export default {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0.5 },
         },
+        'scale-up': {
+          '0%': { fontSize: '12px', opacity: '0' },
+          '100%': { fontSize: '40px', opacity: '1' },
+        },
+        shake: {
+          '0%, 100%': { transform: 'rotate(10deg)' },
+          '40%, 80%': { transform: 'rotate(-10deg)' },
+          '20%, 60%': { transform: 'rotate(10deg)' },
+        },
       },
       animation: {
         'slide-up': 'slide-up 0.3s ease-out',
         'slide-down': 'slide-down 0.3s ease-in',
         'fade-in': 'fade-in 2s ease-out forwards',
-        flash: 'flash 0.3s ease-out',
+        flash: 'flash 0.5s ease-out',
+        'scale-up': 'scale-up 0.5s linear forwards',
+        shake: 'shake 0.5s linear infinite',
+        'scale-up-with-shake':
+          'scale-up 0.5s linear forwards, shake 0.5s linear',
       },
       boxShadow: {
         'shadow-box':

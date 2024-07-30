@@ -1,6 +1,8 @@
+import { useTracks } from '@livekit/components-react';
 import clsx from 'clsx';
-import { useEffect } from 'react';
+import { Track } from 'livekit-client';
 import FACETIME from '../../../constants/FACETIME';
+import { MAX_FAMILY_MEMBER } from '../../../constants/family';
 import useSocket from '../../../hooks/useSocket';
 import { useFacetimeChallengeStore } from '../../../store/facetimeChallengeStore';
 
@@ -9,17 +11,20 @@ interface StatusBarProps {
 }
 
 const StatusBar = ({ code }: StatusBarProps) => {
+  const camaraTracks = useTracks(
+    [{ source: Track.Source.Camera, withPlaceholder: true }],
+    { onlySubscribed: false },
+  );
   const { status, remainingTime } = useFacetimeChallengeStore();
-  const { emitChallengeStart, emitLeave, emitDisconnect } = useSocket();
-  useEffect(() => {
-    if (status === 'finished' && remainingTime <= 0) {
-      emitLeave(code);
-      emitDisconnect();
-    }
-  }, [emitLeave, code, remainingTime, status, emitDisconnect]);
+  const { emitChallengeStart } = useSocket();
 
-  const handleChallengeStart = () => {
-    emitChallengeStart(code);
+  const handleClickStart = () => {
+    if (camaraTracks.length < MAX_FAMILY_MEMBER) {
+      alert('가족들이 모두 참여해야 합니다.');
+      return;
+    }
+
+    confirm('챌린지를 시작하시겠습니까?') && emitChallengeStart(code);
   };
   const renderTime = remainingTime % FACETIME.TIMER_UNIT || FACETIME.TIMER_UNIT;
 
@@ -33,9 +38,9 @@ const StatusBar = ({ code }: StatusBarProps) => {
       {status === 'idle' && (
         <button
           className="w-full text-center font-ryurue text-ryurue-md text-white"
-          onClick={handleChallengeStart}
+          onClick={handleClickStart}
         >
-          챌린지 시작
+          인생네컷 시작
         </button>
       )}
       {status === 'ongoing' && (
@@ -45,7 +50,7 @@ const StatusBar = ({ code }: StatusBarProps) => {
       )}
       {status === 'finished' && (
         <p className="w-full text-center font-ryurue text-ryurue-md text-white">
-          챌린지 종료
+          인생네컷 종료
         </p>
       )}
     </div>

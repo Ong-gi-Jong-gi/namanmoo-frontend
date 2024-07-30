@@ -9,7 +9,11 @@ const CustomParticipantTile = () => {
     trackRef.participant?.identity ===
     localStorage.getItem(FACETIME.LOCAL_STORAGE_KEY);
 
-  return <>{isUser ? <MyParticipantTile /> : <OtherParticipantTile />}</>;
+  return (
+    <div className="h-full w-full overflow-hidden">
+      {isUser ? <MyParticipantTile /> : <OtherParticipantTile />}
+    </div>
+  );
 };
 
 export default CustomParticipantTile;

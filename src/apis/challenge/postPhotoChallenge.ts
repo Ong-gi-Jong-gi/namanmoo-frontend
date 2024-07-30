@@ -18,9 +18,13 @@ export const usePostPhotoChallenge = () => {
     mutationKey: [API.CHALLENGE.PHOTO],
     mutationFn: (formData: FormData) => postPhotoCallenge(formData),
     onMutate: (variables) => ({ ...variables }),
-    onSettled: () =>
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: [API.CHALLENGE.LIST],
+      });
       queryClient.invalidateQueries({
         queryKey: [API.CHALLENGE.PHOTO],
-      }),
+      });
+    },
   });
 };
