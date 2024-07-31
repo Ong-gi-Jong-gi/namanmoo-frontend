@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import { getFcmToken } from '../../apis/auth/fcmToken';
 import { useLogout } from '../../apis/auth/logout';
 import { useGetUserInfo } from '../../apis/user/getUserInfo';
 import { SYS_MESSAGE } from '../../constants/message';
@@ -15,7 +12,6 @@ const UserInfo = () => {
   const { userInfo, isLoading } = useGetUserInfo();
   const { openModal } = useModalStore();
   const { mutate } = useLogout();
-  const [fcm, setFcm] = useState('');
 
   if (isLoading) return <div>Loading...</div>;
   if (!userInfo) return <div>{SYS_MESSAGE.NO_DATA}</div>;
@@ -38,19 +34,6 @@ const UserInfo = () => {
     mutate();
   };
 
-  const requestPermission = async () => {
-    try {
-      const token = await getFcmToken();
-      if (token) {
-        setFcm(token);
-        // await postFcmToken(token);
-        // Send the token to your server and update the UI if necessary
-      }
-    } catch (err) {
-      console.error('An error occurred while retrieving token. ', err);
-    }
-  };
-
   return (
     <div className="flex flex-col gap-5">
       <Header />
@@ -63,10 +46,6 @@ const UserInfo = () => {
           src={userInfo.userImg}
           isText
         />
-
-        <CopyToClipboard text={fcm}>
-          <Button label="" theme="subtle" onClick={requestPermission} />
-        </CopyToClipboard>
         <Button label="로그아웃" theme="subtle" onClick={handleLogout} />
       </div>
       <div className="flex gap-3">
