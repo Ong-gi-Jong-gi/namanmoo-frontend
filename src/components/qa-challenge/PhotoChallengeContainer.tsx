@@ -23,6 +23,9 @@ const PhotoChallengeContainer = () => {
           challengeDate={formatDate(challengeInfo.challengeDate)}
           challengeTitle={challengeInfo.challengeTitle}
         />
+        <p className="text-ryurue-xs font-ryurue text-gray-40">
+          가로 스크롤을 통해 가족들의 사진을 구경하세요!
+        </p>
       </div>
       <div className="w-full flex-1 overflow-scroll p-1 scrollbar-hide">
         <div

@@ -35,7 +35,7 @@ const ChallengeListUnit = ({
   return (
     <div className={listUnitClassName} onClick={handleUnitClick}>
       <div className="flex items-center gap-4">
-        <p className="text-ryurue-sm text-secondary-20">{`#${parseInt(challengeNumber) > 9 ? challengeNumber : '0' + challengeNumber}`}</p>
+        <p className="text-ryurue-base text-secondary-20">{`#${parseInt(challengeNumber) > 9 ? challengeNumber : '0' + challengeNumber}`}</p>
         <Badge text={formattedType} color={CHALLENGE_COLOR[formattedType]} />
       </div>
       <p className="h-full truncate text-ellipsis text-ryurue-base">
