@@ -1,7 +1,6 @@
 import QueryString from 'qs';
 import { Suspense, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useGetChallengeStartDate } from '../apis/challenge/getChallengeStartDate';
 import { useGetMyFamilyInfo } from '../apis/family/getMyFamilyInfo';
 import Loader from '../components/common/Loader';
 import ChallengeSection from '../components/main/ChallengeSection';
@@ -15,7 +14,6 @@ const MainPage = () => {
     ignoreQueryPrefix: true,
   });
   const { data: familyList, isLoading: familyLoading } = useGetMyFamilyInfo();
-  const { isLoading: startDateLoading } = useGetChallengeStartDate();
   const { openModal, isOpen } = useModalStore();
 
   useEffect(() => {
@@ -32,7 +30,7 @@ const MainPage = () => {
     }
   }, [familyLoading, familyList]);
 
-  if (familyLoading || startDateLoading) return <div>가족 정보 Loading...</div>;
+  if (familyLoading) return <div>가족 정보 Loading...</div>;
   if (!familyList) return <Navigate to={routes.family.entry} />;
 
   return (

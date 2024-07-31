@@ -6,11 +6,7 @@ import { nextDate } from '../../utils/nextDate';
 import { ChallengeListUnitDto } from '../dtos/challengeDtos';
 
 const getChallengeList = async () => {
-  const challengeDate = localStorage.getItem('challengeDate');
-
-  const { data } = await authorizedApi.get(
-    `${API.CHALLENGE.LIST}?challengeDate=${challengeDate ? challengeDate : new Date().getTime()}`,
-  );
+  const { data } = await authorizedApi.get(API.CHALLENGE.LIST);
 
   return {
     challenges: data.data.map(
