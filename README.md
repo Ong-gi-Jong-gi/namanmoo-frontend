@@ -1,30 +1,47 @@
-# React + TypeScript + Vite
+# 서비스 소개
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[서비스 소개 바로가기](https://github.com/Ong-gi-Jong-gi)
 
-Currently, two official plugins are available:
+<br>
+<br>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 시작가이드
 
-## Expanding the ESLint configuration
+파일을 클론한 후 아래의 명령어를 입력해 프로젝트를 직접 실행해 볼 수 있습니다.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+$ npm install
+$ npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+<br>
+<br>
+
+# 주요 고려 사항
+
+### 공통 컴포넌트 설계 및 테스트
+
+와이어프레임과 UI 디자인 과정에서 반복되는 공통 컴포넌트(버튼, 프로필, 모달 등)를 개발 단계 이전에 선정했습니다. 각 컴포넌트는 Storybook을 활용하여 의존성을 분리하고, 컴포넌트가 어떻게 보여지고 작동하는지 빠르게 파악할 수 있도록 했습니다.
+
+### DTO 도입
+
+신규 프로젝트이며, 개발 시간이 짧아 서버 스펙이 자주 바뀔 것으로 판단하였습니다.
+때문에, API 변경이 UI에 영향을 미치지 않도록 범위를 한정하기 위해 DTO 도입했습니다.
+
+### 디자인 시스템 설계
+
+개발 작업과 디자인을 표준화하고 일관성을 유지하기 위해 위해 폰트, 배경화면, 색상 등의 디자인 시스템을 설계했습니다.
+
+### PWA 도입
+
+메인 기능인 일일 챌린지의 서비스 이용 시간과 특성을 고려하여 웹보다는 앱 기반의 서비스로 기획했습니다. 팀원들의 기술 스택을 고려하여 웹 애플리케이션을 모바일 환경에서 활용할 수 있는 PWA로 구현하여 배포했습니다. 또한, 사용자의 챌린지 참여를 유도하기 위해 Firebase Cloud Messaging을 연동했습니다.
+
+<br>
+<br>
+
+# 멤버
+
+|                                           박상우                                            |                                           강바다                                            |
+| :-----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: |
+|                        [SangWoo9734](https://github.com/SangWoo9734)                        |                            [bada308](https://github.com/bada308)                            |
+| <img src="https://avatars.githubusercontent.com/u/49917043?v=4" width="200" height="200" /> | <img src="https://avatars.githubusercontent.com/u/71962076?v=4" width="200" height="200" /> |
