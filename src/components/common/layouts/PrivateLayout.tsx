@@ -1,10 +1,9 @@
 import QueryString from 'qs';
 import { Navigate, Outlet } from 'react-router-dom';
 import routes from '../../../constants/routes';
-import { getCookie } from '../../../utils/cookie';
 
 const PrivateLayout = () => {
-  const token = getCookie('authorization');
+  const token = localStorage.getItem('accessKey');
 
   if (!token) {
     const queryData = QueryString.parse(location.search, {
