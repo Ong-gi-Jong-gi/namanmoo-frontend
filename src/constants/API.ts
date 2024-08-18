@@ -2,6 +2,7 @@ const AUTH = {
   SIGNUP: '/signup',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  REFRESH: '/api/refresh-token',
 };
 
 const FAMILY = {
