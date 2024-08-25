@@ -9,6 +9,22 @@ export const api = axios.create({
   withCredentials: true,
 });
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response.config.url.includes('refresh-token')) {
+      const errorMessage = error.response?.data?.message || '';
+
+      if (errorMessage.includes('No refresh token provided')) {
+        localStorage.removeItem('accessKey');
+        window.location.href = '/';
+      }
+    }
+
+    return Promise.reject(error);
+  },
+);
+
 export const authorizedApi = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
@@ -33,16 +49,11 @@ authorizedApi.interceptors.response.use(
       const errorMessage = error.response?.data?.message || '';
 
       if (errorMessage.includes('Access token is invalid or missing')) {
-        try {
-          await tokenRefresh();
-          const newToken = localStorage.getItem('accessKey');
-          if (newToken) {
-            originalRequest.headers.Authorization = `Bearer ${newToken}`;
-            return authorizedApi(originalRequest); // 재요청
-          }
-        } catch (refreshError) {
-          console.error('Token refresh failed:', refreshError);
-          return Promise.reject(refreshError);
+        await tokenRefresh();
+        const newToken = localStorage.getItem('accessKey');
+        if (newToken) {
+          originalRequest.headers.Authorization = `Bearer ${newToken}`;
+          return authorizedApi(originalRequest); // 재요청
         }
       }
 
