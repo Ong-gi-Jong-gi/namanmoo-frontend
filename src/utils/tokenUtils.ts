@@ -1,6 +1,5 @@
 import base64 from 'base-64';
 import { TokenType } from '../types/token';
-import { getCookie } from './cookie';
 
 const parseJwtToken: (arg: string) => TokenType = (jwtToken: string) => {
   //jwt토큰 디코딩
@@ -21,8 +20,8 @@ export const getExpireTime = (token: string) => {
 };
 
 export const getUserId = () => {
-  const jwtToken = getCookie('authorization');
-  const parsedToken = parseJwtToken(jwtToken);
+  const jwtToken = localStorage.getItem('accessKey');
+  const parsedToken = parseJwtToken(jwtToken || '');
 
   return parsedToken.loginId;
 };

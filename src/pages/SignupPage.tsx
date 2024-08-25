@@ -1,10 +1,9 @@
 import { Navigate } from 'react-router-dom';
 import SignupForm from '../components/signup/SignupForm';
 import routes from '../constants/routes';
-import { getCookie } from '../utils/cookie';
 
 const SignupPage = () => {
-  const token = getCookie('authorization');
+  const token = localStorage.getItem('accessKey');
 
   if (token) return <Navigate to={routes.main} replace />;
 
