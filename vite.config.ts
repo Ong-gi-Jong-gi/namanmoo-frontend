@@ -9,10 +9,13 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
-    https: {
-      key: fs.readFileSync(path.resolve('./cert', 'localhost-key.pem')),
-      cert: fs.readFileSync(path.resolve('./cert', 'localhost.pem')),
-    },
+    https:
+      process.env.VITE_MODE === 'production'
+        ? {}
+        : {
+            key: fs.readFileSync(path.resolve('./cert', 'localhost-key.pem')),
+            cert: fs.readFileSync(path.resolve('./cert', 'localhost.pem')),
+          },
   },
   define: {
     global: {},
