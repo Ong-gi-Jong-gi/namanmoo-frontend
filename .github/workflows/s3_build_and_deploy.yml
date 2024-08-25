@@ -38,6 +38,7 @@ jobs:
           echo "VITE_FIRE_BASE_MEASUREMENT_ID=$VITE_FIRE_BASE_MEASUREMENT_ID" >> .env
           echo "VITE_WEBSOCKET_URL=$VITE_WEBSOCKET_URL" >> .env
           echo "VITE_NODE_API_URL=$VITE_NODE_API_URL" >> .env
+          echo "VITE_MODE=$VITE_MODE" >> .env
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
           VITE_FIRE_BASE_VAPID: ${{ secrets.VITE_FIRE_BASE_VAPID }}
@@ -47,7 +48,7 @@ jobs:
           VITE_FIRE_BASE_APP_ID: ${{ secrets.VITE_FIRE_BASE_APP_ID }}
           VITE_FIRE_BASE_MEASUREMENT_ID: ${{ secrets.VITE_FIRE_BASE_MEASUREMENT_ID }}
           VITE_WEBSOCKET_URL: ${{ secrets.VITE_WEBSOCKET_URL }}
-          VITE_NODE_API_URL: ${{ secrets.VITE_NODE_API_URL }}
+          VITE_MODE: ${{ secrets.VITE_MODE }}
 
       - name: Build
         run: npm run build
