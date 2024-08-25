@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { authorizedApi } from '..';
 import API from '../../constants/API';
 import routes from '../../constants/routes';
-import { deleteCookie } from '../../utils/cookie';
 
 export const postLogout = async () => {
   const response = await authorizedApi.post(API.AUTH.LOGOUT);
@@ -17,7 +16,7 @@ export const useLogout = () => {
     mutationKey: [API.AUTH.LOGOUT],
     mutationFn: () => postLogout(),
     onSettled: () => {
-      deleteCookie('authorization');
+      localStorage.removeItem('accessKey');
       navigate(routes.login, { replace: true });
     },
     onError: (error) => {
